@@ -11,7 +11,7 @@ public class CharacterController : MonoBehaviour
     enum PlayerState
     {
         Idle,
-        Move
+        Walk
     }
     
     //playerのstate
@@ -20,13 +20,13 @@ public class CharacterController : MonoBehaviour
     //playerの動き関連
     private float speed = 10f;
     private Vector3 moveInput;
-    [SerializeField] private string testAnimationName = "Move";
+    [SerializeField] private string testAnimationName = "Walk";
     private Quaternion targetRotation;
     private float rotationSpeed = 10f;
 
     //spineAnimation関連
     private SkeletonAnimation skeletonAnimation;
-    //private Spine.AnimationState spAnimationState;
+    private Spine.AnimationState spAnimationState;
 
     //カメラの位置
     [SerializeField] private Transform cameraTransform;
@@ -38,7 +38,7 @@ public class CharacterController : MonoBehaviour
     {
         //これが無いとspineのanimationが動かない
         skeletonAnimation = GetComponent<SkeletonAnimation>();
-        //spAnimationState = skeletonAnimation.AnimationState;
+        spAnimationState = skeletonAnimation.AnimationState;
         
         //VariableDateScriptでは初期化が出来ない為ここで初期化をする
         variableDate.areaState = AreaState.ResidenceArea;
@@ -47,9 +47,9 @@ public class CharacterController : MonoBehaviour
     void Update()
     {
         //state管理
-        if (moveInput != Vector3.zero && playerState != PlayerState.Move)
+        if (moveInput != Vector3.zero && playerState != PlayerState.Walk)
         {
-            ChangeState(PlayerState.Move);
+            ChangeState(PlayerState.Walk);
         }else if (moveInput == Vector3.zero && playerState != PlayerState.Idle)
         {
             ChangeState(PlayerState.Idle);
@@ -118,10 +118,10 @@ public class CharacterController : MonoBehaviour
         switch (newState)
         {
             case PlayerState.Idle:
-                //spAnimationState.SetAnimation(0, "Idle", true);
+                spAnimationState.SetAnimation(0, "Idle", true);
                 break;
-            case PlayerState.Move:
-                //spAnimationState.SetAnimation(0, "Move", true);
+            case PlayerState.Walk:
+                spAnimationState.SetAnimation(0, "Walk", true);
                 break;
         }
     }
@@ -141,15 +141,19 @@ public class CharacterController : MonoBehaviour
             {
                 CameraController.instance.CamRotation(90f);
                 Debug.Log("Area移動");
-                transform.position = new Vector3(other.transform.position.x + 3f, transform.position.y, transform.position.z);
+                transform.position = new Vector3(other.transform.position.x + 3f, transform.position.y,
+                    transform.position.z);
                 variableDate.areaState = AreaState.RuinsArea;
-            }else if (variableDate.areaState == AreaState.RuinsArea)
+            }
+            else if (variableDate.areaState == AreaState.RuinsArea)
             {
                 CameraController.instance.CamRotation(-90f);
                 Debug.Log("RuinsArea");
-                transform.position = new Vector3(other.transform.position.x - 4f, transform.position.y, transform.position.z);
+                transform.position = new Vector3(other.transform.position.x - 4f, transform.position.y,
+                    transform.position.z);
                 variableDate.areaState = AreaState.ResidenceArea;
             }
+
             // キャラの向きも調整（今の移動方向に合わせて）
             if (moveInput != Vector3.zero)
             {
