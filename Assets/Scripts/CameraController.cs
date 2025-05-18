@@ -5,14 +5,11 @@ public class CameraController : MonoBehaviour
     [SerializeField] private GameObject targetObject;
     private Vector3 offset;
 
-    [SerializeField] private Transform target;
-
-    public static CameraController instance;
+    [SerializeField] private Transform target; 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        instance = this;
         offset = gameObject.transform.position - targetObject.transform.position;
     }
 

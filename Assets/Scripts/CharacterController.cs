@@ -1,8 +1,6 @@
-using System;
 using Spine.Unity;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using VariableSpace;
 
 //コンポーネント付け忘れ防止用Attribute(属性)
 [RequireComponent(typeof(SkeletonAnimation))]
@@ -20,7 +18,7 @@ public class CharacterController : MonoBehaviour
     //playerの動き関連
     private float speed = 10f;
     private Vector3 moveInput;
-    [SerializeField] private string testAnimationName = "Walk";
+    [SerializeField] private string testAnimationName = "walk";
     private Quaternion targetRotation;
     private float rotationSpeed = 10f;
 
@@ -30,18 +28,16 @@ public class CharacterController : MonoBehaviour
 
     //カメラの位置
     [SerializeField] private Transform cameraTransform;
-    
-    //nameSpaceのscriptableObjectの参照
-    public VariableDate variableDate;
+   
+    [SerializeField] private LoadingShaderController loadingShaderController;
+    [SerializeField] private CameraController cameraController;
     
     void Start()
     {
         //これが無いとspineのanimationが動かない
         skeletonAnimation = GetComponent<SkeletonAnimation>();
         spAnimationState = skeletonAnimation.AnimationState;
-        
-        //VariableDateScriptでは初期化が出来ない為ここで初期化をする
-        variableDate.areaState = AreaState.ResidenceArea;
+         
     }
     
     void Update()
@@ -118,15 +114,15 @@ public class CharacterController : MonoBehaviour
         switch (newState)
         {
             case PlayerState.Idle:
-                spAnimationState.SetAnimation(0, "Idle", true);
+                spAnimationState.SetAnimation(0, "idle", true);
                 break;
             case PlayerState.Walk:
-                spAnimationState.SetAnimation(0, "Walk", true);
+                spAnimationState.SetAnimation(0, "walk", true);
                 break;
         }
     }
     
-    /*
+    
     /// <summary>
     /// 今はAreaを移動した際の処理を書いている
     /// </summary>
@@ -136,22 +132,28 @@ public class CharacterController : MonoBehaviour
         //Area境にあるBoxColliderに当たった時のみ処理
         if (other.gameObject.CompareTag("CameraRotation"))
         {
+            //loading用のShaderを再生
+            StartCoroutine(loadingShaderController.PlayEffect());
+            
+            //スライドをしないように動きを止めさせる
+            moveInput = Vector3.zero; 
+            
             //Playerが今いるAreaのStateによって処理を変える
-            if (variableDate.areaState == AreaState.ResidenceArea)
+            if (loadingShaderController.areaState == LoadingShaderController.AreaState.ResidenceArea)
             {
-                CameraController.instance.CamRotation(90f);
+                cameraController.CamRotation(90f);
                 Debug.Log("Area移動");
                 transform.position = new Vector3(other.transform.position.x + 3f, transform.position.y,
                     transform.position.z);
-                variableDate.areaState = AreaState.RuinsArea;
+                loadingShaderController.areaState = LoadingShaderController.AreaState.RuinsArea;
             }
-            else if (variableDate.areaState == AreaState.RuinsArea)
+            else if (loadingShaderController.areaState == LoadingShaderController.AreaState.RuinsArea)
             {
-                CameraController.instance.CamRotation(-90f);
+                cameraController.CamRotation(-90f);
                 Debug.Log("RuinsArea");
                 transform.position = new Vector3(other.transform.position.x - 4f, transform.position.y,
                     transform.position.z);
-                variableDate.areaState = AreaState.ResidenceArea;
+                loadingShaderController.areaState = LoadingShaderController.AreaState.ResidenceArea;
             }
 
             // キャラの向きも調整（今の移動方向に合わせて）
@@ -166,7 +168,15 @@ public class CharacterController : MonoBehaviour
                 Vector3 moveDirection = camForward * moveInput.z + camRight * moveInput.x;
                 targetRotation = Quaternion.LookRotation(moveDirection);
             }
+        }else if (other.gameObject.CompareTag("Enemy1"))
+        {
+            //Scene遷移時に再生する
+            StartCoroutine(loadingShaderController.PlayEffect());
+            
+            //moveInput = Vector3.zero;
+            
+            //scene遷移時にplayerの座標を記録させる
+            GameManager.Instance.playerPosition = other.gameObject.transform;
         }
     }
-    */
 }
