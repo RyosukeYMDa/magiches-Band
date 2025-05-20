@@ -2,15 +2,20 @@ using UnityEngine;
 
 public class EnemyEncounterController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private GameObject enemy1;
 
-    // Update is called once per frame
-    void Update()
+
+    private void Start()
     {
-        
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("GameManager.Instance が null です！シーンに GameManager が存在しているか確認してください。");
+            return;
+        }
+
+        if (GameManager.Instance.enemyType == 1)
+        {
+            enemy1.SetActive(false);
+        }
     }
 }

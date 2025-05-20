@@ -1,60 +1,55 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class LoadingShaderController : MonoBehaviour
 {
-    public Image loadingImage;
-    public Material material;
-    private float progress = 0f;
-    public bool isPlaying = false;
-    public float speed = 1f;
-    //ループの周期
-    public float loopDuration = 1f;
+    private static readonly int EffectProgress = Shader.PropertyToID("_EffectProgress");
 
-    //effectを実行させているかのBool
-    public bool isEffectLoop = false;
-    
+    [SerializeField] private Image loadingImage;
+    [SerializeField] private Material material;
+    private float progress;
+    private bool isPlaying;
+
+    private const float Speed = 1f;
+
+    //ループの周期
+    private const float LoopDuration = 1f;
+
     public enum AreaState
     {
         ResidenceArea,
         RuinsArea
     }
-    
+
     public AreaState areaState = AreaState.ResidenceArea;
 
-    void Start()
-    {
-    }
-    
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (isPlaying)
-        {
-            progress += Time.deltaTime * speed;
-            
-            float loopedProgress = Mathf.Repeat(progress, loopDuration);
-            
-            float normalized = loopedProgress / loopDuration;
-            
-            material.SetFloat("_EffectProgress", normalized);
-        }
+        if (!isPlaying) return;
+
+        progress += Time.deltaTime * Speed;
+
+        var loopedProgress = Mathf.Repeat(progress, LoopDuration);
+
+        var normalized = loopedProgress / LoopDuration;
+
+        material.SetFloat(EffectProgress, normalized);
     }
 
     /// <summary>
-    /// effectを発生させ、数秒後にstopEffectを実行
+    ///     effectを発生させ、数秒後にstopEffectを実行
     /// </summary>
     /// <returns></returns>
     public IEnumerator PlayEffect()
     {
-        isEffectLoop = true;
         loadingImage.enabled = true;
         isPlaying = true;
-        
-        
+
+
         yield return new WaitForSeconds(2.0f);
-        
+
         StopEffect();
     }
 
@@ -63,13 +58,12 @@ public class LoadingShaderController : MonoBehaviour
         isPlaying = false;
         loadingImage.enabled = false;
         
-        isEffectLoop = false;
         Debug.Log("No effect");
     }
-    
+
     public void ResetEffect()
     {
         progress = 0f;
-        material.SetFloat("_EffectProgress", 0f);
+        material.SetFloat(EffectProgress, 0f);
     }
 }
