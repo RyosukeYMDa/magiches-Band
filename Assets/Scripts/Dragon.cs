@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class Dragon : MonoBehaviour,IEnemy
 {
+    [SerializeField] private CharacterStatus characterStatus;
+    
     public void Attack()
+    
     {
-        Debug.Log("Dragon breathes fire!");
+        Debug.Log(characterStatus.def);
     }
 }

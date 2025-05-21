@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class Slime : MonoBehaviour,IEnemy
 {
+    [SerializeField] private CharacterStatus characterStatus;
+    
     public void Attack()
     {
-        Debug.Log("Slime attacks!");
+        Debug.Log(characterStatus.def);
     }
 }
