@@ -23,6 +23,8 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private string testAnimationName = "walk";
     private Quaternion targetRotation;
     private const float RotationSpeed = 10f;
+    
+    private bool isPlayerInRange = false;
 
     //spineAnimation関連
     private SkeletonAnimation skeletonAnimation;
@@ -33,6 +35,7 @@ public class CharacterController : MonoBehaviour
 
     [SerializeField] private LoadingShaderController loadingShaderController;
     [SerializeField] private CameraController cameraController;
+    
 
     private void Start()
     {
@@ -92,6 +95,16 @@ public class CharacterController : MonoBehaviour
         // 入力が終了したときは移動を止める
         if (context.canceled) moveInput = Vector3.zero;
     }
+    
+    //鍵の入手
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (context.performed && isPlayerInRange)
+        {
+            
+        }
+    }
+    
 
     /// <summary>
     /// Stateを変える関数
