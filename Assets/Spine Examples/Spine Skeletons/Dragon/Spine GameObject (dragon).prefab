@@ -156,4 +156,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ae21f35c60b604ca1c4d2ad2da8c50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyStatus: {fileID: 11400000, guid: 427c4b04275589943aa1b0bc8ca9f27c, type: 2}
+  characterStatus: {fileID: 11400000, guid: 427c4b04275589943aa1b0bc8ca9f27c, type: 2}

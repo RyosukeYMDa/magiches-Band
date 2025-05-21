@@ -95,16 +95,6 @@ public class CharacterController : MonoBehaviour
         // 入力が終了したときは移動を止める
         if (context.canceled) moveInput = Vector3.zero;
     }
-    
-    //鍵の入手
-    public void OnInteract(InputAction.CallbackContext context)
-    {
-        if (context.performed && isPlayerInRange)
-        {
-            
-        }
-    }
-    
 
     /// <summary>
     /// Stateを変える関数

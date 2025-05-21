@@ -14,17 +14,6 @@ public class Item : MonoBehaviour
         text = string.Empty;
     }
     
-    //鍵の入手
-    public void OnInteract(InputAction.CallbackContext context)
-    {
-        if (context.performed && isPlayerInRange)
-        {
-            Debug.Log("アイテム取得: " + gameObject.name);
-            // 処理例：アイテム回収
-            Destroy(gameObject);  
-        }
-    }
-    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
