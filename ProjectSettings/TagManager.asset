@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CameraRotation
   - Enemy1
+  - Item
   layers:
   - Default
   - TransparentFX

@@ -544,7 +544,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5138225295547334664, guid: d3eb2f5bcfde3314dbb98c363975ca2e, type: 3}
   m_PrefabInstance: {fileID: 2426641230159804474}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1065339478
+--- !u!114 &1065339483
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -675,7 +675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bb490e06b181c647a2fd5a054ea11a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPosition: {fileID: 1966283783}
+  playerPosition: {x: 0, y: 0, z: 0}
   enemyType: 0
 --- !u!1 &1582927729
 GameObject:
@@ -794,10 +794,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingImage: {fileID: 1161173659}
   material: {fileID: 2100000, guid: 1abb8b5704e4c004fa7b3d7330d04a7a, type: 2}
-  isPlaying: 0
-  speed: 1
-  loopDuration: 1
-  isEffectLoop: 0
   areaState: 0
 --- !u!1 &1765422027
 GameObject:
@@ -896,7 +892,7 @@ GameObject:
   - component: {fileID: 1966283786}
   m_Layer: 0
   m_Name: Spine GameObject (spineboy-unity)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1099,7 +1095,19 @@ MonoBehaviour:
     m_ActionId: 6c2ab1b8-8984-453a-af3d-a3c78ae1679a
     m_ActionName: 'Player/Attack[/Mouse/leftButton,/Keyboard/enter]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1966283784}
+        m_TargetAssemblyTypeName: CharacterController, Assembly-CSharp
+        m_MethodName: OnInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 852140f2-7766-474d-8707-702459ba45f3
     m_ActionName: 'Player/Interact[/Keyboard/e]'
   - m_PersistentCalls:
@@ -1326,7 +1334,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 372091701611920345, guid: d3eb2f5bcfde3314dbb98c363975ca2e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.6
+      value: 1.12
       objectReference: {fileID: 0}
     - target: {fileID: 372091701611920345, guid: d3eb2f5bcfde3314dbb98c363975ca2e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1360,9 +1368,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2086170924256322397, guid: d3eb2f5bcfde3314dbb98c363975ca2e, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5138225295547334664, guid: d3eb2f5bcfde3314dbb98c363975ca2e, type: 3}
       propertyPath: m_Name
       value: Key
+      objectReference: {fileID: 0}
+    - target: {fileID: 5138225295547334664, guid: d3eb2f5bcfde3314dbb98c363975ca2e, type: 3}
+      propertyPath: m_TagString
+      value: Item
       objectReference: {fileID: 0}
     - target: {fileID: 7191224869769830264, guid: d3eb2f5bcfde3314dbb98c363975ca2e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -1374,7 +1390,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5138225295547334664, guid: d3eb2f5bcfde3314dbb98c363975ca2e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1065339478}
+      addedObject: {fileID: 1065339483}
   m_SourcePrefab: {fileID: 100100000, guid: d3eb2f5bcfde3314dbb98c363975ca2e, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
