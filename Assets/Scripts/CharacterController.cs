@@ -1,11 +1,13 @@
 using System;
 using Spine.Unity;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 //コンポーネント付け忘れ防止用Attribute(属性)
 [RequireComponent(typeof(SkeletonAnimation))]
+[RequireComponent(typeof(Rigidbody))]
 public class CharacterController : MonoBehaviour
 {
     private enum PlayerState
@@ -35,10 +37,12 @@ public class CharacterController : MonoBehaviour
 
     [SerializeField] private LoadingShaderController loadingShaderController;
     [SerializeField] private CameraController cameraController;
-    
+
+    private Rigidbody _rb;
 
     private void Start()
     {
+        _rb =  GetComponent<Rigidbody>();
         gameObject.transform.position = GameManager.Instance.playerPosition;
 
         //これが無いとspineのanimationが動かない
@@ -79,7 +83,8 @@ public class CharacterController : MonoBehaviour
         }
 
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed * Time.deltaTime);
-        transform.Translate(moveDirection * (MoveSpeed * Time.deltaTime), Space.World);
+        // transform.Translate(moveDirection * (MoveSpeed * Time.deltaTime), Space.World);
+        _rb.AddForce(moveDirection * MoveSpeed, ForceMode.Force);
     }
 
     //playerの動きのInputSystem
@@ -125,10 +130,12 @@ public class CharacterController : MonoBehaviour
     /// 今はAreaを移動した際の処理を書いている
     /// </summary>
     /// <param name="other"></param>
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
+        return;
+        
         //Area境にあるBoxColliderに当たった時のみ処理
-        if (other.gameObject.CompareTag("CameraRotation"))
+        if (collision.gameObject.CompareTag("CameraRotation"))
         {
             //loading用のShaderを再生
             StartCoroutine(loadingShaderController.PlayEffect());
@@ -142,14 +149,14 @@ public class CharacterController : MonoBehaviour
                 case LoadingShaderController.AreaState.ResidenceArea:
                     cameraController.CamRotation(90f);
                     Debug.Log("Area移動");
-                    transform.position = new Vector3(other.transform.position.x + 3f, transform.position.y,
+                    transform.position = new Vector3(collision.transform.position.x + 3f, transform.position.y,
                         transform.position.z);
                     loadingShaderController.areaState = LoadingShaderController.AreaState.RuinsArea;
                     break;
                 case LoadingShaderController.AreaState.RuinsArea:
                     cameraController.CamRotation(-90f);
                     Debug.Log("RuinsArea");
-                    transform.position = new Vector3(other.transform.position.x - 4f, transform.position.y,
+                    transform.position = new Vector3(collision.transform.position.x - 4f, transform.position.y,
                         transform.position.z);
                     loadingShaderController.areaState = LoadingShaderController.AreaState.ResidenceArea;
                     break;
@@ -168,17 +175,22 @@ public class CharacterController : MonoBehaviour
             var moveDirection = camForward * moveInput.z + camRight * moveInput.x;
             targetRotation = Quaternion.LookRotation(moveDirection);
         }
-        else if (other.gameObject.CompareTag("Enemy1"))
+        else if (collision.gameObject.CompareTag("Enemy1"))
         {
             //Scene遷移時に再生する
             StartCoroutine(loadingShaderController.PlayEffect());
 
             //scene遷移時にplayerの座標を記録させる
-            GameManager.Instance.playerPosition = other.transform.position;
+            GameManager.Instance.playerPosition = collision.transform.position;
 
             GameManager.Instance.enemyType = 1;
 
             SceneManager.LoadScene("BattleScene");
+        }
+        else
+        {
+            moveInput = Vector3.zero;
+            Debug.Log("壁");
         }
     }
 }

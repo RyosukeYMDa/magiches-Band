@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Linq;
 using Unity.VisualScripting;
 using UnityEngine.InputSystem;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     private bool isPlayerInRange = false;
+    public GameObject door;
     
     internal string text;
 
@@ -14,14 +16,16 @@ public class Item : MonoBehaviour
         text = string.Empty;
     }
     
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider col)
     {
-        if (other.CompareTag("Player"))
+        if (col.CompareTag("Player"))
         {
             isPlayerInRange = true;
-            Debug.Log("プレイヤーがアイテム範囲に入りました");
+            //Debug.Log("プレイヤーがアイテム範囲に入りました");
+
+            door.GetComponent < Door>().Open();
             // 処理例：アイテム回収
-            Destroy(gameObject);  
+            Destroy(this.gameObject);  
         }
     }
 
