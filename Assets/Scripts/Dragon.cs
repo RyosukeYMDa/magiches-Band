@@ -4,8 +4,9 @@ public class Dragon : MonoBehaviour,IEnemy
 {
     [SerializeField] private CharacterStatus characterStatus;
     
-    public void Attack()
+    public CharacterStatus Status => characterStatus;
     
+    public void Attack()
     {
         Debug.Log(characterStatus.def);
     }

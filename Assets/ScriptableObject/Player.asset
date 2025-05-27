@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   enemyName: Player
-  maxHp: 20
-  maxMp: 18
-  atk: 6
-  def: 7
-  mp: 5
-  res: 6
-  agi: 5
+  maxHp: 1
+  maxMp: 1
+  atk: 1
+  def: 1
+  mp: 1
+  res: 1
+  agi: 4

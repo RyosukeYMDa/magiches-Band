@@ -3,34 +3,47 @@ using UnityEngine;
 public interface IEnemy
 {
     void Attack();
+    CharacterStatus Status { get; }
 }
 
 public enum EnemyTypeEnum
 {
     Slime,
-    Dragon
+    DRex
 }
 
 public class EnemyFactory : MonoBehaviour
 {
-    [Header("Enemy Prefabs")]
+    [Header("UI Enemy Prefabs")]
     public GameObject slimePrefab;
-    public GameObject dragonPrefab;
+    public GameObject dRexPrefab;
 
-    public IEnemy CreateEnemy(EnemyTypeEnum type, Vector3 position)
+    /// <summary>
+    /// ランダムな敵をUI上に生成（親はCanvas）
+    /// </summary>
+    public IEnemy CreateEnemy(Vector3 localPosition, Transform parent)
     {
-        GameObject enemyObj = null;
+        EnemyTypeEnum randomType = (EnemyTypeEnum)Random.Range(0, System.Enum.GetNames(typeof(EnemyTypeEnum)).Length);
+        GameObject prefab = null;
 
-        switch (type)
+        switch (randomType)
         {
             case EnemyTypeEnum.Slime:
-                enemyObj = Instantiate(slimePrefab, position, Quaternion.identity);
+                prefab = slimePrefab;
                 break;
-            case EnemyTypeEnum.Dragon:
-                enemyObj = Instantiate(dragonPrefab, position, Quaternion.identity);
+            case EnemyTypeEnum.DRex:
+                prefab = dRexPrefab;
                 break;
         }
 
-        return enemyObj?.GetComponent<IEnemy>();
+        if (prefab == null) return null;
+
+        // Instantiate UI prefab under the canvas
+        GameObject enemyObj = Instantiate(prefab, parent);
+        
+        // UI のローカル座標で表示位置を調整
+        enemyObj.GetComponent<RectTransform>().anchoredPosition = localPosition;
+
+        return enemyObj.GetComponent<IEnemy>();
     }
 }

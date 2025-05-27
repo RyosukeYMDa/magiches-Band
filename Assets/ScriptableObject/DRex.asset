@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 084a070f4e1b3d147bff72a0d8edebb9, type: 3}
-  m_Name: Dragon
+  m_Name: DRex
   m_EditorClassIdentifier: 
-  enemyName: Dragon
-  maxHp: 30
-  maxMp: 17
-  atk: 7
-  def: 4
-  mp: 8
-  res: 7
-  agi: 7
+  enemyName: 
+  maxHp: 0
+  maxMp: 0
+  atk: 0
+  def: 0
+  mp: 0
+  res: 0
+  agi: 5
