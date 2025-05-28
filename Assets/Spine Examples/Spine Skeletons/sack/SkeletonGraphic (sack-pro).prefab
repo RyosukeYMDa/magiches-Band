@@ -122,3 +122,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterStatus: {fileID: 11400000, guid: 37e5eaa20c7245947b6ba8dba38f2387, type: 2}
+  turnManager: {fileID: 0}
+  battlePlayerController: {fileID: 8732552605721786611, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}

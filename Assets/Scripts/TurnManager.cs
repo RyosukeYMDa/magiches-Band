@@ -6,28 +6,44 @@ public class TurnManager : MonoBehaviour
 {
     [SerializeField] private BattlePlayerController player;
     [SerializeField] private List<GameObject> enemyObjects = new List<GameObject>();
-
+    
     private List<GameObject> turnOrder = new List<GameObject>();
-    private int currentTurnIndex = 0;
+    private int currentTurnIndex;
+    
+    public static TurnManager Instance { get; private set; }
 
-    private void Start()
+    public enum TurnPhase
     {
-        SetupTurnOrder();
+        FirstMove,
+        SecondMove
+    }
+    
+    public TurnPhase CurrentTurnPhase { get; set; } = TurnPhase.FirstMove;
+
+
+    void Awake()
+    {
+        if (!Instance)
+        {
+            Instance = this;
+        }
+        else
+        { 
+            Destroy(gameObject);
+        }
+        
         Debug.Log("【行動順】");
         foreach (var unit in turnOrder)
         {
             var status = unit.GetComponent<IEnemy>() as MonoBehaviour;
-            Debug.Log(status.name);
         }
-
-        ProceedTurn();
     }
 
-    private void SetupTurnOrder()
+    public void SetupTurnOrder()
     {
         turnOrder.Clear();
-        turnOrder.Add(player.gameObject); // プレイヤー
         turnOrder.AddRange(enemyObjects); // 敵（BattleManagerなどで生成された）
+        turnOrder.Add(player.gameObject); // プレイヤー
 
         foreach (var obj in turnOrder)
         {
@@ -49,7 +65,7 @@ public class TurnManager : MonoBehaviour
         }).ToList();
     }
 
-    private void ProceedTurn()
+    public void ProceedTurn()
     {
         if (turnOrder.Count == 0) return;
 

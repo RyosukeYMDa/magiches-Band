@@ -7,7 +7,21 @@ public class BattlePlayerController : MonoBehaviour,IEnemy
     
     public void Attack()
     {
-        Debug.Log($"{characterStatus.enemyName}（プレイヤー）が攻撃！ ATK: {characterStatus.atk}");
+        Debug.Log(characterStatus.def);
+        
+        IEnemy enemy = BattleManager.Instance.CurrentEnemy;
+        
+        if (TurnManager.Instance.CurrentTurnPhase == TurnManager.TurnPhase.FirstMove)
+        {
+            Debug.Log("Second Move");
+            TurnManager.Instance.CurrentTurnPhase = TurnManager.TurnPhase.SecondMove;
+            enemy.Attack();
+        }else if(TurnManager.Instance.CurrentTurnPhase == TurnManager.TurnPhase.SecondMove)
+        {
+            Debug.Log("First Move");
+            TurnManager.Instance.CurrentTurnPhase = TurnManager.TurnPhase.FirstMove;
+            //TurnManager.Instance.ProceedTurn();
+        }
     }
     
     public CharacterStatus Status => characterStatus;

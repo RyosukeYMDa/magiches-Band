@@ -5,26 +5,56 @@ using UnityEngine.SceneManagement;
 public class BattleManager : MonoBehaviour
 {
     public EnemyFactory factory;
-    public TurnManager turnManager;
     
     [SerializeField] private RectTransform uiParent; 
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public static BattleManager Instance { get; private set; }
+    
+    // 現在の敵を外部から取得可能にする
+    public IEnemy CurrentEnemy { get; private set; }
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
+    
     private void Start()
     {
         // UI上にランダムな敵を1体生成
         Vector3 spawnPos = new Vector3(-300, -87, -23); // anchoredPosition（中央表示）
         var enemy = factory.CreateEnemy(spawnPos, uiParent);
-        
+
         if (enemy != null)
         {
-            // 作成した敵の GameObject を TurnManager に渡す
+            CurrentEnemy = enemy;
+
             var enemyObj = (enemy as MonoBehaviour)?.gameObject;
             if (enemyObj != null)
             {
-                turnManager.AddEnemy(enemyObj);
+                if (TurnManager.Instance != null)
+                {
+                    TurnManager.Instance.AddEnemy(enemyObj);
+                    Debug.Log("turnManager");
+                    
+                    TurnManager.Instance.SetupTurnOrder();
+                    
+                    TurnManager.Instance.ProceedTurn();
+                }
+                else
+                {
+                    Debug.LogError("[BattleManager] TurnManager.Instance が null です。シーンに配置されているか確認してください。");
+                }
             }
         }
+
         Debug.Log("[BattleManager] Enemy created and passed to TurnManager.");
     }
 
