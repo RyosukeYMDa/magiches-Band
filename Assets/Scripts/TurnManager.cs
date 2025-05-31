@@ -75,14 +75,12 @@ public class TurnManager : MonoBehaviour
         if (enemy != null)
         {
             Debug.Log($"[TurnManager] 行動ユニット: {currentUnit.name} AGI: {enemy.Status.agi}");
-            enemy.Attack();
+            enemy.Act();
         }
         else
         {
             Debug.LogWarning($"[TurnManager] IEnemy が見つかりません: {currentUnit.name}");
         }
-
-        currentTurnIndex = (currentTurnIndex + 1) % turnOrder.Count;
     }
     
     public void AddEnemy(GameObject enemy)

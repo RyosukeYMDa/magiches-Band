@@ -2,7 +2,10 @@ using UnityEngine;
 
 public interface IEnemy
 {
-    void Attack();
+    void Act();
+    void TakeDamage(int damage);
+
+    void NextState();
     CharacterStatus Status { get; }
 }
 

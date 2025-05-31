@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Slime
   m_EditorClassIdentifier: 
   enemyName: Slime
-  maxHp: 3
-  maxMp: 1
+  maxHp: 20
+  maxMp: 0
   atk: 1
-  def: 1
-  mp: 3
-  res: 3
+  def: 0
+  mAtk: 1
+  mDef: 0
   agi: 1

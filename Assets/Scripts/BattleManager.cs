@@ -8,6 +8,7 @@ public class BattleManager : MonoBehaviour
     
     [SerializeField] private RectTransform uiParent; 
     
+    [SerializeField] private GameObject actButton;
     public static BattleManager Instance { get; private set; }
     
     // 現在の敵を外部から取得可能にする
@@ -29,7 +30,7 @@ public class BattleManager : MonoBehaviour
     private void Start()
     {
         // UI上にランダムな敵を1体生成
-        Vector3 spawnPos = new Vector3(-300, -87, -23); // anchoredPosition（中央表示）
+        Vector3 spawnPos = new Vector3(0, 40, -23); // anchoredPosition（中央表示）
         var enemy = factory.CreateEnemy(spawnPos, uiParent);
 
         if (enemy != null)
@@ -56,6 +57,11 @@ public class BattleManager : MonoBehaviour
         }
 
         Debug.Log("[BattleManager] Enemy created and passed to TurnManager.");
+    }
+
+    public void EnableActButton()
+    {
+        actButton.SetActive(true);
     }
 
     // Update is called once per frame
