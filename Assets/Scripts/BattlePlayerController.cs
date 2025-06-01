@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class BattlePlayerController : MonoBehaviour,IEnemy
@@ -9,7 +10,7 @@ public class BattlePlayerController : MonoBehaviour,IEnemy
     private const float CriticalRate = 0.25f; //クリティカルの確率（今は25％）
     private const int CriticalMultiplier = 2; // クリティカル倍率
     private const float EvasionRate = 0.1f; //回避の確率（今は10％）
-
+    
     public void Act()
     {
         BattleManager.Instance.EnableActButton();
@@ -92,6 +93,9 @@ public class BattlePlayerController : MonoBehaviour,IEnemy
 
         if (characterStatus.maxHp <= 0)
         {
+            characterStatus.maxHp = 26;
+            GameManager.Instance.playerPosition = new Vector3(-13f, 0.6f, 6);
+            SceneManager.LoadScene("Title");
             Debug.Log("プレイヤーが倒れた！");
         }
     }

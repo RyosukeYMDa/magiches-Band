@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   enemyName: Player
-  maxHp: 20
+  maxHp: 5
   maxMp: 0
   atk: 1
   def: 0

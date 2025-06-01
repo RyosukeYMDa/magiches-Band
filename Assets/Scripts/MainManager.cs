@@ -1,8 +1,10 @@
 using UnityEngine;
 
-public class EnemyEncounterController : MonoBehaviour
+public class MainManager : MonoBehaviour
 {
     [SerializeField] private GameObject enemy1;
+    
+    public Vector3 player;
 
 
     private void Start()

@@ -18,7 +18,7 @@ public class CharacterController : MonoBehaviour
 
     //playerのstate
     private PlayerState playerState = PlayerState.Idle;
-
+    
     //playerの動き関連
     private const float MoveSpeed = 10f;
     private Vector3 moveInput;
@@ -38,11 +38,14 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private LoadingShaderController loadingShaderController;
     [SerializeField] private CameraController cameraController;
 
-    private Rigidbody _rb;
+    private Rigidbody rb;
 
+    [Obsolete("Obsolete")]
     private void Start()
     {
-        _rb =  GetComponent<Rigidbody>();
+        rb =  GetComponent<Rigidbody>();
+        //空気抵抗
+        rb.drag = 10f;
         gameObject.transform.position = GameManager.Instance.playerPosition;
 
         //これが無いとspineのanimationが動かない
@@ -50,6 +53,7 @@ public class CharacterController : MonoBehaviour
         spAnimationState = skeletonAnimation.AnimationState;
     }
 
+    [Obsolete("Obsolete")]
     private void Update()
     {
         //state管理
@@ -61,6 +65,12 @@ public class CharacterController : MonoBehaviour
         if (moveInput != Vector3.zero)
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed * Time.deltaTime);
 
+        // Update() or FixedUpdate()
+        if (moveInput == Vector3.zero)
+        {
+            rb.velocity = Vector3.zero;
+        }
+        
         //カメラの回転関連
         var camForward = cameraTransform.forward;
         var camRight = cameraTransform.right;
@@ -71,7 +81,7 @@ public class CharacterController : MonoBehaviour
         camRight.Normalize();
 
         var moveDirection = camForward * moveInput.z + camRight * moveInput.x;
-
+        
         if (moveInput.z > 0)
         {
             targetRotation = Quaternion.LookRotation(moveDirection);
@@ -83,8 +93,8 @@ public class CharacterController : MonoBehaviour
         }
 
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed * Time.deltaTime);
-        // transform.Translate(moveDirection * (MoveSpeed * Time.deltaTime), Space.World);
-        _rb.AddForce(moveDirection * MoveSpeed, ForceMode.Force);
+        
+        rb.AddForce(moveDirection * MoveSpeed, ForceMode.Force);
     }
 
     //playerの動きのInputSystem
@@ -131,9 +141,7 @@ public class CharacterController : MonoBehaviour
     /// </summary>
     /// <param name="other"></param>
     private void OnCollisionEnter(Collision collision)
-    {
-        return;
-        
+    {  
         //Area境にあるBoxColliderに当たった時のみ処理
         if (collision.gameObject.CompareTag("CameraRotation"))
         {
@@ -192,5 +200,15 @@ public class CharacterController : MonoBehaviour
             moveInput = Vector3.zero;
             Debug.Log("壁");
         }
+    }
+    /// <summary>
+    /// playerのpositionを記録
+    /// </summary>
+    public void SavePlayerPosition()
+    {
+        GameManager.Instance.playerPosition = transform.position;
+        
+        SaveManager.SavePlayerData(new PlayerData(GameManager.Instance.playerPosition));
+        Debug.Log("Save"); 
     }
 }

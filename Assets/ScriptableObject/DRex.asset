@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DRex
   m_EditorClassIdentifier: 
   enemyName: DRex
-  maxHp: 20
+  maxHp: 2
   maxMp: 0
   atk: 1
   def: 0

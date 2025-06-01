@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Dragon : MonoBehaviour,IEnemy
 {
@@ -76,6 +77,7 @@ public class Dragon : MonoBehaviour,IEnemy
         if (characterStatus.maxHp <= 0)
         {
             Debug.Log($"{gameObject.name} を撃破！");
+            SceneManager.LoadScene("MainScene");
             Destroy(gameObject);
         }
     }

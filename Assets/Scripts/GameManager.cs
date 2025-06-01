@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// シーンを跨いで使う変数を管理するclass
@@ -8,13 +9,16 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [SerializeField] public Vector3 playerPosition;
-
-    public int enemyType;
     
-    private bool initialized = false;
+    private Vector3 startPosition;
+
+    //enemyの発生する場所のtype
+    public int enemyType;
 
     private void Awake()
     {
+        startPosition = new Vector3(-13f, 0.6f, 6);
+        
         if (!Instance)
         {
             Instance = this;
@@ -24,11 +28,33 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        if (initialized == false)
+        
+        PlayerData loadedData = SaveManager.LoadPlayerData();
+        if (loadedData != null)
         {
-            playerPosition = new Vector3(-13f, 0.6f, 06);
-            initialized = true;
+            playerPosition = loadedData.GetPosition();
+            Debug.Log("Load Success");
         }
+        else
+        {
+            playerPosition = startPosition;
+            Debug.Log("Load Failed");
+        }
+    }
+    
+    private void Update()
+    {
+        if (Keyboard.current.vKey.wasPressedThisFrame)
+        {
+            PlayerData data = SaveManager.LoadPlayerData();
+            if (data != null)
+            {
+                playerPosition = data.GetPosition();
+                Debug.Log("Load");
+            }
+        }
+
+        if (Keyboard.current.bKey.wasPressedThisFrame)
+            SaveManager.DeletePlayerData();
     }
 }

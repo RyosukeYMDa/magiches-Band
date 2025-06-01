@@ -21,7 +21,7 @@ public class TurnManager : MonoBehaviour
     public TurnPhase CurrentTurnPhase { get; set; } = TurnPhase.FirstMove;
 
 
-    void Awake()
+    private void Awake()
     {
         if (!Instance)
         {
