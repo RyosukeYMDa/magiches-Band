@@ -25,6 +25,8 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private string testAnimationName = "walk";
     private Quaternion targetRotation;
     private const float RotationSpeed = 10f;
+    private Vector3 moveDirection; // 移動方向
+    private Vector3 playerDirection; // プレイヤーの向いている方向
     
     private bool isPlayerInRange = false;
 
@@ -40,12 +42,11 @@ public class CharacterController : MonoBehaviour
 
     private Rigidbody rb;
 
-    [Obsolete("Obsolete")]
     private void Start()
     {
         rb =  GetComponent<Rigidbody>();
         //空気抵抗
-        rb.drag = 10f;
+        rb.linearDamping = 10f;
         gameObject.transform.position = GameManager.Instance.playerPosition;
 
         //これが無いとspineのanimationが動かない
@@ -53,52 +54,60 @@ public class CharacterController : MonoBehaviour
         spAnimationState = skeletonAnimation.AnimationState;
     }
 
-    [Obsolete("Obsolete")]
     private void Update()
     {
         //state管理
-        if (moveInput != Vector3.zero && playerState != PlayerState.Walk)
-            ChangeState(PlayerState.Walk);
-        else if (moveInput == Vector3.zero && playerState != PlayerState.Idle) ChangeState(PlayerState.Idle);
-
-        //
-        if (moveInput != Vector3.zero)
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed * Time.deltaTime);
-
-        // Update() or FixedUpdate()
-        if (moveInput == Vector3.zero)
+        switch (playerState)
         {
-            rb.velocity = Vector3.zero;
+            case PlayerState.Idle:
+                if(moveInput != Vector3.zero)
+                    ChangeState(PlayerState.Walk);
+                break;
+            
+            case PlayerState.Walk:
+                if (moveInput == Vector3.zero)
+                    ChangeState(PlayerState.Idle);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
         
-        //カメラの回転関連
-        var camForward = cameraTransform.forward;
-        var camRight = cameraTransform.right;
+        UpdateDirection();
+    }
 
-        camForward.y = 0;
-        camRight.y = 0;
-        camForward.Normalize();
-        camRight.Normalize();
-
-        var moveDirection = camForward * moveInput.z + camRight * moveInput.x;
-        
-        if (moveInput.z > 0)
+    // 向き（回転）の更新
+    private void UpdateDirection()
+    {
+        // 入力があった時だけ向きを更新
+        if (moveInput != Vector3.zero)
         {
-            targetRotation = Quaternion.LookRotation(moveDirection);
+            //カメラの回転関連
+            moveDirection = cameraTransform.rotation * moveInput;
+
+            var camForward = cameraTransform.forward;
+            camForward.y = 0;
+            camForward.Normalize();
+
+            if (moveInput.x > 0)
+                targetRotation = Quaternion.LookRotation(camForward);
+            else if (moveInput.x < 0)
+                targetRotation = Quaternion.LookRotation(-camForward);
         }
         else
         {
-            var backward = -camForward;
-            targetRotation = Quaternion.LookRotation(backward);
+            moveDirection = Vector3.zero;
         }
 
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed * Time.deltaTime);
-        
-        rb.AddForce(moveDirection * MoveSpeed, ForceMode.Force);
     }
 
-    //playerの動きのInputSystem
-    public void Move(InputAction.CallbackContext context)
+    private void FixedUpdate()
+    {
+        rb.linearVelocity = moveDirection * MoveSpeed;
+    }
+
+    //InputSystemから呼び出されるplayerの動きの入力情報更新
+    public void UpdateMoveInput(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
@@ -197,7 +206,7 @@ public class CharacterController : MonoBehaviour
         }
         else
         {
-            moveInput = Vector3.zero;
+            // moveInput = Vector3.zero;
             Debug.Log("壁");
         }
     }

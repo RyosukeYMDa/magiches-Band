@@ -6,7 +6,7 @@ public static class SaveManager
 
     public static void SavePlayerData(PlayerData playerData)
     {
-        string json = JsonUtility.ToJson(playerData);
+        var json = JsonUtility.ToJson(playerData);
         PlayerPrefs.SetString(PlayerKey, json);
         PlayerPrefs.Save();
         Debug.Log("保存完了" + json);
@@ -16,8 +16,8 @@ public static class SaveManager
     {
         if(!PlayerPrefs.HasKey(PlayerKey))return null;
         
-        string json = PlayerPrefs.GetString(PlayerKey);
-        PlayerData playerData = JsonUtility.FromJson<PlayerData>(json);
+        var json = PlayerPrefs.GetString(PlayerKey);
+        var playerData = JsonUtility.FromJson<PlayerData>(json);
         return playerData;
     }
     
