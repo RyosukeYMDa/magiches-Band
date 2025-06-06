@@ -1,37 +1,42 @@
-using System;
-using System.Xml.Linq;
-using Unity.VisualScripting;
-using UnityEngine.InputSystem;
 using UnityEngine;
 
+[System.Serializable]
 public class Item : MonoBehaviour
 {
-    private bool isPlayerInRange = false;
-    public GameObject door;
-    
-    internal string text;
+    [Header("アイテム情報")]
+    public string itemId;
+    public string itemName;   // 例: Potion, Key, Elixir
+    public int amount = 1;               // 取得できる個数
 
-    void Start()
+    private bool isPlayerInRange = false;
+
+    [SerializeField] private InventoryUI inventoryUI;
+    
+    private void Start()
     {
-        text = string.Empty;
+        // 取得済みなら削除
+        if (GameManager.Instance.obtainedItemIds.Contains(itemId))
+        {
+            Destroy(gameObject);
+        }
     }
     
-    private void OnTriggerEnter(Collider col)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (col.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             isPlayerInRange = true;
-            //Debug.Log("プレイヤーがアイテム範囲に入りました");
-
-            door.GetComponent < Door>().Open();
-            // 処理例：アイテム回収
-            Destroy(this.gameObject);  
+            inventoryUI.SetInventoryItem(itemId, itemName, 1);
+            GameManager.Instance.obtainedItemIds.Add(itemId);
+            SaveManager.SaveObtainedItemIds(GameManager.Instance.obtainedItemIds);
+            StartCoroutine(inventoryUI.MessageReception(itemName + ":get"));
+            Destroy(this.gameObject); // アイテムを消す
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnCollisionExit(Collision collision)
     {
-        if (other.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             isPlayerInRange = false;
             Debug.Log("プレイヤーがアイテム範囲から出ました");

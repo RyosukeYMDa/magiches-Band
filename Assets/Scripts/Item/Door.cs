@@ -1,25 +1,17 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    
-    public GameObject door;
+    public bool isOpen;
 
-    private Rigidbody rb;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void OnCollisionEnter(Collision collision)
     {
-        rb = door.GetComponent<Rigidbody>();
+        isOpen = true;
     }
 
-    public void Open()
+    private void OnCollisionExit(Collision collision)
     {
-        rb.isKinematic = false;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        isOpen = false;
     }
 }

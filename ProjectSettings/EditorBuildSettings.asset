@@ -15,8 +15,8 @@ EditorBuildSettings:
     path: Assets/Scenes/BattleScene.unity
     guid: 08a5c8e2455bc3b42a0f8d5cf6871d4d
   - enabled: 1
-    path: Assets/Scenes/BoaaScene.unity
-    guid: 00bb72c5e034fd94da12a154c72dc0ab
+    path: Assets/Scenes/BossScene.unity
+    guid: cf46fbeed81021c4cb6407e1eca6961f
   - enabled: 1
     path: Assets/Scenes/End.unity
     guid: 57366896a90787147863a8d8211ac8a8

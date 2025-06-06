@@ -1,6 +1,5 @@
 using System;
 using Spine.Unity;
-using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -210,6 +209,7 @@ public class CharacterController : MonoBehaviour
             Debug.Log("壁");
         }
     }
+
     /// <summary>
     /// playerのpositionを記録
     /// </summary>
@@ -217,7 +217,10 @@ public class CharacterController : MonoBehaviour
     {
         GameManager.Instance.playerPosition = transform.position;
         
-        SaveManager.SavePlayerData(new PlayerData(GameManager.Instance.playerPosition));
+         var playerData = new PlayerData(GameManager.Instance.playerPosition);
+         var inventory = GameManager.Instance.inventory;
+
+         SaveManager.SavePlayerData(playerData, inventory);
         Debug.Log("Save"); 
     }
 }

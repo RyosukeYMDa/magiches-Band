@@ -61,15 +61,15 @@ public class Slime : MonoBehaviour,IEnemy
 
         if (randomEvasion < EvasionRate)
         {
-            Debug.Log($"回避  残HP: {characterStatus.maxHp}");
+            Debug.Log($"回避  残HP: {characterStatus.hp}");
         }
         else
         {
-            characterStatus.maxHp -= damage;
-            Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {characterStatus.maxHp}");   
+            characterStatus.hp -= damage;
+            Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {characterStatus.hp}");   
         }
 
-        if (characterStatus.maxHp <= 0)
+        if (characterStatus.hp <= 0)
         {
             Debug.Log($"{gameObject.name} を撃破！");
             SceneManager.LoadScene("MainScene");

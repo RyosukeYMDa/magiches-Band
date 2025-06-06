@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 /// <summary>
 /// シーンを跨いで使う変数を管理するclass
@@ -10,10 +10,16 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] public Vector3 playerPosition;
     
+    //取得したItemのIdのList
+    public List<string> obtainedItemIds = new List<string>();
+    
     private Vector3 startPosition;
 
     //enemyの発生する場所のtype
     public int enemyType;
+    
+    //インベントリ
+    public Inventory inventory;
 
     private void Awake()
     {
@@ -29,7 +35,8 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         
-        PlayerData loadedData = SaveManager.LoadPlayerData();
+        var loadedData = SaveManager.LoadPlayerData();
+        
         if (loadedData != null)
         {
             playerPosition = loadedData.GetPosition();
@@ -40,21 +47,37 @@ public class GameManager : MonoBehaviour
             playerPosition = startPosition;
             Debug.Log("Load Failed");
         }
+        
+        // インベントリの読み込み
+        var loadedInventory = SaveManager.LoadInventory();
+        if (loadedInventory != null)
+        {
+            inventory = loadedInventory;
+            Debug.Log("Inventory Load Success");
+        }
+        else
+        {
+            inventory = new Inventory(); // 空で初期化
+            Debug.Log("Inventory Load Failed, created new inventory");
+        }
+        
+        //取得済みデータも読み込み
+        obtainedItemIds = SaveManager.LoadObtainedItemIds() ?? new List<string>();
     }
     
-    private void Update()
+    public void ReloadPlayerData()
     {
-        if (Keyboard.current.vKey.wasPressedThisFrame)
+        var data = SaveManager.LoadPlayerData();
+        if (data != null)
         {
-            PlayerData data = SaveManager.LoadPlayerData();
-            if (data != null)
-            {
-                playerPosition = data.GetPosition();
-                Debug.Log("Load");
-            }
+            playerPosition = data.GetPosition();
+            Debug.Log("再読み込み成功: " + playerPosition);
         }
-
-        if (Keyboard.current.bKey.wasPressedThisFrame)
-            SaveManager.DeletePlayerData();
+        else
+        {
+            obtainedItemIds = new List<string>();
+            playerPosition = startPosition;
+            Debug.Log("データなし → 初期位置にリセット: " + playerPosition);
+        }
     }
 }

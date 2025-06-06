@@ -83,17 +83,17 @@ public class BattlePlayerController : MonoBehaviour,IEnemy
 
         if (randomEvasion < EvasionRate)
         {
-            Debug.Log($"回避  残HP: {characterStatus.maxHp}");
+            Debug.Log($"回避  残HP: {characterStatus.hp}");
         }
         else
         {
-            characterStatus.maxHp -= damage;
-            Debug.Log($"プレイヤーは {damage} ダメージを受けた！ 残HP: {characterStatus.maxHp}");
+            characterStatus.hp -= damage;
+            Debug.Log($"プレイヤーは {damage} ダメージを受けた！ 残HP: {characterStatus.hp}");
         }
 
-        if (characterStatus.maxHp <= 0)
+        if (characterStatus.hp <= 0)
         {
-            characterStatus.maxHp = 26;
+            characterStatus.hp = characterStatus.maxHp;
             GameManager.Instance.playerPosition = new Vector3(-13f, 0.6f, 6);
             SceneManager.LoadScene("Title");
             Debug.Log("プレイヤーが倒れた！");

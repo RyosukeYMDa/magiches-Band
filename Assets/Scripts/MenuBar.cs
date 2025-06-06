@@ -13,10 +13,12 @@ public class MenuBar : MonoBehaviour
     private bool isShown = false;        // 現在表示状態か
     private Coroutine slideCoroutine;
 
-    void Update()
+    [SerializeField] private ButtonNavigator buttonNavigator;
+    public GameObject inventoryPanel;
+    private void Update()
     {
         // Escキーで切り替え
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        if (Keyboard.current.escapeKey.wasPressedThisFrame && !buttonNavigator.isInventory)
         {
             TogglePanel();
         }
@@ -24,6 +26,10 @@ public class MenuBar : MonoBehaviour
 
     public void TogglePanel()
     {
+        // 表示状態にする前にこのオブジェクトを有効化（SetActive(true)）
+        if (!isShown)
+            panel.gameObject.SetActive(true);
+        
         // すでにスライド中なら中断
         if (slideCoroutine != null)
             StopCoroutine(slideCoroutine);
@@ -36,6 +42,7 @@ public class MenuBar : MonoBehaviour
     {
         Vector2 startPos = panel.anchoredPosition;
         float elapsed = 0f;
+        bool hiding = targetPosition == hiddenPosition;
 
         while (elapsed < slideDuration)
         {
@@ -47,5 +54,30 @@ public class MenuBar : MonoBehaviour
 
         panel.anchoredPosition = targetPosition;
         slideCoroutine = null;
+        
+        // 完全に非表示位置になったら MenuBar を無効化
+        if (hiding)
+        {
+            panel.gameObject.SetActive(false);
+        }
+    }
+
+    public void InventoryDisplay()
+    {
+        if(buttonNavigator.justOpenedInventory)return;
+        Debug.Log("InventoryDisplay");
+        StartCoroutine(ShowInventoryPanelNextFrame());
+    }
+
+    IEnumerator ShowInventoryPanelNextFrame()
+    {
+        // バッファ先にセット
+        buttonNavigator.justOpenedInventory = true;
+
+        yield return null; // ← ここで1フレーム待つ
+
+        inventoryPanel.SetActive(true);
+        panel.gameObject.SetActive(false);
+        buttonNavigator.IsInventorySwitch();
     }
 }
