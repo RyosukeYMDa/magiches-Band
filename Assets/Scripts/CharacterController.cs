@@ -155,10 +155,7 @@ public class CharacterController : MonoBehaviour
         {
             //loading用のShaderを再生
             StartCoroutine(loadingShaderController.PlayEffect());
-
-            //スライドをしないように動きを止めさせる
-            moveInput = Vector3.zero;
-
+            
             switch (loadingShaderController.areaState)
             {
                 //Playerが今いるAreaのStateによって処理を変える
@@ -179,17 +176,6 @@ public class CharacterController : MonoBehaviour
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
-            // キャラの向きも調整（今の移動方向に合わせて）
-            if (moveInput == Vector3.zero) return;
-            var camForward = cameraTransform.forward;
-            var camRight = cameraTransform.right;
-            camForward.y = 0;
-            camRight.y = 0;
-            camForward.Normalize();
-            camRight.Normalize();
-            var moveDirection = camForward * moveInput.z + camRight * moveInput.x;
-            targetRotation = Quaternion.LookRotation(moveDirection);
         }
         else if (collision.gameObject.CompareTag("Enemy1"))
         {
@@ -205,7 +191,6 @@ public class CharacterController : MonoBehaviour
         }
         else
         {
-            // moveInput = Vector3.zero;
             Debug.Log("壁");
         }
     }
