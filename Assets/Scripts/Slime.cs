@@ -9,13 +9,15 @@ public class Slime : MonoBehaviour,IEnemy
     private const float CriticalRate = 0.25f; //クリティカルの確率（今は25％）
     private const int CriticalMultiplier = 2; // クリティカル倍率
     private const float EvasionRate = 0.1f; //回避の確率（今は10％）
+    
+    private int consumptionMp; //消費Mp
     public CharacterStatus Status => characterStatus;
     
     public void Act()
     {
         var damage = 0;
         
-        var randomAttack = Random.Range(0, 1);
+        var randomAttack = Random.Range(0, 2);
 
         switch (randomAttack)
         {
@@ -27,11 +29,19 @@ public class Slime : MonoBehaviour,IEnemy
                 battlePlayerController.TakeDamage(damage);
                 break;
             case 1:
-                Debug.Log("Fire");
-                // プレイヤーへのダメージ計算
-                damage = Mathf.Max(0, characterStatus.mAtk - battlePlayerController.Status.mDef);
-                damage = CriticalCalculation(damage);
-                battlePlayerController.TakeDamage(damage);
+                consumptionMp = 1;
+                if ((characterStatus.mp - consumptionMp) >= 0)
+                {
+                    Debug.Log("Fire");
+                    // プレイヤーへのダメージ計算
+                    damage = Mathf.Max(0, characterStatus.mAtk - battlePlayerController.Status.mDef);
+                    damage = CriticalCalculation(damage);
+                    battlePlayerController.TakeDamage(damage);   
+                }
+                else
+                {
+                    Debug.Log("失敗");
+                }
                 break;
         }
         NextState();
@@ -72,6 +82,8 @@ public class Slime : MonoBehaviour,IEnemy
         if (characterStatus.hp <= 0)
         {
             Debug.Log($"{gameObject.name} を撃破！");
+            characterStatus.hp = characterStatus.maxHp;
+            characterStatus.mp = characterStatus.maxMp;
             SceneManager.LoadScene("MainScene");
             Destroy(gameObject);
         }

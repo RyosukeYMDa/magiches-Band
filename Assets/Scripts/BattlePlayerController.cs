@@ -11,6 +11,7 @@ public class BattlePlayerController : MonoBehaviour,IEnemy
     private const int CriticalMultiplier = 2; // クリティカル倍率
     private const float EvasionRate = 0.1f; //回避の確率（今は10％）
     
+    private int consumptionMp; //消費Mp
     public void Act()
     {
         BattleManager.Instance.EnableActButton();
@@ -18,20 +19,27 @@ public class BattlePlayerController : MonoBehaviour,IEnemy
     
     public void Explosion()
     {
-        Debug.Log("Explosion");
+        consumptionMp = 4;
+        if ((characterStatus.mp - consumptionMp) >= 0)
+        {
+            Debug.Log("Explosion");
      
-        attackCommand.SetActive(false);
+            attackCommand.SetActive(false);
         
-        // 敵を取得
-        IEnemy enemy = BattleManager.Instance.CurrentEnemy;
+            // 敵を取得
+            IEnemy enemy = BattleManager.Instance.CurrentEnemy;
         
-        // ダメージ計算()
-        var damage = Mathf.Max(0, characterStatus.mAtk - enemy.Status.mDef);
-        
-        damage = CriticalCalculation(damage);
+            // ダメージ計算()
+            var damage = Mathf.Max(0, characterStatus.mAtk - enemy.Status.mDef);
+            damage = CriticalCalculation(damage);
 
-        // 敵にダメージを与える
-        enemy.TakeDamage(damage);
+            // 敵にダメージを与える
+            enemy.TakeDamage(damage);   
+        }
+        else
+        {
+            Debug.Log("失敗");
+        }
         
         NextState();
     }
@@ -94,6 +102,7 @@ public class BattlePlayerController : MonoBehaviour,IEnemy
         if (characterStatus.hp <= 0)
         {
             characterStatus.hp = characterStatus.maxHp;
+            characterStatus.mp = characterStatus.maxMp;
             GameManager.Instance.playerPosition = new Vector3(-13f, 0.6f, 6);
             SceneManager.LoadScene("Title");
             Debug.Log("プレイヤーが倒れた！");
