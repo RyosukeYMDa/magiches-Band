@@ -1357,6 +1357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPosition: {x: 0, y: 0, z: 0}
+  obtainedItemIds: []
   enemyType: 0
   inventory:
     items: []
@@ -2176,6 +2177,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 352917347906291412, guid: 273e032ec1b58e84ab1399eaa1e5396c, type: 3}
+      propertyPath: m_Constraints
+      value: 116
+      objectReference: {fileID: 0}
     - target: {fileID: 606469349275384760, guid: 273e032ec1b58e84ab1399eaa1e5396c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -13
@@ -2186,7 +2191,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 606469349275384760, guid: 273e032ec1b58e84ab1399eaa1e5396c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6
+      value: 7.58
       objectReference: {fileID: 0}
     - target: {fileID: 606469349275384760, guid: 273e032ec1b58e84ab1399eaa1e5396c, type: 3}
       propertyPath: m_LocalRotation.w
