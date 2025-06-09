@@ -74,7 +74,7 @@ public class MenuBar : MonoBehaviour
         // バッファ先にセット
         buttonNavigator.justOpenedInventory = true;
 
-        yield return null; // ← ここで1フレーム待つ
+        yield return null;
 
         inventoryPanel.SetActive(true);
         panel.gameObject.SetActive(false);

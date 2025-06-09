@@ -1,21 +1,43 @@
 using UnityEngine;
+using System.Collections;
 
 public class BottomController : MonoBehaviour
 {
     //Attackする為のbuttonの参照
     [SerializeField] private GameObject actButton;
-    [SerializeField] private GameObject attackButton;
+    [SerializeField] private GameObject actCommand;
     [SerializeField] private GameObject attackCommand;
+    [SerializeField] private ButtonNavigator buttonNavigator;
     
+    public GameObject inventoryPanel;
     public void EnableAct()
     {
-        attackButton.SetActive(true);
+        actCommand.SetActive(true);
         actButton.SetActive(false);
     }
 
     public void EnableAttack()
     {
         attackCommand.SetActive(true);
-        attackButton.SetActive(false);
+        actCommand.SetActive(false);
+    }
+    
+    public void InventoryDisplay()
+    {
+        if(buttonNavigator.justOpenedInventory)return;
+        Debug.Log("InventoryDisplay");
+        StartCoroutine(ShowInventoryPanelNextFrame());
+    }
+
+    IEnumerator ShowInventoryPanelNextFrame()
+    {
+        // バッファ先にセット
+        buttonNavigator.justOpenedInventory = true;
+
+        yield return null;
+
+        inventoryPanel.SetActive(true);
+        actCommand.SetActive(false);
+        buttonNavigator.IsInventorySwitch();
     }
 }

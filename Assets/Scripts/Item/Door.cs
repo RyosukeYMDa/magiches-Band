@@ -3,15 +3,15 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    public bool isOpen;
-
+    
+    [SerializeField] InventoryUI inventoryUI;
     private void OnCollisionEnter(Collision collision)
     {
-        isOpen = true;
+        inventoryUI.isOpen = true;
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        isOpen = false;
+        inventoryUI.isOpen = false;
     }
 }

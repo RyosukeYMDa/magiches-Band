@@ -1550,8 +1550,8 @@ MonoBehaviour:
   itemTextPrefab: {fileID: 585160820923368427, guid: 2057e3d1b1c0b47498f10ed1134b1769, type: 3}
   contentParent: {fileID: 275426392}
   buttonNavigator: {fileID: 1582927736}
-  door: {fileID: 2090189644}
   playerStatus: {fileID: 11400000, guid: 9797ff948bf232648a2320e925992a02, type: 2}
+  isOpen: 0
   messageText: {fileID: 941362896}
 --- !u!1001 &1592725122
 PrefabInstance:
@@ -2071,7 +2071,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 105b788c5b26a9d40ab89535f3c5a12c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOpen: 0
+  inventoryUI: {fileID: 1582927737}
 --- !u!54 &2090189645
 Rigidbody:
   m_ObjectHideFlags: 0

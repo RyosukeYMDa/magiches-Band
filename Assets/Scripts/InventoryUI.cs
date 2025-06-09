@@ -10,7 +10,6 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private GameObject itemTextPrefab; // TextMeshProを含むプレハブ
     [SerializeField] private Transform contentParent;   // アイテムを並べる親（Vertical Layout Group）
     [SerializeField] private ButtonNavigator buttonNavigator;
-    [SerializeField] private Door door;
     
     private Inventory inventory;
     
@@ -20,6 +19,8 @@ public class InventoryUI : MonoBehaviour
     
     private List<GameObject> itemUiObjects = new List<GameObject>();
 
+    public bool isOpen;
+    
     //messageを表示させる
     [SerializeField] private TextMeshProUGUI messageText;
     private void Start()
@@ -47,6 +48,7 @@ public class InventoryUI : MonoBehaviour
         
         if (Keyboard.current.tabKey.wasPressedThisFrame && buttonNavigator.isInventory)
         {
+            Debug.Log("closeInventory");
             contentParent.gameObject.SetActive(false);
             buttonNavigator.IsInventorySwitch();
         }
@@ -122,7 +124,7 @@ public class InventoryUI : MonoBehaviour
             StartCoroutine(MessageReception("Recover 50 HP"));
         }else if (item.itemName == "Key")
         {
-            if (door.isOpen)
+            if (isOpen)
             {
                 Debug.Log("ドアを開けた");
                 inventory.RemoveItem(item.itemName, 1);
