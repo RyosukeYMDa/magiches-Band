@@ -24,11 +24,6 @@ public class ButtonNavigator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current.enterKey.wasPressedThisFrame && !isInventory)
-        {
-            buttons[currentIndex].onClick.Invoke(); // 選択中のボタンを押す
-        }
-        
         if (Keyboard.current.upArrowKey.wasPressedThisFrame && !isInventory)
         {
             currentIndex = (currentIndex - 1 + buttons.Length) % buttons.Length;
@@ -47,10 +42,12 @@ public class ButtonNavigator : MonoBehaviour
         Debug.Log("IsInventorySwitch");
         if (isInventory)
         {
+            Debug.Log("IsInventorySwitch:false");
             isInventory = false;
         }
         else
         {
+            Debug.Log("IsInventorySwitch:true");
             isInventory = true;
         }
     }

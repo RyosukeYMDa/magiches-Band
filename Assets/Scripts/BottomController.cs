@@ -12,18 +12,25 @@ public class BottomController : MonoBehaviour
     public GameObject inventoryPanel;
     public void EnableAct()
     {
+        if (buttonNavigator.isInventory) return;
+        
         actCommand.SetActive(true);
         actButton.SetActive(false);
     }
 
     public void EnableAttack()
     {
+        if (buttonNavigator.isInventory) return;
+        
         attackCommand.SetActive(true);
         actCommand.SetActive(false);
     }
     
     public void InventoryDisplay()
     {
+        Debug.Log($"InventoryDisplay called at frame {Time.frameCount}");
+        if (buttonNavigator.isInventory) return;
+        
         if(buttonNavigator.justOpenedInventory)return;
         Debug.Log("InventoryDisplay");
         StartCoroutine(ShowInventoryPanelNextFrame());

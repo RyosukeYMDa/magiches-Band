@@ -40,6 +40,7 @@ public class InventoryUI : MonoBehaviour
         // 入力バッファ：インベントリ開いた直後の1フレームだけスキップ
         if (buttonNavigator.justOpenedInventory)
         {
+            Debug.Log("待機中");
             buttonNavigator.justOpenedInventory = false; // 1フレーム後に解除
             return;
         }

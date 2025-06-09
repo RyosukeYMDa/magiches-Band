@@ -266,6 +266,7 @@ GameObject:
   - component: {fileID: 135609575}
   - component: {fileID: 135609579}
   - component: {fileID: 135609580}
+  - component: {fileID: 135609581}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -398,6 +399,22 @@ MonoBehaviour:
   playerStatus: {fileID: 11400000, guid: 9797ff948bf232648a2320e925992a02, type: 2}
   isOpen: 0
   messageText: {fileID: 604540505}
+--- !u!114 &135609581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 135609574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fbb556b033e0c44d8fbefbc6ef504d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttons:
+  - {fileID: 1455069522}
+  isInventory: 0
+  justOpenedInventory: 0
 --- !u!1 &200155103
 GameObject:
   m_ObjectHideFlags: 0
@@ -1633,7 +1650,6 @@ GameObject:
   - component: {fileID: 1455069524}
   - component: {fileID: 1455069523}
   - component: {fileID: 1455069522}
-  - component: {fileID: 1455069525}
   m_Layer: 5
   m_Name: ActButtom
   m_TagString: Untagged
@@ -1755,22 +1771,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1455069520}
   m_CullTransparentMesh: 1
---- !u!114 &1455069525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1455069520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fbb556b033e0c44d8fbefbc6ef504d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttons:
-  - {fileID: 1455069522}
-  isInventory: 0
-  justOpenedInventory: 0
 --- !u!1 &1618966287
 GameObject:
   m_ObjectHideFlags: 0
