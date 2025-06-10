@@ -36,6 +36,10 @@ public class BottomController : MonoBehaviour
         StartCoroutine(ShowInventoryPanelNextFrame());
     }
 
+    /// <summary>
+    /// buttonの受け付けが重複しないようにコルーチンを使う
+    /// </summary>
+    /// <returns></returns>
     IEnumerator ShowInventoryPanelNextFrame()
     {
         // バッファ先にセット
@@ -45,6 +49,6 @@ public class BottomController : MonoBehaviour
 
         inventoryPanel.SetActive(true);
         actCommand.SetActive(false);
-        buttonNavigator.IsInventorySwitch();
+        buttonNavigator.SetInventoryState(true);
     }
 }

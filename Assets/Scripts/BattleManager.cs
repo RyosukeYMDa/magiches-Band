@@ -7,8 +7,10 @@ public class BattleManager : MonoBehaviour
     public EnemyFactory factory;
     
     [SerializeField] private RectTransform uiParent; 
-    
     [SerializeField] private GameObject actButton;
+    [SerializeField] private ButtonNavigator buttonNavigator;
+    [SerializeField] private InventoryUI inventoryUI;
+    [SerializeField] private GameObject attackCommand;
     public static BattleManager Instance { get; private set; }
     
     // 現在の敵を外部から取得可能にする
@@ -67,9 +69,29 @@ public class BattleManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (Keyboard.current.tabKey.wasPressedThisFrame && buttonNavigator.isInventory)
+        {
+            Debug.Log("closeInventory"); 
+            inventoryUI.contentParent.gameObject.SetActive(false);
+            buttonNavigator.SetInventoryState(false);
+            attackCommand.SetActive(true);
+        }
+        
         if (Keyboard.current.spaceKey.isPressed)
         {
             SceneManager.LoadScene("MainScene");
         } 
+    }
+    
+    /// <summary>
+    /// playerのpositionを記録
+    /// </summary>
+    public void SavePlayerInventory()
+    {
+        var playerData = new PlayerData(GameManager.Instance.playerPosition);
+        var inventory = GameManager.Instance.inventory;
+
+        SaveManager.SavePlayerData(playerData, inventory);
+        Debug.Log("Save"); 
     }
 }

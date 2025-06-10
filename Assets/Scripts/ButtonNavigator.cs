@@ -37,19 +37,10 @@ public class ButtonNavigator : MonoBehaviour
         }
     }
 
-    public void IsInventorySwitch()
+    public void SetInventoryState(bool state)
     {
-        Debug.Log("IsInventorySwitch");
-        if (isInventory)
-        {
-            Debug.Log("IsInventorySwitch:false");
-            isInventory = false;
-        }
-        else
-        {
-            Debug.Log("IsInventorySwitch:true");
-            isInventory = true;
-        }
+        isInventory = state;
+        Debug.Log($"SetInventoryState: {isInventory}");
     }
     
     void SelectButton(int index)

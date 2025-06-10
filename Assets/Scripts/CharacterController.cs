@@ -187,6 +187,8 @@ public class CharacterController : MonoBehaviour
 
             GameManager.Instance.enemyType = 1;
 
+            SavePlayerPosition();
+            
             SceneManager.LoadScene("BattleScene");
         }
         else

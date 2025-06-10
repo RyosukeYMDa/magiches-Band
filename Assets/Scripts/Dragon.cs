@@ -5,6 +5,7 @@ public class Dragon : MonoBehaviour,IEnemy
 {
     [SerializeField] private CharacterStatus characterStatus;
     [SerializeField] private BattlePlayerController battlePlayerController;
+    [SerializeField] private BattleManager battleManager;
     
     private const float CriticalRate = 0.25f; //クリティカルの確率（今は25％）
     private const int CriticalMultiplier = 2; // クリティカル倍率
@@ -87,11 +88,12 @@ public class Dragon : MonoBehaviour,IEnemy
 
         if (characterStatus.hp <= 0)
         {
+            Destroy(gameObject);
             Debug.Log($"{gameObject.name} を撃破！");
             characterStatus.hp = characterStatus.maxHp;
             characterStatus.mp = characterStatus.maxMp;
+            battleManager.SavePlayerInventory();
             SceneManager.LoadScene("MainScene");
-            Destroy(gameObject);
         }
     }
     

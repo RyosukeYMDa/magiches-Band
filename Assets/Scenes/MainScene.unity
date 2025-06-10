@@ -1251,6 +1251,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy1: {fileID: 2035583390}
+  inventoryUI: {fileID: 1582927737}
+  buttonNavigator: {fileID: 1582927736}
   player: {x: 0, y: 0, z: 0}
 --- !u!1 &1161173657
 GameObject:
@@ -1548,8 +1550,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemTextPrefab: {fileID: 585160820923368427, guid: 2057e3d1b1c0b47498f10ed1134b1769, type: 3}
-  contentParent: {fileID: 275426392}
   buttonNavigator: {fileID: 1582927736}
+  contentParent: {fileID: 275426392}
   playerStatus: {fileID: 11400000, guid: 9797ff948bf232648a2320e925992a02, type: 2}
   isOpen: 0
   messageText: {fileID: 941362896}
@@ -1940,7 +1942,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &2035583391
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1971,8 +1973,8 @@ Transform:
   m_GameObject: {fileID: 2035583390}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.94, y: 0.6, z: 0.57}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -8.13, y: 1.093, z: 0.57}
+  m_LocalScale: {x: 0, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

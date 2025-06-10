@@ -8,8 +8,8 @@ using UnityEngine.SceneManagement;
 public class InventoryUI : MonoBehaviour
 {
     [SerializeField] private GameObject itemTextPrefab; // TextMeshProを含むプレハブ
-    [SerializeField] private Transform contentParent;   // アイテムを並べる親（Vertical Layout Group）
     [SerializeField] private ButtonNavigator buttonNavigator;
+    public Transform contentParent;   // アイテムを並べる親（Vertical Layout Group）
     
     private Inventory inventory;
     
@@ -47,26 +47,22 @@ public class InventoryUI : MonoBehaviour
         
         if (!buttonNavigator.isInventory) return;
         
-        if (Keyboard.current.tabKey.wasPressedThisFrame && buttonNavigator.isInventory)
-        {
-            Debug.Log("closeInventory");
-            contentParent.gameObject.SetActive(false);
-            buttonNavigator.IsInventorySwitch();
-        }
-        
         if (itemUiObjects.Count == 0) return;
         
         if (Keyboard.current.enterKey.wasPressedThisFrame && buttonNavigator.isInventory)
         {
+            Debug.Log("enter");
             UseItem(selectedIndex);
         }
         
         if (Keyboard.current.downArrowKey.wasPressedThisFrame && buttonNavigator.isInventory)
         {
+            Debug.Log("down");
             selectedIndex = (selectedIndex + 1) % itemUiObjects.Count;
             UpdateHighlight();
         }else if (Keyboard.current.upArrowKey.wasPressedThisFrame && buttonNavigator.isInventory)
         {
+            Debug.Log("up");
             selectedIndex = (selectedIndex - 1 + itemUiObjects.Count) % itemUiObjects.Count;
             UpdateHighlight();
         }

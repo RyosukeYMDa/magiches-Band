@@ -78,6 +78,6 @@ public class MenuBar : MonoBehaviour
 
         inventoryPanel.SetActive(true);
         panel.gameObject.SetActive(false);
-        buttonNavigator.IsInventorySwitch();
+        buttonNavigator.SetInventoryState(true);
     }
 }

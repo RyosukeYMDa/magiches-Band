@@ -379,7 +379,7 @@ MonoBehaviour:
   actButton: {fileID: 1455069520}
   actCommand: {fileID: 1752203270}
   attackCommand: {fileID: 1651826860}
-  buttonNavigator: {fileID: 1752203272}
+  buttonNavigator: {fileID: 135609581}
   inventoryPanel: {fileID: 555882268}
 --- !u!114 &135609580
 MonoBehaviour:
@@ -394,8 +394,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemTextPrefab: {fileID: 585160820923368427, guid: 2057e3d1b1c0b47498f10ed1134b1769, type: 3}
+  buttonNavigator: {fileID: 135609581}
   contentParent: {fileID: 555882269}
-  buttonNavigator: {fileID: 1752203272}
   playerStatus: {fileID: 11400000, guid: 9797ff948bf232648a2320e925992a02, type: 2}
   isOpen: 0
   messageText: {fileID: 604540505}
@@ -2241,6 +2241,9 @@ MonoBehaviour:
   factory: {fileID: 1711303364}
   uiParent: {fileID: 1434020547}
   actButton: {fileID: 1455069520}
+  buttonNavigator: {fileID: 135609581}
+  inventoryUI: {fileID: 135609580}
+  attackCommand: {fileID: 1752203270}
 --- !u!114 &1735000224
 MonoBehaviour:
   m_ObjectHideFlags: 0
