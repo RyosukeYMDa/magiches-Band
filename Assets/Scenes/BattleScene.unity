@@ -2144,7 +2144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slimePrefab: {fileID: 8534590513824815701, guid: 72d715d29f5d79a48b6f095536846ea1, type: 3}
   dRexPrefab: {fileID: 7095583585960127782, guid: 441ec0b91f1072c4caa791d35fbc1b63, type: 3}
-  bossPrefab: {fileID: 3365755709082704958, guid: a127b361cfb75554db4ad49c5d6787ad, type: 3}
+  bossPrefab: {fileID: 4444149858454542876, guid: 9c7f0f5a2f2755849af06772b77dcf2e, type: 3}
 --- !u!1 &1721773072
 GameObject:
   m_ObjectHideFlags: 0
