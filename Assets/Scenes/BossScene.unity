@@ -1832,7 +1832,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slimePrefab: {fileID: 8534590513824815701, guid: 72d715d29f5d79a48b6f095536846ea1, type: 3}
   dRexPrefab: {fileID: 7095583585960127782, guid: 441ec0b91f1072c4caa791d35fbc1b63, type: 3}
-  bossPrefab: {fileID: 4444149858454542876, guid: 9c7f0f5a2f2755849af06772b77dcf2e, type: 3}
+  bossPrefab: {fileID: 7095583585960127782, guid: 441ec0b91f1072c4caa791d35fbc1b63, type: 3}
 --- !u!4 &1519973879
 Transform:
   m_ObjectHideFlags: 0
@@ -2197,7 +2197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   factory: {fileID: 1519973878}
-  uiParent: {fileID: 917343176}
+  uiParent: {fileID: 1850693392}
   actButton: {fileID: 1771276381}
   buttonNavigator: {fileID: 1430473318}
   inventoryUI: {fileID: 1430473317}
