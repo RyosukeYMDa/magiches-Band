@@ -182,7 +182,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2082121405}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BattlePlayerController, Assembly-CSharp
         m_MethodName: Slash
         m_Mode: 1
@@ -436,7 +436,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2082121405}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BattlePlayerController, Assembly-CSharp
         m_MethodName: Explosion
         m_Mode: 1
@@ -1741,8 +1741,8 @@ RectTransform:
   - {fileID: 456298482}
   - {fileID: 360705355}
   - {fileID: 1850693392}
-  - {fileID: 917343176}
   - {fileID: 1644727678}
+  - {fileID: 917343176}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1832,7 +1832,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slimePrefab: {fileID: 8534590513824815701, guid: 72d715d29f5d79a48b6f095536846ea1, type: 3}
   dRexPrefab: {fileID: 7095583585960127782, guid: 441ec0b91f1072c4caa791d35fbc1b63, type: 3}
-  bossPrefab: {fileID: 8899481884167719449, guid: 9c7f0f5a2f2755849af06772b77dcf2e, type: 3}
+  bossPrefab: {fileID: 3365755709082704958, guid: a127b361cfb75554db4ad49c5d6787ad, type: 3}
 --- !u!4 &1519973879
 Transform:
   m_ObjectHideFlags: 0
@@ -2182,7 +2182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7821e6467182bd541bf0dd0122502972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 2082121405}
+  player: {fileID: 0}
   enemyObjects: []
 --- !u!114 &1951445042
 MonoBehaviour:
@@ -2197,11 +2197,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   factory: {fileID: 1519973878}
-  uiParent: {fileID: 1850693392}
-  actButton: {fileID: 1771276381}
-  buttonNavigator: {fileID: 1430473318}
-  inventoryUI: {fileID: 1430473317}
-  attackCommand: {fileID: 360705353}
+  uiParent: {fileID: 0}
+  actButton: {fileID: 0}
+  buttonNavigator: {fileID: 0}
+  inventoryUI: {fileID: 0}
+  attackCommand: {fileID: 0}
 --- !u!4 &1951445043
 Transform:
   m_ObjectHideFlags: 0
@@ -2595,17 +2595,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4620560065268221963, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}
   m_PrefabInstance: {fileID: 2082121403}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2082121405 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8732552605721786611, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}
-  m_PrefabInstance: {fileID: 2082121403}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2eb4773999592094b943a4536218c6b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
