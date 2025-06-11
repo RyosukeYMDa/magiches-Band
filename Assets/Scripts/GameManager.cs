@@ -15,8 +15,15 @@ public class GameManager : MonoBehaviour
     
     private Vector3 startPosition;
 
+    public EnemyType enemyType;
+
     //enemyの発生する場所のtype
-    public int enemyType;
+    public enum EnemyType
+    {
+        NotEncounterEnemy,
+        Enemy1,
+        BossEnemy
+    }
     
     //インベントリ
     public Inventory inventory;

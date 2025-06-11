@@ -20,6 +20,7 @@ public class EnemyFactory : MonoBehaviour
     [Header("UI Enemy Prefabs")]
     public GameObject slimePrefab;
     public GameObject dRexPrefab;
+    public GameObject bossPrefab;
 
     /// <summary>
     /// ランダムな敵をUI上に生成（親はCanvas）
@@ -39,10 +40,16 @@ public class EnemyFactory : MonoBehaviour
                 break;
         }
 
-        if (prefab == null) return null;
+        if (GameManager.Instance.enemyType == GameManager.EnemyType.BossEnemy)
+        {
+            Debug.Log("Boss");
+            prefab = bossPrefab;
+        }
+
+        if (!prefab) return null;
 
         // Instantiate UI prefab under the canvas
-        GameObject enemyObj = Instantiate(prefab, parent);
+        var enemyObj = Instantiate(prefab, parent);
         
         // UI のローカル座標で表示位置を調整
         enemyObj.GetComponent<RectTransform>().anchoredPosition = localPosition;

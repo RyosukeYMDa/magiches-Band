@@ -1,9 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-public class BottomController : MonoBehaviour
+public class ButtonController : MonoBehaviour
 {
-    //Attackする為のbuttonの参照
+//Attackする為のbuttonの参照
     [SerializeField] private GameObject actButton;
     [SerializeField] private GameObject actCommand;
     [SerializeField] private GameObject attackCommand;

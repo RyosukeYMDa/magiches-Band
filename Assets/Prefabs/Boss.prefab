@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8534590513824815701
+--- !u!1 &3365755709082704958
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,51 +8,51 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3354760528883125945}
-  - component: {fileID: 5707041034738245844}
-  - component: {fileID: 2339002721808317796}
-  - component: {fileID: -2704280127975390570}
+  - component: {fileID: 6390579958442023835}
+  - component: {fileID: 656004243915086483}
+  - component: {fileID: 9117964290796744319}
+  - component: {fileID: 6797754897331643302}
   m_Layer: 0
-  m_Name: SkeletonGraphic (sack-pro)
+  m_Name: Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &3354760528883125945
+--- !u!224 &6390579958442023835
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8534590513824815701}
+  m_GameObject: {fileID: 3365755709082704958}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 208.78464, y: -218}
+  m_AnchoredPosition: {x: -6.0725765, y: 201.36017}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &5707041034738245844
+--- !u!222 &656004243915086483
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8534590513824815701}
+  m_GameObject: {fileID: 3365755709082704958}
   m_CullTransparentMesh: 0
---- !u!114 &2339002721808317796
+--- !u!114 &9117964290796744319
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8534590513824815701}
+  m_GameObject: {fileID: 3365755709082704958}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d85b887af7e6c3f45a2e2d2920d641bc, type: 3}
@@ -66,12 +66,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  skeletonDataAsset: {fileID: 11400000, guid: 4f6372c21601bf94c9d0190a95e561c2, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: e57cdb51287d3924ebb2ececf816733b, type: 2}
   additiveMaterial: {fileID: 2100000, guid: 2e8245019faeb8c43b75f9ca3ac8ee34, type: 2}
   multiplyMaterial: {fileID: 2100000, guid: e74a1f8978a7da348a721508d0d58834, type: 2}
   screenMaterial: {fileID: 2100000, guid: bab24c479f34eec45be6ea8595891569, type: 2}
   m_SkeletonColor: {r: 1, g: 1, b: 1, a: 1}
-  initialSkinName: default
+  initialSkinName: White
   initialFlipX: 0
   initialFlipY: 0
   startingAnimation: 
@@ -109,18 +109,18 @@ MonoBehaviour:
       immutableTriangles: 0
   updateTiming: 1
   unscaledTime: 0
---- !u!114 &-2704280127975390570
+--- !u!114 &6797754897331643302
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8534590513824815701}
+  m_GameObject: {fileID: 3365755709082704958}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8c383af1f841f94a9a7de5bbaba4f16, type: 3}
+  m_Script: {fileID: 11500000, guid: c5bca47890543524e857e7451d3bb1d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterStatus: {fileID: 11400000, guid: 37e5eaa20c7245947b6ba8dba38f2387, type: 2}
-  turnManager: {fileID: 0}
+  characterStatus: {fileID: 11400000, guid: 205370a627cbaae4dadb30e9d95dd36c, type: 2}
   battlePlayerController: {fileID: 8732552605721786611, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}
+  battleManager: {fileID: 0}

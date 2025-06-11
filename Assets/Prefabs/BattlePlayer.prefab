@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7223046081121607160}
   - component: {fileID: 8732552605721786611}
   m_Layer: 0
-  m_Name: SkeletonGraphic (spineboy-unity)
+  m_Name: BattlePlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -122,5 +122,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterStatus: {fileID: 11400000, guid: 9797ff948bf232648a2320e925992a02, type: 2}
-  battleManager: {fileID: 0}
-  turnManager: {fileID: 0}
+  attackCommand: {fileID: 0}

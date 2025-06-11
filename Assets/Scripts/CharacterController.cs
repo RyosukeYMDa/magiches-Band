@@ -185,7 +185,7 @@ public class CharacterController : MonoBehaviour
             //scene遷移時にplayerの座標を記録させる
             GameManager.Instance.playerPosition = collision.transform.position;
 
-            GameManager.Instance.enemyType = 1;
+            GameManager.Instance.enemyType = GameManager.EnemyType.Enemy1;
 
             SavePlayerPosition();
             

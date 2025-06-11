@@ -19,12 +19,12 @@ public class MainManager : MonoBehaviour
             return;
         }
 
-        if (GameManager.Instance.enemyType == 0)
+        if (GameManager.Instance.enemyType == GameManager.EnemyType.NotEncounterEnemy)
         {
             enemy1.SetActive(true);
         }
 
-        if (GameManager.Instance.enemyType == 1)
+        if (GameManager.Instance.enemyType == GameManager.EnemyType.Enemy1)
         {
             StartCoroutine(EnableSpawnPoint());
         }
