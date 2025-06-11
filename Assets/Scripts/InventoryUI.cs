@@ -125,6 +125,7 @@ public class InventoryUI : MonoBehaviour
             {
                 Debug.Log("ドアを開けた");
                 inventory.RemoveItem(item.itemName, 1);
+                GameManager.Instance.enemyType = GameManager.EnemyType.BossEnemy;
                 SceneManager.LoadScene("BossScene");
             }
             else

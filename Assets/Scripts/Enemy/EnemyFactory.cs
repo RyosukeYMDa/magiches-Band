@@ -29,21 +29,23 @@ public class EnemyFactory : MonoBehaviour
     {
         EnemyTypeEnum randomType = (EnemyTypeEnum)Random.Range(0, System.Enum.GetNames(typeof(EnemyTypeEnum)).Length);
         GameObject prefab = null;
-
-        switch (randomType)
-        {
-            case EnemyTypeEnum.Slime:
-                prefab = slimePrefab;
-                break;
-            case EnemyTypeEnum.DRex:
-                prefab = dRexPrefab;
-                break;
-        }
-
+        
         if (GameManager.Instance.enemyType == GameManager.EnemyType.BossEnemy)
         {
             Debug.Log("Boss");
             prefab = bossPrefab;
+        }
+        else
+        {
+            switch (randomType)
+            {
+                case EnemyTypeEnum.Slime:
+                    prefab = slimePrefab;
+                    break;
+                case EnemyTypeEnum.DRex:
+                    prefab = dRexPrefab;
+                    break;
+            }   
         }
 
         if (!prefab) return null;
