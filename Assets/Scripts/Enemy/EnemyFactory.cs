@@ -6,6 +6,8 @@ public interface IEnemy
     void TakeDamage(int damage);
 
     void NextState();
+    
+    void ResetStatus();
     CharacterStatus Status { get; }
 }
 

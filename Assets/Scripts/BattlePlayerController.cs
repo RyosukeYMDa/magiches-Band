@@ -87,6 +87,8 @@ public class BattlePlayerController : MonoBehaviour,IEnemy
     /// <param name="damage"></param>
     public void TakeDamage(int damage)
     {
+        var enemy = BattleManager.Instance.CurrentEnemy;
+        
         var randomEvasion = Random.Range(0.0f, 1.0f);
 
         if (randomEvasion < EvasionRate)
@@ -101,9 +103,9 @@ public class BattlePlayerController : MonoBehaviour,IEnemy
 
         if (characterStatus.hp <= 0)
         {
-            characterStatus.hp = characterStatus.maxHp;
-            characterStatus.mp = characterStatus.maxMp;
+            ResetStatus();
             GameManager.Instance.playerPosition = new Vector3(-13f, 0.6f, 6);
+            enemy.ResetStatus();
             SceneManager.LoadScene("Title");
             Debug.Log("プレイヤーが倒れた！");
         }
@@ -122,6 +124,12 @@ public class BattlePlayerController : MonoBehaviour,IEnemy
             TurnManager.Instance.CurrentTurnPhase = TurnManager.TurnPhase.FirstMove;
             TurnManager.Instance.ProceedTurn();
         }
+    }
+    
+    public void ResetStatus()
+    {
+        characterStatus.hp = characterStatus.maxHp;
+        characterStatus.mp = characterStatus.maxMp;
     }
     
     public CharacterStatus Status => characterStatus;

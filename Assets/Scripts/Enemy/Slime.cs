@@ -84,8 +84,7 @@ public class Slime : MonoBehaviour,IEnemy
         {
             Destroy(gameObject);
             Debug.Log($"{gameObject.name} を撃破！");
-            characterStatus.hp = characterStatus.maxHp;
-            characterStatus.mp = characterStatus.maxMp;
+            ResetStatus();
             battleManager.SavePlayerInventory();
             SceneManager.LoadScene("MainScene");
         }
@@ -103,5 +102,11 @@ public class Slime : MonoBehaviour,IEnemy
             TurnManager.Instance.CurrentTurnPhase = TurnManager.TurnPhase.FirstMove;
             TurnManager.Instance.ProceedTurn();
         }
+    }
+
+    public void ResetStatus()
+    {
+        characterStatus.hp = characterStatus.maxHp;
+        characterStatus.mp = characterStatus.maxMp;
     }
 }
