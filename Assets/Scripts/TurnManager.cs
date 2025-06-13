@@ -10,6 +10,8 @@ public class TurnManager : MonoBehaviour
     private List<GameObject> turnOrder = new List<GameObject>();
     private int currentTurnIndex;
     
+    public int turnCount;
+    
     public static TurnManager Instance { get; private set; }
 
     public enum TurnPhase
@@ -69,18 +71,31 @@ public class TurnManager : MonoBehaviour
     {
         if (turnOrder.Count == 0) return;
 
+        //turn数を増加
+        turnCount++;
+        Debug.Log(turnCount);
         GameObject currentUnit = turnOrder[currentTurnIndex];
     
         var enemy = currentUnit.GetComponent<IEnemy>();
         if (enemy != null)
         {
             Debug.Log($"[TurnManager] 行動ユニット: {currentUnit.name} AGI: {enemy.Status.agi}");
+            Debug.Log("Act");
             enemy.Act();
         }
         else
         {
             Debug.LogWarning($"[TurnManager] IEnemy が見つかりません: {currentUnit.name}");
         }
+    }
+    
+    public void ReplaceEnemy(GameObject newEnemy)
+    {
+        if (enemyObjects.Count > 0)
+        {
+            enemyObjects[0] = newEnemy;
+        }
+        ProceedTurn();
     }
     
     public void AddEnemy(GameObject enemy)

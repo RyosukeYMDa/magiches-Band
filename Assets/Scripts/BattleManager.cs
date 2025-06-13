@@ -11,14 +11,17 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private ButtonNavigator buttonNavigator;
     [SerializeField] private InventoryUI inventoryUI;
     [SerializeField] private GameObject attackCommand;
+    
+    public bool bossPhase2;
+    
     public static BattleManager Instance { get; private set; }
     
     // 現在の敵を外部から取得可能にする
     public IEnemy CurrentEnemy { get; private set; }
 
-    void Awake()
+    private void Awake()
     {
-        if (Instance == null)
+        if (!Instance)
         {
             Instance = this;
         }
@@ -31,7 +34,7 @@ public class BattleManager : MonoBehaviour
     
     private void Start()
     {
-        // UI上にランダムな敵を1体生成
+        // UI上に敵を1体生成
         Vector3 spawnPos = new Vector3(0, 40, -23); // anchoredPosition（中央表示）
         var enemy = factory.CreateEnemy(spawnPos, uiParent);
 
@@ -40,9 +43,9 @@ public class BattleManager : MonoBehaviour
             CurrentEnemy = enemy;
 
             var enemyObj = (enemy as MonoBehaviour)?.gameObject;
-            if (enemyObj != null)
+            if (enemyObj)
             {
-                if (TurnManager.Instance != null)
+                if (TurnManager.Instance)
                 {
                     TurnManager.Instance.AddEnemy(enemyObj);
                     Debug.Log("turnManager");
@@ -81,6 +84,26 @@ public class BattleManager : MonoBehaviour
         {
             SceneManager.LoadScene("MainScene");
         } 
+    }
+    
+    public void SpawnPhase2Boss()
+    {
+        Vector3 spawnPos = new Vector3(0, 40, -23); // 表示位置は調整可
+
+        var bossPhase2 = factory.CreateEnemy(spawnPos, uiParent, isPhase2: true);
+
+        if (bossPhase2 != null)
+        {
+            CurrentEnemy = bossPhase2;
+
+            var enemyObj = (bossPhase2 as MonoBehaviour)?.gameObject;
+
+            if (enemyObj && TurnManager.Instance)
+            {
+                TurnManager.Instance.ReplaceEnemy(enemyObj);
+                TurnManager.Instance.SetupTurnOrder();
+            }
+        }
     }
     
     /// <summary>

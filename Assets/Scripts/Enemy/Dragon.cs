@@ -3,16 +3,15 @@ using UnityEngine.SceneManagement;
 
 public class Dragon : MonoBehaviour,IEnemy
 {
-    [SerializeField] private CharacterStatus characterStatus;
+    [SerializeField] private CharacterStatus dragonStatus;
     [SerializeField] private BattlePlayerController battlePlayerController;
-    [SerializeField] private BattleManager battleManager;
     
     private const float CriticalRate = 0.25f; //クリティカルの確率（今は25％）
     private const int CriticalMultiplier = 2; // クリティカル倍率
     private const float EvasionRate = 0.1f; //回避の確率（今は10％）
 
     private int consumptionMp; //消費Mp
-    public CharacterStatus Status => characterStatus;
+    public CharacterStatus Status => dragonStatus;
     
     public void Act()
     {
@@ -25,18 +24,18 @@ public class Dragon : MonoBehaviour,IEnemy
             case 0:
                 Debug.Log("Bite");
                 // プレイヤーへのダメージ計算
-                damage = Mathf.Max(0, characterStatus.atk - battlePlayerController.Status.def);
+                damage = Mathf.Max(0, dragonStatus.atk - battlePlayerController.Status.def);
                 damage = CriticalCalculation(damage);
                 battlePlayerController.TakeDamage(damage);
                 break;
             case 1:
                 consumptionMp = 3;
-                if ((characterStatus.mp - consumptionMp) >= 0)
+                if ((dragonStatus.mp - consumptionMp) >= 0)
                 {
-                    characterStatus.mp -= consumptionMp;
+                    dragonStatus.mp -= consumptionMp;
                     Debug.Log("Breath");
                     // プレイヤーへのダメージ計算
-                    damage = Mathf.Max(0, characterStatus.mAtk - battlePlayerController.Status.mDef);
+                    damage = Mathf.Max(0, dragonStatus.mAtk - battlePlayerController.Status.mDef);
                     damage = CriticalCalculation(damage);
                     battlePlayerController.TakeDamage(damage);   
                 }
@@ -78,20 +77,20 @@ public class Dragon : MonoBehaviour,IEnemy
 
         if (randomEvasion < EvasionRate)
         {
-            Debug.Log($"回避  残HP: {characterStatus.hp}");
+            Debug.Log($"回避  残HP: {dragonStatus.hp}");
         }
         else
         {
-            characterStatus.hp -= damage;
-            Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {characterStatus.hp}");   
+            dragonStatus.hp -= damage;
+            Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {dragonStatus.hp}");   
         }
 
-        if (characterStatus.hp <= 0)
+        if (dragonStatus.hp <= 0)
         {
             Destroy(gameObject);
             Debug.Log($"{gameObject.name} を撃破！");
             ResetStatus();
-            battleManager.SavePlayerInventory();
+            BattleManager.Instance.SavePlayerInventory();
             SceneManager.LoadScene("MainScene");
         }
     }
@@ -111,7 +110,7 @@ public class Dragon : MonoBehaviour,IEnemy
     
     public void ResetStatus()
     {
-        characterStatus.hp = characterStatus.maxHp;
-        characterStatus.mp = characterStatus.maxMp;
+        dragonStatus.hp = dragonStatus.maxHp;
+        dragonStatus.mp = dragonStatus.maxMp;
     }
 }

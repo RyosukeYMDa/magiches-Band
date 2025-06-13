@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 7824943}
   - component: {fileID: 7824942}
   - component: {fileID: 7824941}
+  - component: {fileID: 7824944}
   m_Layer: 5
   m_Name: SlashButton
   m_TagString: Untagged
@@ -252,6 +253,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7824939}
   m_CullTransparentMesh: 1
+--- !u!114 &7824944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7824939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 135609582}
+          m_TargetAssemblyTypeName: ButtonController, Assembly-CSharp
+          m_MethodName: SlashText
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &135609574
 GameObject:
   m_ObjectHideFlags: 0
@@ -414,6 +444,7 @@ MonoBehaviour:
   actCommand: {fileID: 1752203270}
   attackCommand: {fileID: 1651826860}
   buttonNavigator: {fileID: 135609581}
+  messageText: {fileID: 604540505}
   inventoryPanel: {fileID: 555882268}
 --- !u!1 &200155103
 GameObject:
@@ -2144,7 +2175,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slimePrefab: {fileID: 8534590513824815701, guid: 72d715d29f5d79a48b6f095536846ea1, type: 3}
   dRexPrefab: {fileID: 7095583585960127782, guid: 441ec0b91f1072c4caa791d35fbc1b63, type: 3}
-  bossPrefab: {fileID: 3365755709082704958, guid: a127b361cfb75554db4ad49c5d6787ad, type: 3}
+  bossPrefab: {fileID: 7178604231308293903, guid: 5efc2e0bce0edb44eab014b25a787c29, type: 3}
+  bossPhase2Prefab: {fileID: 2298812686710650429, guid: e1eafce323cd37544b857c5700b78197, type: 3}
 --- !u!1 &1721773072
 GameObject:
   m_ObjectHideFlags: 0
@@ -2245,6 +2277,7 @@ MonoBehaviour:
   buttonNavigator: {fileID: 135609581}
   inventoryUI: {fileID: 135609580}
   attackCommand: {fileID: 1752203270}
+  bossPhase2: 0
 --- !u!114 &1735000224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2259,6 +2292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 2064498519}
   enemyObjects: []
+  turnCount: 0
 --- !u!1 &1752203270
 GameObject:
   m_ObjectHideFlags: 0
@@ -2462,6 +2496,7 @@ GameObject:
   - component: {fileID: 2004797794}
   - component: {fileID: 2004797793}
   - component: {fileID: 2004797792}
+  - component: {fileID: 2004797795}
   m_Layer: 5
   m_Name: ExplosionButton
   m_TagString: Untagged
@@ -2583,6 +2618,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2004797790}
   m_CullTransparentMesh: 1
+--- !u!114 &2004797795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2004797790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 135609582}
+          m_TargetAssemblyTypeName: ButtonController, Assembly-CSharp
+          m_MethodName: ExplosionText
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!224 &2064498515 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4620560065268221963, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}

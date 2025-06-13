@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Boss : MonoBehaviour,IEnemy
+public class BossPhase2 : MonoBehaviour,IEnemy
 {
-    [SerializeField] private CharacterStatus bossStatus;
+    [SerializeField] private CharacterStatus bossPhase2Status;
     [SerializeField] private BattlePlayerController battlePlayerController;
     
     private const float CriticalRate = 0.25f; //クリティカルの確率（今は25％）
@@ -11,7 +11,7 @@ public class Boss : MonoBehaviour,IEnemy
     private const float EvasionRate = 0.1f; //回避の確率（今は10％）
     
     private int consumptionMp; //消費Mp
-    public CharacterStatus Status => bossStatus;
+    public CharacterStatus Status => bossPhase2Status;
     
     public void Act()
     {
@@ -24,17 +24,17 @@ public class Boss : MonoBehaviour,IEnemy
             case 0:
                 Debug.Log("Charge");
                 // プレイヤーへのダメージ計算
-                damage = Mathf.Max(0, bossStatus.atk - battlePlayerController.Status.def);
+                damage = Mathf.Max(0, bossPhase2Status.atk - battlePlayerController.Status.def);
                 damage = CriticalCalculation(damage);
                 battlePlayerController.TakeDamage(damage);
                 break;
             case 1:
                 consumptionMp = 1;
-                if ((bossStatus.mp - consumptionMp) >= 0)
+                if ((bossPhase2Status.mp - consumptionMp) >= 0)
                 {
                     Debug.Log("Fire");
                     // プレイヤーへのダメージ計算
-                    damage = Mathf.Max(0, bossStatus.mAtk - battlePlayerController.Status.mDef);
+                    damage = Mathf.Max(0, bossPhase2Status.mAtk - battlePlayerController.Status.mDef);
                     damage = CriticalCalculation(damage);
                     battlePlayerController.TakeDamage(damage);   
                 }
@@ -71,37 +71,26 @@ public class Boss : MonoBehaviour,IEnemy
 
         if (randomEvasion < EvasionRate)
         {
-            Debug.Log($"回避  残HP: {bossStatus.hp}");
+            Debug.Log($"回避  残HP: {bossPhase2Status.hp}");
         }
         else
         {
-            bossStatus.hp -= damage;
-            Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {bossStatus.hp}");   
+            bossPhase2Status.hp -= damage;
+            Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {bossPhase2Status.hp}");   
         }
 
-        if (bossStatus.hp <= 0)
+        if (bossPhase2Status.hp <= 0)
         {
-            if (!BattleManager.Instance.bossPhase2)
-            {
-                BattleManager.Instance.bossPhase2 = true;
-
-                Debug.Log($"{gameObject.name} を撃破！");
-                ResetStatus();
-                BattleManager.Instance.SpawnPhase2Boss();
-                // 現在のボスを削除して2段階目を生成
-                Destroy(gameObject);
-            }
-            else
-            {
-                Debug.Log("miss");
-            }
+            Destroy(gameObject);
+            Debug.Log($"{gameObject.name} を撃破！");
+            ResetStatus();
+            BattleManager.Instance.SavePlayerInventory();
+            SceneManager.LoadScene("MainScene");
         }
     }
 
     public void NextState()
     {
-        if(BattleManager.Instance.bossPhase2)return;
-        
         Debug.Log("NextState");
         if (TurnManager.Instance.CurrentTurnPhase == TurnManager.TurnPhase.FirstMove)
         {
@@ -115,10 +104,10 @@ public class Boss : MonoBehaviour,IEnemy
             Debug.Log("ProceedTurn");
         }
     }
-    
+
     public void ResetStatus()
     {
-        bossStatus.hp = bossStatus.maxHp;
-        bossStatus.mp = bossStatus.maxMp;
+        bossPhase2Status.hp = bossPhase2Status.maxHp;
+        bossPhase2Status.mp = bossPhase2Status.maxMp;
     }
 }

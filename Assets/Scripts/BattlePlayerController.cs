@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 
 public class BattlePlayerController : MonoBehaviour,IEnemy
 {
-    [SerializeField] private CharacterStatus characterStatus;
+    [SerializeField] private CharacterStatus playerStatus;
     [SerializeField] private GameObject attackCommand;
+    [SerializeField] private TextMeshProUGUI messageText;
     
     private const float CriticalRate = 0.25f; //クリティカルの確率（今は25％）
     private const int CriticalMultiplier = 2; // クリティカル倍率
@@ -20,17 +22,18 @@ public class BattlePlayerController : MonoBehaviour,IEnemy
     public void Explosion()
     {
         consumptionMp = 4;
-        if ((characterStatus.mp - consumptionMp) >= 0)
+        if ((playerStatus.mp - consumptionMp) >= 0)
         {
             Debug.Log("Explosion");
-     
+            messageText.gameObject.SetActive(false);
+            
             attackCommand.SetActive(false);
         
             // 敵を取得
             IEnemy enemy = BattleManager.Instance.CurrentEnemy;
         
             // ダメージ計算()
-            var damage = Mathf.Max(0, characterStatus.mAtk - enemy.Status.mDef);
+            var damage = Mathf.Max(0, playerStatus.mAtk - enemy.Status.mDef);
             damage = CriticalCalculation(damage);
 
             // 敵にダメージを与える
@@ -47,12 +50,13 @@ public class BattlePlayerController : MonoBehaviour,IEnemy
     public void Slash()
     {
         Debug.Log("Slash");
+        messageText.gameObject.SetActive(false);
         
         attackCommand.SetActive(false);
         
         IEnemy enemy = BattleManager.Instance.CurrentEnemy;
         
-        int damage = Mathf.Max(0,characterStatus.atk - enemy.Status.def);
+        int damage = Mathf.Max(0,playerStatus.atk - enemy.Status.def);
         
         damage = CriticalCalculation(damage);
         
@@ -93,15 +97,15 @@ public class BattlePlayerController : MonoBehaviour,IEnemy
 
         if (randomEvasion < EvasionRate)
         {
-            Debug.Log($"回避  残HP: {characterStatus.hp}");
+            Debug.Log($"回避  残HP: {playerStatus.hp}");
         }
         else
         {
-            characterStatus.hp -= damage;
-            Debug.Log($"プレイヤーは {damage} ダメージを受けた！ 残HP: {characterStatus.hp}");
+            playerStatus.hp -= damage;
+            Debug.Log($"プレイヤーは {damage} ダメージを受けた！ 残HP: {playerStatus.hp}");
         }
 
-        if (characterStatus.hp <= 0)
+        if (playerStatus.hp <= 0)
         {
             ResetStatus();
             GameManager.Instance.playerPosition = new Vector3(-13f, 0.6f, 6);
@@ -118,6 +122,11 @@ public class BattlePlayerController : MonoBehaviour,IEnemy
         if (TurnManager.Instance.CurrentTurnPhase == TurnManager.TurnPhase.FirstMove)
         {
             TurnManager.Instance.CurrentTurnPhase = TurnManager.TurnPhase.SecondMove;
+            if (BattleManager.Instance.bossPhase2)
+            {
+                BattleManager.Instance.bossPhase2 = false;
+                return;
+            }
             enemy.Act();
         }else if(TurnManager.Instance.CurrentTurnPhase == TurnManager.TurnPhase.SecondMove)
         {
@@ -128,9 +137,9 @@ public class BattlePlayerController : MonoBehaviour,IEnemy
     
     public void ResetStatus()
     {
-        characterStatus.hp = characterStatus.maxHp;
-        characterStatus.mp = characterStatus.maxMp;
+        playerStatus.hp = playerStatus.maxHp;
+        playerStatus.mp = playerStatus.maxMp;
     }
     
-    public CharacterStatus Status => characterStatus;
+    public CharacterStatus Status => playerStatus;
 }

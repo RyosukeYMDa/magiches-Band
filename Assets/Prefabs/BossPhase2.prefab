@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7095583585960127782
+--- !u!1 &2298812686710650429
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,51 +8,51 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5751325995939444830}
-  - component: {fileID: 6427667899669297211}
-  - component: {fileID: 893292696346392419}
-  - component: {fileID: -1701166236673070423}
+  - component: {fileID: 8568041347949329426}
+  - component: {fileID: 4796199354747322068}
+  - component: {fileID: 1397531988638300642}
+  - component: {fileID: 7073243334859854596}
   m_Layer: 0
-  m_Name: Drex
+  m_Name: BossPhase2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &5751325995939444830
+--- !u!224 &8568041347949329426
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7095583585960127782}
+  m_GameObject: {fileID: 2298812686710650429}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.000015258789}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -147.62933, y: -119}
+  m_AnchoredPosition: {x: 20, y: -8.981085}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &6427667899669297211
+--- !u!222 &4796199354747322068
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7095583585960127782}
+  m_GameObject: {fileID: 2298812686710650429}
   m_CullTransparentMesh: 0
---- !u!114 &893292696346392419
+--- !u!114 &1397531988638300642
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7095583585960127782}
+  m_GameObject: {fileID: 2298812686710650429}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d85b887af7e6c3f45a2e2d2920d641bc, type: 3}
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  skeletonDataAsset: {fileID: 11400000, guid: 784054e42b1ea374cb535eaf51bf4369, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 76d3b704a29fb5a45afe9a0060e0a994, type: 2}
   additiveMaterial: {fileID: 2100000, guid: 2e8245019faeb8c43b75f9ca3ac8ee34, type: 2}
   multiplyMaterial: {fileID: 2100000, guid: e74a1f8978a7da348a721508d0d58834, type: 2}
   screenMaterial: {fileID: 2100000, guid: bab24c479f34eec45be6ea8595891569, type: 2}
@@ -109,18 +109,18 @@ MonoBehaviour:
       immutableTriangles: 0
   updateTiming: 1
   unscaledTime: 0
---- !u!114 &-1701166236673070423
+--- !u!114 &7073243334859854596
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7095583585960127782}
+  m_GameObject: {fileID: 2298812686710650429}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1ae21f35c60b604ca1c4d2ad2da8c50, type: 3}
+  m_Script: {fileID: 11500000, guid: c2dfc29e54130024a91c8d910302f90b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dragonStatus: {fileID: 11400000, guid: 527e080ac10f58f4fbb61cfae9d9f0f9, type: 2}
+  bossPhase2Status: {fileID: 11400000, guid: feddff642003b764fae7a7d26fe87c0e, type: 2}
   battlePlayerController: {fileID: 8732552605721786611, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}
   battleManager: {fileID: 0}

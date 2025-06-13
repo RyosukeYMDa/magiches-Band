@@ -23,22 +23,24 @@ public class EnemyFactory : MonoBehaviour
     public GameObject slimePrefab;
     public GameObject dRexPrefab;
     public GameObject bossPrefab;
+    public GameObject bossPhase2Prefab;
 
     /// <summary>
     /// ランダムな敵をUI上に生成（親はCanvas）
     /// </summary>
-    public IEnemy CreateEnemy(Vector3 localPosition, Transform parent)
+    public IEnemy CreateEnemy(Vector3 localPosition, Transform parent, bool isPhase2 = false)
     {
-        EnemyTypeEnum randomType = (EnemyTypeEnum)Random.Range(0, System.Enum.GetNames(typeof(EnemyTypeEnum)).Length);
         GameObject prefab = null;
         
         if (GameManager.Instance.enemyType == GameManager.EnemyType.BossEnemy)
         {
-            Debug.Log("Boss");
-            prefab = bossPrefab;
+            prefab = isPhase2 ? bossPhase2Prefab : bossPrefab;
+            Debug.Log(isPhase2 ? "Boss Phase 2" : "Boss Phase 1");
         }
         else
         {
+            EnemyTypeEnum randomType = (EnemyTypeEnum)Random.Range(0, System.Enum.GetNames(typeof(EnemyTypeEnum)).Length);
+            
             switch (randomType)
             {
                 case EnemyTypeEnum.Slime:

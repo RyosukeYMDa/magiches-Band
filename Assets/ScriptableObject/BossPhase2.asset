@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 084a070f4e1b3d147bff72a0d8edebb9, type: 3}
-  m_Name: Slime
+  m_Name: BossPhase2
   m_EditorClassIdentifier: 
-  enemyName: Slime
-  maxHp: 10
-  maxMp: 10
+  enemyName: BossPhase2
+  maxHp: 9
+  maxMp: 9
   hp: 1
-  mp: 10
+  mp: 9
   atk: 1
   def: 0
   mAtk: 1

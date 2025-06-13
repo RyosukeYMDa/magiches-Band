@@ -121,5 +121,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb4773999592094b943a4536218c6b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterStatus: {fileID: 11400000, guid: 9797ff948bf232648a2320e925992a02, type: 2}
+  playerStatus: {fileID: 11400000, guid: 9797ff948bf232648a2320e925992a02, type: 2}
   attackCommand: {fileID: 0}

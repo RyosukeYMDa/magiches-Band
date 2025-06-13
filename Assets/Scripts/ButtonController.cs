@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using TMPro;
 
 public class ButtonController : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class ButtonController : MonoBehaviour
     [SerializeField] private GameObject actCommand;
     [SerializeField] private GameObject attackCommand;
     [SerializeField] private ButtonNavigator buttonNavigator;
+    
+    //messageを表示させる
+    [SerializeField] private TextMeshProUGUI messageText;
     
     public GameObject inventoryPanel;
     public void EnableAct()
@@ -50,5 +54,17 @@ public class ButtonController : MonoBehaviour
         inventoryPanel.SetActive(true);
         actCommand.SetActive(false);
         buttonNavigator.SetInventoryState(true);
+    }
+
+    public void SlashText()
+    {
+        messageText.gameObject.SetActive(true);
+        messageText.text = "slash:enemy - 1";
+    }
+
+    public void ExplosionText()
+    {
+        messageText.gameObject.SetActive(true);
+        messageText.text = "Explosion:enemy - 1";
     }
 }
