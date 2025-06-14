@@ -10,7 +10,7 @@ public class MenuBar : MonoBehaviour
     public Vector2 hiddenPosition;       // 非表示時の位置
     public float slideDuration = 0.3f;   // スライド時間
 
-    private bool isShown = false;        // 現在表示状態か
+    public bool isShown = false;        // 現在表示状態か
     private Coroutine slideCoroutine;
 
     [SerializeField] private ButtonNavigator buttonNavigator;

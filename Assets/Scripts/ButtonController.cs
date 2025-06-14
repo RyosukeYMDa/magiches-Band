@@ -9,6 +9,7 @@ public class ButtonController : MonoBehaviour
     [SerializeField] private GameObject actCommand;
     [SerializeField] private GameObject attackCommand;
     [SerializeField] private ButtonNavigator buttonNavigator;
+    [SerializeField] private BattlePlayerController battlePlayerController;
     
     //messageを表示させる
     [SerializeField] private TextMeshProUGUI messageText;
@@ -66,5 +67,16 @@ public class ButtonController : MonoBehaviour
     {
         messageText.gameObject.SetActive(true);
         messageText.text = "Explosion:enemy - 1";
+    }
+
+    public void AtkUpText()
+    {
+        messageText.gameObject.SetActive(true);
+        messageText.text = "AtkUp";
+
+        if (battlePlayerController.atkDoublingValue == 16)
+        {
+            messageText.text = "AtkUpperLimit";
+        }
     }
 }

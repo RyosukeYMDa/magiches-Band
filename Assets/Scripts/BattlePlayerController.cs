@@ -14,6 +14,8 @@ public class BattlePlayerController : MonoBehaviour,IEnemy
     private const float EvasionRate = 0.1f; //回避の確率（今は10％）
     
     private int consumptionMp; //消費Mp
+
+    public int atkDoublingValue = 1;
     public void Act()
     {
         BattleManager.Instance.EnableActButton();
@@ -33,7 +35,7 @@ public class BattlePlayerController : MonoBehaviour,IEnemy
             IEnemy enemy = BattleManager.Instance.CurrentEnemy;
         
             // ダメージ計算()
-            var damage = Mathf.Max(0, playerStatus.mAtk - enemy.Status.mDef);
+            var damage = Mathf.Max(0, playerStatus.mAtk + atkDoublingValue - enemy.Status.mDef);
             damage = CriticalCalculation(damage);
 
             // 敵にダメージを与える
@@ -56,12 +58,32 @@ public class BattlePlayerController : MonoBehaviour,IEnemy
         
         IEnemy enemy = BattleManager.Instance.CurrentEnemy;
         
-        int damage = Mathf.Max(0,playerStatus.atk - enemy.Status.def);
+        int damage = Mathf.Max(0,playerStatus.atk + atkDoublingValue - enemy.Status.def);
         
         damage = CriticalCalculation(damage);
         
         // 敵にダメージを与える
         enemy.TakeDamage(damage);
+        
+        NextState();
+    }
+
+    public void AtkUp()
+    {
+        if (atkDoublingValue == 16)
+        {
+            attackCommand.SetActive(false);
+            NextState();
+            return;
+        }
+        
+        atkDoublingValue *= 2;
+        
+        Debug.Log(atkDoublingValue);
+        
+        messageText.gameObject.SetActive(false);
+        
+        attackCommand.SetActive(false);
         
         NextState();
     }

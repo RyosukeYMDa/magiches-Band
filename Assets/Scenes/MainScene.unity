@@ -1518,6 +1518,7 @@ MonoBehaviour:
   shownPosition: {x: 350, y: 0}
   hiddenPosition: {x: 540, y: 0}
   slideDuration: 0.3
+  isShown: 0
   buttonNavigator: {fileID: 1582927736}
   inventoryPanel: {fileID: 275426389}
 --- !u!114 &1582927736
@@ -2239,6 +2240,14 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8951118495187019224, guid: 273e032ec1b58e84ab1399eaa1e5396c, type: 3}
+      propertyPath: menuBar
+      value: 
+      objectReference: {fileID: 1582927735}
+    - target: {fileID: 8951118495187019224, guid: 273e032ec1b58e84ab1399eaa1e5396c, type: 3}
+      propertyPath: buttonNavigator
+      value: 
+      objectReference: {fileID: 1582927736}
     - target: {fileID: 8951118495187019224, guid: 273e032ec1b58e84ab1399eaa1e5396c, type: 3}
       propertyPath: cameraTransform
       value: 
