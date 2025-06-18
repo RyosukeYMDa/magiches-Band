@@ -19,7 +19,8 @@ public class InventoryUI : MonoBehaviour
     
     private List<GameObject> itemUiObjects = new List<GameObject>();
 
-    public bool isOpen;
+    public bool isOpen; //扉の範囲内にいるかどうか
+    public bool isItem; //item使ったかどうか 
     
     //messageを表示させる
     [SerializeField] private TextMeshProUGUI messageText;
@@ -119,6 +120,7 @@ public class InventoryUI : MonoBehaviour
             playerStatus.hp = Mathf.Min(playerStatus.hp + 7, playerStatus.maxHp);
             UpdateUI();
             StartCoroutine(MessageReception("Recover 50 HP"));
+            isItem = true;
         }else if (item.itemName == "Key")
         {
             if (isOpen)

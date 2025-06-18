@@ -74,7 +74,8 @@ public class BattleManager : MonoBehaviour
     {
         if (Keyboard.current.tabKey.wasPressedThisFrame && buttonNavigator.isInventory)
         {
-            Debug.Log("closeInventory"); 
+            Debug.Log("closeInventory");
+            inventoryUI.isItem = false;
             inventoryUI.contentParent.gameObject.SetActive(false);
             buttonNavigator.SetInventoryState(false);
             attackCommand.SetActive(true);

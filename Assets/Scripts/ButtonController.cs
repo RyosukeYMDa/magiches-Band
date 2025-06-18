@@ -79,4 +79,15 @@ public class ButtonController : MonoBehaviour
             messageText.text = "AtkUpperLimit";
         }
     }
+
+    public void DefUpText()
+    {
+        messageText.gameObject.SetActive(true);
+        messageText.text = "DefUp";
+
+        if (battlePlayerController.defDoublingValue == 16)
+        {
+            messageText.text = "DefUpperLimit";
+        }
+    }
 }

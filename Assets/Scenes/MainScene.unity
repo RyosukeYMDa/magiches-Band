@@ -1253,6 +1253,7 @@ MonoBehaviour:
   enemy1: {fileID: 2035583390}
   inventoryUI: {fileID: 1582927737}
   buttonNavigator: {fileID: 1582927736}
+  menuBar: {fileID: 1582927735}
   player: {x: 0, y: 0, z: 0}
 --- !u!1 &1161173657
 GameObject:
@@ -1555,6 +1556,7 @@ MonoBehaviour:
   contentParent: {fileID: 275426392}
   playerStatus: {fileID: 11400000, guid: 9797ff948bf232648a2320e925992a02, type: 2}
   isOpen: 0
+  isItem: 0
   messageText: {fileID: 941362896}
 --- !u!1001 &1592725122
 PrefabInstance:

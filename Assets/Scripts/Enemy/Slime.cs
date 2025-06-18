@@ -24,7 +24,7 @@ public class Slime : MonoBehaviour,IEnemy
             case 0:
                 Debug.Log("Charge");
                 // プレイヤーへのダメージ計算
-                damage = Mathf.Max(0, slimeStatus.atk - battlePlayerController.Status.def);
+                damage = Mathf.Max(0, (slimeStatus.atk - battlePlayerController.Status.def) - battlePlayerController.defDoublingValue);
                 damage = CriticalCalculation(damage);
                 battlePlayerController.TakeDamage(damage);
                 break;
@@ -34,7 +34,7 @@ public class Slime : MonoBehaviour,IEnemy
                 {
                     Debug.Log("Fire");
                     // プレイヤーへのダメージ計算
-                    damage = Mathf.Max(0, slimeStatus.mAtk - battlePlayerController.Status.mDef);
+                    damage = Mathf.Max(0, (slimeStatus.mAtk - battlePlayerController.Status.mDef) - battlePlayerController.defDoublingValue);
                     damage = CriticalCalculation(damage);
                     battlePlayerController.TakeDamage(damage);   
                 }

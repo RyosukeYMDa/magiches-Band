@@ -7,6 +7,7 @@ public class MainManager : MonoBehaviour
     [SerializeField] private GameObject enemy1;
     [SerializeField] private InventoryUI inventoryUI;
     [SerializeField] private ButtonNavigator buttonNavigator;
+    [SerializeField] private MenuBar menuBar;
     
     public Vector3 player;
 
@@ -35,8 +36,10 @@ public class MainManager : MonoBehaviour
         if (Keyboard.current.tabKey.wasPressedThisFrame && buttonNavigator.isInventory)
         {
             Debug.Log("closeInventory"); 
+            inventoryUI.isItem = false;
             inventoryUI.contentParent.gameObject.SetActive(false);
             buttonNavigator.SetInventoryState(false);
+            menuBar.TogglePanel();
         }
     }
 

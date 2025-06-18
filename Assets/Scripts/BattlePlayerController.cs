@@ -8,6 +8,8 @@ public class BattlePlayerController : MonoBehaviour,IEnemy
     [SerializeField] private CharacterStatus playerStatus;
     [SerializeField] private GameObject attackCommand;
     [SerializeField] private TextMeshProUGUI messageText;
+    [SerializeField] private ButtonNavigator buttonNavigator;
+    [SerializeField] private InventoryUI inventoryUI;
     
     private const float CriticalRate = 0.25f; //クリティカルの確率（今は25％）
     private const int CriticalMultiplier = 2; // クリティカル倍率
@@ -15,7 +17,19 @@ public class BattlePlayerController : MonoBehaviour,IEnemy
     
     private int consumptionMp; //消費Mp
 
-    public int atkDoublingValue = 1;
+    public int atkDoublingValue; //攻撃上昇補正
+    public int defDoublingValue; //防御上昇補正
+
+    private void Update()
+    {
+        if (!buttonNavigator.isInventory || !inventoryUI.isItem) return;
+        
+        inventoryUI.isItem = false;
+        inventoryUI.contentParent.gameObject.SetActive(false);
+        buttonNavigator.SetInventoryState(false);
+        NextState();
+    }   
+    
     public void Act()
     {
         BattleManager.Instance.EnableActButton();
@@ -76,10 +90,41 @@ public class BattlePlayerController : MonoBehaviour,IEnemy
             NextState();
             return;
         }
-        
-        atkDoublingValue *= 2;
+
+        if (atkDoublingValue == 0)
+        {
+            atkDoublingValue　= (atkDoublingValue + 1) * 2;
+        }else
+        {
+            atkDoublingValue *= 2;   
+        }
         
         Debug.Log(atkDoublingValue);
+        
+        messageText.gameObject.SetActive(false);
+        
+        attackCommand.SetActive(false);
+        
+        NextState();
+    }
+
+    public void DefUp()
+    {
+        switch (defDoublingValue)
+        {
+            case 16:
+                attackCommand.SetActive(false);
+                NextState();
+                return;
+            case 0:
+                defDoublingValue　= (defDoublingValue + 1) * 2;
+                break;
+            default:
+                defDoublingValue *= 2;
+                break;
+        }
+
+        Debug.Log(defDoublingValue);
         
         messageText.gameObject.SetActive(false);
         
