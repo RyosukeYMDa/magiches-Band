@@ -5,8 +5,8 @@ public class Item : MonoBehaviour
 {
     [Header("アイテム情報")]
     public string itemId;
-    public string itemName;   // 例: Potion, Key, Elixir
-    public int amount = 1;               // 取得できる個数
+    public string itemName;   // item名
+    public int amount = 1;    // 取得できる個数
 
     private bool isPlayerInRange = false;
 

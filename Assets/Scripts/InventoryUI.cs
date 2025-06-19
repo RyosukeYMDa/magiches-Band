@@ -114,26 +114,31 @@ public class InventoryUI : MonoBehaviour
         InventoryItem item = inventory.items[index];
         Debug.Log($"Use Item {item.itemName}");
 
-        if (item.itemName == "Potion")
+        switch (item.itemName)
         {
-            inventory.RemoveItem(item.itemName, 1);
-            playerStatus.hp = Mathf.Min(playerStatus.hp + 7, playerStatus.maxHp);
-            UpdateUI();
-            StartCoroutine(MessageReception("Recover 50 HP"));
-            isItem = true;
-        }else if (item.itemName == "Key")
-        {
-            if (isOpen)
-            {
+            case "Potion":
+                inventory.RemoveItem(item.itemName, 1);
+                playerStatus.hp = Mathf.Min(playerStatus.hp + 7, playerStatus.maxHp);
+                UpdateUI();
+                StartCoroutine(MessageReception("Recover 7 HP"));
+                isItem = true;
+                break;
+            case "Key" when isOpen:
                 Debug.Log("ドアを開けた");
                 inventory.RemoveItem(item.itemName, 1);
                 GameManager.Instance.enemyType = GameManager.EnemyType.BossEnemy;
                 SceneManager.LoadScene("BossScene");
-            }
-            else
-            {
+                break;
+            case "Key":
                 StartCoroutine(MessageReception("You can't use it here"));
-            }
+                break;
+            case "MpPotion":
+                inventory.RemoveItem(item.itemName, 1);
+                playerStatus.mp = Mathf.Min(playerStatus.mp + 7, playerStatus.maxMp);
+                UpdateUI();
+                StartCoroutine(MessageReception("Recover 7 MP"));
+                isItem = true;
+                break;
         }
     }
 

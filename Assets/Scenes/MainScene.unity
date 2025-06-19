@@ -322,7 +322,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2320545209813340099, guid: 569000042283fc248840baf9255bdced, type: 3}
       propertyPath: itemName
-      value: Test
+      value: MpPotion
       objectReference: {fileID: 0}
     - target: {fileID: 2320545209813340099, guid: 569000042283fc248840baf9255bdced, type: 3}
       propertyPath: inventoryUI
@@ -338,7 +338,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7073070200584097440, guid: 569000042283fc248840baf9255bdced, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.76
+      value: 8.33
       objectReference: {fileID: 0}
     - target: {fileID: 7073070200584097440, guid: 569000042283fc248840baf9255bdced, type: 3}
       propertyPath: m_LocalRotation.w
@@ -370,7 +370,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8636773208782359555, guid: 569000042283fc248840baf9255bdced, type: 3}
       propertyPath: m_Name
-      value: Item (2)
+      value: MpPotion
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1588,7 +1588,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7073070200584097440, guid: 569000042283fc248840baf9255bdced, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.481751
+      value: -6.99
       objectReference: {fileID: 0}
     - target: {fileID: 7073070200584097440, guid: 569000042283fc248840baf9255bdced, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1620,7 +1620,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8636773208782359555, guid: 569000042283fc248840baf9255bdced, type: 3}
       propertyPath: m_Name
-      value: Item (1)
+      value: Key
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1653,7 +1653,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7073070200584097440, guid: 569000042283fc248840baf9255bdced, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.72
+      value: -0.53
       objectReference: {fileID: 0}
     - target: {fileID: 7073070200584097440, guid: 569000042283fc248840baf9255bdced, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1689,7 +1689,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8636773208782359555, guid: 569000042283fc248840baf9255bdced, type: 3}
       propertyPath: m_Name
-      value: Item
+      value: Potion
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
