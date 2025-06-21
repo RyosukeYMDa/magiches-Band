@@ -12,11 +12,6 @@ public class Slime : MonoBehaviour,ICharacter
     
     private int consumptionMp; //消費Mp
     public CharacterStatus Status => slimeStatus;
-
-    private void Start()
-    {
-        StickRotationDetector.Instance.OnRotationCompleted += OnVictoryStickRotate;
-    }
     
     public void Act()
     {

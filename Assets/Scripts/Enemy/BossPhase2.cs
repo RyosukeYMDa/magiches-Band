@@ -15,6 +15,8 @@ public class BossPhase2 : MonoBehaviour,ICharacter
     
     public void Act()
     {
+        if(StickRotationDetector.Instance.defeatedEnemy) return;
+        
         var damage = 0;
         
         var randomAttack = Random.Range(0, 2);
@@ -79,14 +81,19 @@ public class BossPhase2 : MonoBehaviour,ICharacter
             Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {bossPhase2Status.hp}");   
         }
 
-        if (bossPhase2Status.hp <= 0)
-        {
-            Destroy(gameObject);
-            Debug.Log($"{gameObject.name} を撃破！");
-            ResetStatus();
-            BattleManager.Instance.SavePlayerInventory();
-            SceneManager.LoadScene("MainScene");
-        }
+        if (bossPhase2Status.hp > 0) return;
+        
+        StickRotationDetector.Instance.OnRotationCompleted += OnVictoryStickRotate;
+        StickRotationDetector.Instance.StartDetection();
+    }
+
+    private void OnVictoryStickRotate()
+    {
+        Debug.Log($"{gameObject.name} を撃破！");
+        ResetStatus();
+        BattleManager.Instance.SavePlayerInventory();
+        Destroy(gameObject);
+        SceneManager.LoadScene("MainScene");
     }
 
     public void NextState()
