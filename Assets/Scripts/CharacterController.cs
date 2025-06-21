@@ -26,8 +26,6 @@ public class CharacterController : MonoBehaviour
     private const float RotationSpeed = 10f;
     private Vector3 moveDirection; // 移動方向
     private Vector3 playerDirection; // プレイヤーの向いている方向
-    
-    private bool isPlayerInRange = false;
 
     //spineAnimation関連
     private SkeletonAnimation skeletonAnimation;
@@ -149,7 +147,7 @@ public class CharacterController : MonoBehaviour
     /// <summary>
     /// 今はAreaを移動した際の処理を書いている
     /// </summary>
-    /// <param name="other"></param>
+    /// <param name="collision"></param>
     private void OnCollisionEnter(Collision collision)
     {  
         //Area境にあるBoxColliderに当たった時のみ処理

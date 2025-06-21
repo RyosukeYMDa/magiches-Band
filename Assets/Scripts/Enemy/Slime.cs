@@ -12,9 +12,16 @@ public class Slime : MonoBehaviour,ICharacter
     
     private int consumptionMp; //消費Mp
     public CharacterStatus Status => slimeStatus;
+
+    private void Start()
+    {
+        StickRotationDetector.Instance.OnRotationCompleted += OnVictoryStickRotate;
+    }
     
     public void Act()
     {
+        if(StickRotationDetector.Instance.defeatedEnemy) return;
+        
         var damage = 0;
         
         var randomAttack = Random.Range(0, 2);
@@ -80,14 +87,19 @@ public class Slime : MonoBehaviour,ICharacter
             Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {slimeStatus.hp}");   
         }
 
-        if (slimeStatus.hp <= 0)
-        {
-            Destroy(gameObject);
-            Debug.Log($"{gameObject.name} を撃破！");
-            ResetStatus();
-            BattleManager.Instance.SavePlayerInventory();
-            SceneManager.LoadScene("MainScene");
-        }
+        if (slimeStatus.hp > 0) return;
+        
+        StickRotationDetector.Instance.OnRotationCompleted += OnVictoryStickRotate;
+        StickRotationDetector.Instance.StartDetection();
+    }
+
+    private void OnVictoryStickRotate()
+    {
+        Debug.Log($"{gameObject.name} を撃破！");
+        ResetStatus();
+        BattleManager.Instance.SavePlayerInventory();
+        SceneManager.LoadScene("MainScene");
+        Destroy(gameObject);
     }
 
     public void NextState()

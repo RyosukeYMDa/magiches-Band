@@ -123,3 +123,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerStatus: {fileID: 11400000, guid: 9797ff948bf232648a2320e925992a02, type: 2}
   attackCommand: {fileID: 0}
+  messageText: {fileID: 0}
+  buttonNavigator: {fileID: 0}
+  inventoryUI: {fileID: 0}
+  battleManager: {fileID: 0}
+  atkDoublingValue: 0
+  defDoublingValue: 0

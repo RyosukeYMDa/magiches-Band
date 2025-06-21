@@ -20,14 +20,9 @@ public class BattlePlayerController : MonoBehaviour,ICharacter
 
     public int atkDoublingValue; //攻撃上昇補正
     public int defDoublingValue; //防御上昇補正
-
+    
     private void Update()
     {
-        if (battleManager.defeatedEnemy)
-        {
-            
-        }
-        
         if (!buttonNavigator.isInventory || !inventoryUI.isItem) return;
         
         inventoryUI.isItem = false;

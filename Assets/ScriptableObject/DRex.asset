@@ -15,8 +15,8 @@ MonoBehaviour:
   enemyName: DRex
   maxHp: 10
   maxMp: 10
-  hp: 10
-  mp: 10
+  hp: 1
+  mp: 1
   atk: 1
   def: 0
   mAtk: 1
