@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class InventoryUI : MonoBehaviour
 {
     [SerializeField] private GameObject itemTextPrefab; // TextMeshProを含むプレハブ
     [SerializeField] private ButtonNavigator buttonNavigator;
+    [SerializeField] private MenuBar menuBar;
     public Transform contentParent;   // アイテムを並べる親（Vertical Layout Group）
     
     private Inventory inventory;
@@ -21,6 +23,8 @@ public class InventoryUI : MonoBehaviour
 
     public bool isOpen; //扉の範囲内にいるかどうか
     public bool isItem; //item使ったかどうか 
+    
+    [SerializeField] private PlayerInput playerInput;
     
     //messageを表示させる
     [SerializeField] private TextMeshProUGUI messageText;
@@ -39,34 +43,88 @@ public class InventoryUI : MonoBehaviour
     private void Update()
     {
         // 入力バッファ：インベントリ開いた直後の1フレームだけスキップ
-        if (buttonNavigator.justOpenedInventory)
+        if (!buttonNavigator.justOpenedInventory) return;
+        
+        Debug.Log("待機中");
+        buttonNavigator.justOpenedInventory = false; // 1フレーム後に解除
+    }
+
+    private void OnEnable()
+    {
+        playerInput.actions["Navigate"].performed += OnNavigate;
+        playerInput.actions["Submit"].performed += OnSubmit;
+        playerInput.actions["Cancel"].performed += OnCancel;
+    }
+    
+    private void OnDisable()
+    {
+        if (!playerInput || !playerInput.actions) return;
+        
+        // 登録解除
+        playerInput.actions["Navigate"].performed -= OnNavigate;
+        playerInput.actions["Submit"].performed -= OnSubmit;
+        playerInput.actions["Cancel"].performed -= OnCancel;
+    }
+    
+    public void OpenInventory()
+    {
+        playerInput.SwitchCurrentActionMap("UI");
+        
+        UpdateUI(); // 忘れずに最新のUIを生成
+
+        if (itemUiObjects.Count <= 0) return;
+        
+        EventSystem.current.SetSelectedGameObject(itemUiObjects[0]);
+        selectedIndex = 0;
+        UpdateHighlight();
+    }
+
+    private void OnNavigate(InputAction.CallbackContext context)
+    {
+        Debug.Log("OnNavigate called!");
+        
+        if (!buttonNavigator.isInventory || itemUiObjects.Count <= 0) return;
+
+        Vector2 input = context.ReadValue<Vector2>();
+
+        if (input.y < -0.5f)
         {
-            Debug.Log("待機中");
-            buttonNavigator.justOpenedInventory = false; // 1フレーム後に解除
-            return;
-        }
-        
-        if (!buttonNavigator.isInventory) return;
-        
-        if (itemUiObjects.Count == 0) return;
-        
-        if (Keyboard.current.enterKey.wasPressedThisFrame && buttonNavigator.isInventory)
-        {
-            Debug.Log("enter");
-            UseItem(selectedIndex);
-        }
-        
-        if (Keyboard.current.downArrowKey.wasPressedThisFrame && buttonNavigator.isInventory)
-        {
-            Debug.Log("down");
+            // 下に移動
             selectedIndex = (selectedIndex + 1) % itemUiObjects.Count;
             UpdateHighlight();
-        }else if (Keyboard.current.upArrowKey.wasPressedThisFrame && buttonNavigator.isInventory)
+            Debug.Log("Navigate Down");
+        }
+        else if (input.y > 0.5f)
         {
-            Debug.Log("up");
+            // 上に移動
             selectedIndex = (selectedIndex - 1 + itemUiObjects.Count) % itemUiObjects.Count;
             UpdateHighlight();
+            Debug.Log("Navigate Up");
         }
+    }
+    
+    private void OnSubmit(InputAction.CallbackContext context)
+    {
+        Debug.Log("OnNavigate called!");
+        
+        if (!buttonNavigator.isInventory || itemUiObjects.Count <= 0) return;
+
+        UseItem(selectedIndex);
+        Debug.Log("Submit");
+    }
+
+    private void OnCancel(InputAction.CallbackContext context)
+    {
+        Debug.Log("closeInventory"); 
+        if(!buttonNavigator.isInventory) return;
+        
+        isItem = false;
+        contentParent.gameObject.SetActive(false);
+        buttonNavigator.SetInventoryState(false);
+        menuBar.TogglePanel();
+        
+        //アクションマップを元に戻す
+        playerInput.SwitchCurrentActionMap("Player");
     }
 
     /// <summary>

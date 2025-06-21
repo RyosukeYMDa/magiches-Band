@@ -3,13 +3,14 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 
-public class BattlePlayerController : MonoBehaviour,IEnemy
+public class BattlePlayerController : MonoBehaviour,ICharacter
 {
     [SerializeField] private CharacterStatus playerStatus;
     [SerializeField] private GameObject attackCommand;
     [SerializeField] private TextMeshProUGUI messageText;
     [SerializeField] private ButtonNavigator buttonNavigator;
     [SerializeField] private InventoryUI inventoryUI;
+    [SerializeField] private BattleManager battleManager;
     
     private const float CriticalRate = 0.25f; //クリティカルの確率（今は25％）
     private const int CriticalMultiplier = 2; // クリティカル倍率
@@ -22,6 +23,11 @@ public class BattlePlayerController : MonoBehaviour,IEnemy
 
     private void Update()
     {
+        if (battleManager.defeatedEnemy)
+        {
+            
+        }
+        
         if (!buttonNavigator.isInventory || !inventoryUI.isItem) return;
         
         inventoryUI.isItem = false;
@@ -46,7 +52,7 @@ public class BattlePlayerController : MonoBehaviour,IEnemy
             attackCommand.SetActive(false);
         
             // 敵を取得
-            IEnemy enemy = BattleManager.Instance.CurrentEnemy;
+            ICharacter enemy = BattleManager.Instance.CurrentEnemy;
         
             // ダメージ計算()
             var damage = Mathf.Max(0, playerStatus.mAtk + atkDoublingValue - enemy.Status.mDef);
@@ -70,7 +76,7 @@ public class BattlePlayerController : MonoBehaviour,IEnemy
         
         attackCommand.SetActive(false);
         
-        IEnemy enemy = BattleManager.Instance.CurrentEnemy;
+        ICharacter enemy = BattleManager.Instance.CurrentEnemy;
         
         int damage = Mathf.Max(0,playerStatus.atk + atkDoublingValue - enemy.Status.def);
         
@@ -184,7 +190,7 @@ public class BattlePlayerController : MonoBehaviour,IEnemy
 
     public void NextState()
     {
-        IEnemy enemy = BattleManager.Instance.CurrentEnemy;
+        ICharacter enemy = BattleManager.Instance.CurrentEnemy;
         
         if (TurnManager.Instance.CurrentTurnPhase == TurnManager.TurnPhase.FirstMove)
         {

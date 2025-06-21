@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Dragon : MonoBehaviour,IEnemy
+public class Dragon : MonoBehaviour,ICharacter
 {
     [SerializeField] private CharacterStatus dragonStatus;
     [SerializeField] private BattlePlayerController battlePlayerController;

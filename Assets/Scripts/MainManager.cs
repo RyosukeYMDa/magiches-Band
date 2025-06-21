@@ -5,16 +5,13 @@ using UnityEngine.InputSystem;
 public class MainManager : MonoBehaviour
 {
     [SerializeField] private GameObject enemy1;
-    [SerializeField] private InventoryUI inventoryUI;
-    [SerializeField] private ButtonNavigator buttonNavigator;
-    [SerializeField] private MenuBar menuBar;
     
     public Vector3 player;
 
 
     private void Start()
     {
-        if (GameManager.Instance == null)
+        if (!GameManager.Instance)
         {
             Debug.LogError("GameManager.Instance が null です！シーンに GameManager が存在しているか確認してください。");
             return;
@@ -28,18 +25,6 @@ public class MainManager : MonoBehaviour
         if (GameManager.Instance.enemyType == GameManager.EnemyType.Enemy1)
         {
             StartCoroutine(EnableSpawnPoint());
-        }
-    }
-
-    private void Update()
-    {
-        if (Keyboard.current.tabKey.wasPressedThisFrame && buttonNavigator.isInventory)
-        {
-            Debug.Log("closeInventory"); 
-            inventoryUI.isItem = false;
-            inventoryUI.contentParent.gameObject.SetActive(false);
-            buttonNavigator.SetInventoryState(false);
-            menuBar.TogglePanel();
         }
     }
 

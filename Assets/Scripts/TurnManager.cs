@@ -37,7 +37,7 @@ public class TurnManager : MonoBehaviour
         Debug.Log("【行動順】");
         foreach (var unit in turnOrder)
         {
-            var status = unit.GetComponent<IEnemy>() as MonoBehaviour;
+            var status = unit.GetComponent<ICharacter>() as MonoBehaviour;
         }
     }
 
@@ -49,7 +49,7 @@ public class TurnManager : MonoBehaviour
 
         foreach (var obj in turnOrder)
         {
-            var enemy = obj.GetComponent<IEnemy>();
+            var enemy = obj.GetComponent<ICharacter>();
             if (enemy != null)
             {
                 Debug.Log($"[TurnManager] {obj.name} AGI: {enemy.Status.agi}");
@@ -62,7 +62,7 @@ public class TurnManager : MonoBehaviour
         
         turnOrder = turnOrder.OrderByDescending(obj =>
         {
-            var comp = obj.GetComponent<IEnemy>(); // IEnemy 取得
+            var comp = obj.GetComponent<ICharacter>(); // IEnemy 取得
             return comp?.Status?.agi ?? 0;         // AGIを取得
         }).ToList();
     }
@@ -76,7 +76,7 @@ public class TurnManager : MonoBehaviour
         Debug.Log(turnCount);
         GameObject currentUnit = turnOrder[currentTurnIndex];
     
-        var enemy = currentUnit.GetComponent<IEnemy>();
+        var enemy = currentUnit.GetComponent<ICharacter>();
         if (enemy != null)
         {
             Debug.Log($"[TurnManager] 行動ユニット: {currentUnit.name} AGI: {enemy.Status.agi}");

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Slime : MonoBehaviour,IEnemy
+public class Slime : MonoBehaviour,ICharacter
 {
     [SerializeField] private CharacterStatus slimeStatus;
     [SerializeField] private BattlePlayerController battlePlayerController;
@@ -33,6 +33,7 @@ public class Slime : MonoBehaviour,IEnemy
                 if ((slimeStatus.mp - consumptionMp) >= 0)
                 {
                     Debug.Log("Fire");
+                    slimeStatus.mp -= consumptionMp;
                     // プレイヤーへのダメージ計算
                     damage = Mathf.Max(0, (slimeStatus.mAtk - battlePlayerController.Status.mDef) - battlePlayerController.defDoublingValue);
                     damage = CriticalCalculation(damage);

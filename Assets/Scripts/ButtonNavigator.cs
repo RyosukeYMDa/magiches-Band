@@ -22,7 +22,7 @@ public class ButtonNavigator : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (Keyboard.current.upArrowKey.wasPressedThisFrame && !isInventory)
         {
@@ -30,11 +30,10 @@ public class ButtonNavigator : MonoBehaviour
             SelectButton(currentIndex);
         }
 
-        if (Keyboard.current.downArrowKey.wasPressedThisFrame && !isInventory)
-        {
-            currentIndex = (currentIndex + 1) % buttons.Length;
-            SelectButton(currentIndex);
-        }
+        if (!Keyboard.current.downArrowKey.wasPressedThisFrame || isInventory) return;
+        
+        currentIndex = (currentIndex + 1) % buttons.Length;
+        SelectButton(currentIndex);
     }
 
     public void SetInventoryState(bool state)

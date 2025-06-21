@@ -14,14 +14,14 @@ public class MenuBar : MonoBehaviour
     private Coroutine slideCoroutine;
 
     [SerializeField] private ButtonNavigator buttonNavigator;
+    [SerializeField] private InventoryUI inventoryUI;
     public GameObject inventoryPanel;
-    private void Update()
+    
+    public void Menu(InputAction.CallbackContext context)
     {
-        // Escキーで切り替え
-        if (Keyboard.current.escapeKey.wasPressedThisFrame && !buttonNavigator.isInventory)
-        {
-            TogglePanel();
-        }
+        if(buttonNavigator.isInventory) return;
+        
+        TogglePanel();
     }
 
     public void TogglePanel()
@@ -66,6 +66,7 @@ public class MenuBar : MonoBehaviour
     {
         if(buttonNavigator.justOpenedInventory)return;
         Debug.Log("InventoryDisplay");
+        inventoryUI.OpenInventory();
         StartCoroutine(ShowInventoryPanelNextFrame());
     }
 

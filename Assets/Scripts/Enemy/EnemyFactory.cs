@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface IEnemy
+public interface ICharacter
 {
     void Act();
     void TakeDamage(int damage);
@@ -28,7 +28,7 @@ public class EnemyFactory : MonoBehaviour
     /// <summary>
     /// ランダムな敵をUI上に生成（親はCanvas）
     /// </summary>
-    public IEnemy CreateEnemy(Vector3 localPosition, Transform parent, bool isPhase2 = false)
+    public ICharacter CreateEnemy(Vector3 localPosition, Transform parent, bool isPhase2 = false)
     {
         GameObject prefab = null;
         
@@ -60,6 +60,6 @@ public class EnemyFactory : MonoBehaviour
         // UI のローカル座標で表示位置を調整
         enemyObj.GetComponent<RectTransform>().anchoredPosition = localPosition;
 
-        return enemyObj.GetComponent<IEnemy>();
+        return enemyObj.GetComponent<ICharacter>();
     }
 }

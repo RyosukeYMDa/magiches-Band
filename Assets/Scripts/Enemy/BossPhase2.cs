@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class BossPhase2 : MonoBehaviour,IEnemy
+public class BossPhase2 : MonoBehaviour,ICharacter
 {
     [SerializeField] private CharacterStatus bossPhase2Status;
     [SerializeField] private BattlePlayerController battlePlayerController;

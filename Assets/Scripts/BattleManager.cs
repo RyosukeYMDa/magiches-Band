@@ -12,12 +12,13 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private InventoryUI inventoryUI;
     [SerializeField] private GameObject attackCommand;
     
-    public bool bossPhase2;
+    public bool bossPhase2; //BossのPhase1が撃破されたかの判別
+    public bool defeatedEnemy; //倒されているかの判別
     
     public static BattleManager Instance { get; private set; }
     
     // 現在の敵を外部から取得可能にする
-    public IEnemy CurrentEnemy { get; private set; }
+    public ICharacter CurrentEnemy { get; private set; }
 
     private void Awake()
     {
