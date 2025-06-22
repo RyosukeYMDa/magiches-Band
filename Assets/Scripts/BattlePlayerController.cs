@@ -208,6 +208,12 @@ public class BattlePlayerController : MonoBehaviour,ICharacter
         playerStatus.hp = playerStatus.maxHp;
         playerStatus.mp = playerStatus.maxMp;
     }
+
+    public void ResetBuff()
+    {
+        atkDoublingValue = 0;
+        defDoublingValue = 0;
+    }
     
     public CharacterStatus Status => playerStatus;
 }

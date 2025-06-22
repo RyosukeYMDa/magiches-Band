@@ -19,7 +19,7 @@ public class BossPhase2 : MonoBehaviour,ICharacter
         
         var damage = 0;
         
-        var randomAttack = Random.Range(0, 2);
+        var randomAttack = Random.Range(0, 3);
 
         switch (randomAttack)
         {
@@ -43,6 +43,14 @@ public class BossPhase2 : MonoBehaviour,ICharacter
                 else
                 {
                     Debug.Log("失敗");
+                }
+                break;
+            case 2:
+                consumptionMp = 1;
+                if ((bossPhase2Status.mp - consumptionMp) >= 0)
+                {
+                    Debug.Log("NegationBuff");
+                    battlePlayerController.ResetBuff();
                 }
                 break;
         }
@@ -93,7 +101,7 @@ public class BossPhase2 : MonoBehaviour,ICharacter
         ResetStatus();
         BattleManager.Instance.SavePlayerInventory();
         Destroy(gameObject);
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("End");
     }
 
     public void NextState()
