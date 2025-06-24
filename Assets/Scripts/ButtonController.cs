@@ -16,25 +16,12 @@ public class ButtonController : MonoBehaviour
     //messageを表示させる
     [SerializeField] private TextMeshProUGUI messageText;
     
-    [SerializeField] private PlayerInput playerInput;
-    
     public GameObject inventoryPanel;
-    
-    private void OnEnable()
-    {
-        playerInput.actions["Cancel"].performed += OnAdditionCancel;
-    }
-    
-    private void OnDisable()
-    {
-        if (!playerInput || !playerInput.actions) return;
-        
-        // 登録解除
-        playerInput.actions["Cancel"].performed -= OnAdditionCancel;
-    }
 
-    private void OnAdditionCancel(InputAction.CallbackContext context)
+    public void OnAdditionCancel(InputAction.CallbackContext context)
     {
+        if(!buttonNavigator.isInventory) return;
+        
         Debug.Log("OnAdditionCancel");
         attackCommand.SetActive(true);
     }
