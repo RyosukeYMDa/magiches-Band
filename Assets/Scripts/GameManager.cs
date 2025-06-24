@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [SerializeField] public Vector3 playerPosition;
+    [SerializeField] private CharacterStatus playerStatus;
     
     //取得したItemのIdのList
     public List<string> obtainedItemIds = new List<string>();
@@ -86,5 +87,14 @@ public class GameManager : MonoBehaviour
             playerPosition = startPosition;
             Debug.Log("データなし → 初期位置にリセット: " + playerPosition);
         }
+    }
+    
+    public void DateReset()
+    {
+        Debug.Log("DateReset");
+        playerStatus.hp = playerStatus.maxHp;
+        playerStatus.mp = playerStatus.maxMp;
+        SaveManager.DeleteAllData();
+        ReloadPlayerData();
     }
 }

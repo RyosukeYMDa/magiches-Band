@@ -1357,6 +1357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPosition: {x: 0, y: 0, z: 0}
+  playerStatus: {fileID: 11400000, guid: 9797ff948bf232648a2320e925992a02, type: 2}
   obtainedItemIds: []
   enemyType: 0
   inventory:
@@ -1516,7 +1517,6 @@ MonoBehaviour:
   shownPosition: {x: 350, y: 0}
   hiddenPosition: {x: 540, y: 0}
   slideDuration: 0.3
-  isShown: 0
   buttonNavigator: {fileID: 1582927736}
   inventoryUI: {fileID: 1582927737}
   inventoryPanel: {fileID: 275426389}
@@ -1551,7 +1551,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemTextPrefab: {fileID: 585160820923368427, guid: 2057e3d1b1c0b47498f10ed1134b1769, type: 3}
   buttonNavigator: {fileID: 1582927736}
-  menuBar: {fileID: 1582927735}
   contentParent: {fileID: 275426392}
   playerStatus: {fileID: 11400000, guid: 9797ff948bf232648a2320e925992a02, type: 2}
   isOpen: 0

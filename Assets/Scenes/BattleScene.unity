@@ -312,6 +312,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPosition: {x: 0, y: 0, z: 0}
+  playerStatus: {fileID: 11400000, guid: 9797ff948bf232648a2320e925992a02, type: 2}
   obtainedItemIds: []
   enemyType: 0
   inventory:
@@ -433,8 +434,8 @@ RectTransform:
   - {fileID: 1455069521}
   - {fileID: 1752203271}
   - {fileID: 1651826861}
-  - {fileID: 555882269}
   - {fileID: 1434020547}
+  - {fileID: 555882269}
   - {fileID: 604540504}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
