@@ -69,6 +69,7 @@ public class MenuBar : MonoBehaviour
     {
         if(buttonNavigator.justOpenedInventory)return;
         Debug.Log("InventoryDisplay");
+        isShown = false;
         inventoryUI.OpenInventory();
         StartCoroutine(ShowInventoryPanelNextFrame());
     }

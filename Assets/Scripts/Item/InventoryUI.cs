@@ -23,8 +23,6 @@ public class InventoryUI : MonoBehaviour
     public bool isOpen; //扉の範囲内にいるかどうか
     public bool isItem; //item使ったかどうか 
     
-    [SerializeField] private PlayerInput playerInput;
-    
     //messageを表示させる
     [SerializeField] private TextMeshProUGUI messageText;
     private void Start()
@@ -47,28 +45,9 @@ public class InventoryUI : MonoBehaviour
         Debug.Log("待機中");
         buttonNavigator.justOpenedInventory = false; // 1フレーム後に解除
     }
-
-    private void OnEnable()
-    {
-        playerInput.actions["Navigate"].performed += OnNavigate;
-        playerInput.actions["Submit"].performed += OnSubmit;
-        playerInput.actions["Cancel"].performed += OnCancel;
-    }
-    
-    private void OnDisable()
-    {
-        if (!playerInput || !playerInput.actions) return;
-        
-        // 登録解除
-        playerInput.actions["Navigate"].performed -= OnNavigate;
-        playerInput.actions["Submit"].performed -= OnSubmit;
-        playerInput.actions["Cancel"].performed -= OnCancel;
-    }
     
     public void OpenInventory()
-    {
-        playerInput.SwitchCurrentActionMap("UI");
-        
+    {   
         UpdateUI(); // 忘れずに最新のUIを生成
 
         if (itemUiObjects.Count <= 0) return;
@@ -78,7 +57,7 @@ public class InventoryUI : MonoBehaviour
         UpdateHighlight();
     }
 
-    private void OnNavigate(InputAction.CallbackContext context)
+    public void OnNavigate(InputAction.CallbackContext context)
     {
         Debug.Log("OnNavigate called!");
         
@@ -102,7 +81,7 @@ public class InventoryUI : MonoBehaviour
         }
     }
     
-    private void OnSubmit(InputAction.CallbackContext context)
+    public void OnSubmit(InputAction.CallbackContext context)
     {
         Debug.Log("OnNavigate called!");
         
@@ -112,13 +91,10 @@ public class InventoryUI : MonoBehaviour
         Debug.Log("Submit");
     }
 
-    private void OnCancel(InputAction.CallbackContext context)
+    public void OnCancel(InputAction.CallbackContext context)
     {
         Debug.Log("closeInventory"); 
         if(!buttonNavigator.isInventory) return;
-        
-        //アクションマップを元に戻す
-        playerInput.SwitchCurrentActionMap("Player");
         
         isItem = false;
         contentParent.gameObject.SetActive(false);
