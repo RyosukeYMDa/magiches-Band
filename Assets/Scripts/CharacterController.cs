@@ -108,7 +108,7 @@ public class CharacterController : MonoBehaviour
     //InputSystemから呼び出されるplayerの動きの入力情報更新
     public void UpdateMoveInput(InputAction.CallbackContext context)
     {
-        if (context.performed && !buttonNavigator.isInventory)
+        if (context.performed && !menuBar.isShown)
         {
             //playerの移動
             var input = context.ReadValue<Vector2>();

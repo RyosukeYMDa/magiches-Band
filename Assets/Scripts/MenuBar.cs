@@ -16,7 +16,7 @@ public class MenuBar : MonoBehaviour
     [SerializeField] private InventoryUI inventoryUI;
     public GameObject inventoryPanel;
 
-    private bool isShown; //menubarが出ているかどうか
+    public bool isShown; //menubarが出ているかどうか
     
     public void Menu(InputAction.CallbackContext context)
     {
