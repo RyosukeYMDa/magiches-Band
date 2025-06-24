@@ -198,11 +198,15 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
+    //waitが機能してない
     public IEnumerator MessageReception(string msg)
     {
+        Debug.Log("Message reception");
         messageText.gameObject.SetActive(true);
         messageText.text = msg;
-        yield return new WaitForSeconds(1f);
+        Debug.Log("到達前");
+        yield return new WaitForSeconds(1.0f);
+        Debug.Log("到達");
         messageText.gameObject.SetActive(false);
     }
 

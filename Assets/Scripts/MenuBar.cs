@@ -15,9 +15,12 @@ public class MenuBar : MonoBehaviour
     [SerializeField] private ButtonNavigator buttonNavigator;
     [SerializeField] private InventoryUI inventoryUI;
     public GameObject inventoryPanel;
+
+    private bool isShown; //menubarが出ているかどうか
     
     public void Menu(InputAction.CallbackContext context)
     {
+        Debug.Log("Menu");
         if(buttonNavigator.isInventory) return;
         
         TogglePanel();
@@ -26,14 +29,16 @@ public class MenuBar : MonoBehaviour
     private void TogglePanel()
     {
         // 表示状態にする前にこのオブジェクトを有効化（SetActive(true)）
-        if (!buttonNavigator.isInventory)
+        if (!isShown)
             panel.gameObject.SetActive(true);
         
         // すでにスライド中なら中断
         if (slideCoroutine != null)
             StopCoroutine(slideCoroutine);
 
-        slideCoroutine = StartCoroutine(SlidePanel(buttonNavigator.isInventory ? hiddenPosition : shownPosition));
+        slideCoroutine = StartCoroutine(SlidePanel(isShown ? hiddenPosition : shownPosition));
+        isShown = !isShown;
+        
     }
 
     IEnumerator SlidePanel(Vector2 targetPosition)
