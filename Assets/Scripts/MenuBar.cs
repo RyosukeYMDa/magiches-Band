@@ -9,8 +9,7 @@ public class MenuBar : MonoBehaviour
     public Vector2 shownPosition;        // 表示時の位置
     public Vector2 hiddenPosition;       // 非表示時の位置
     public float slideDuration = 0.3f;   // スライド時間
-
-    public bool isShown;        // 現在表示状態か
+    
     private Coroutine slideCoroutine;
 
     [SerializeField] private ButtonNavigator buttonNavigator;
@@ -24,18 +23,17 @@ public class MenuBar : MonoBehaviour
         TogglePanel();
     }
 
-    public void TogglePanel()
+    private void TogglePanel()
     {
         // 表示状態にする前にこのオブジェクトを有効化（SetActive(true)）
-        if (!isShown)
+        if (!buttonNavigator.isInventory)
             panel.gameObject.SetActive(true);
         
         // すでにスライド中なら中断
         if (slideCoroutine != null)
             StopCoroutine(slideCoroutine);
 
-        slideCoroutine = StartCoroutine(SlidePanel(isShown ? hiddenPosition : shownPosition));
-        isShown = !isShown;
+        slideCoroutine = StartCoroutine(SlidePanel(buttonNavigator.isInventory ? hiddenPosition : shownPosition));
     }
 
     IEnumerator SlidePanel(Vector2 targetPosition)

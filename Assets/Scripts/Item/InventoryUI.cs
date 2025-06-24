@@ -10,7 +10,6 @@ public class InventoryUI : MonoBehaviour
 {
     [SerializeField] private GameObject itemTextPrefab; // TextMeshProを含むプレハブ
     [SerializeField] private ButtonNavigator buttonNavigator;
-    [SerializeField] private MenuBar menuBar;
     public Transform contentParent;   // アイテムを並べる親（Vertical Layout Group）
     
     private Inventory inventory;
@@ -121,7 +120,6 @@ public class InventoryUI : MonoBehaviour
         isItem = false;
         contentParent.gameObject.SetActive(false);
         buttonNavigator.SetInventoryState(false);
-        menuBar.TogglePanel();
         
         //アクションマップを元に戻す
         playerInput.SwitchCurrentActionMap("Player");

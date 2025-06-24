@@ -62,28 +62,11 @@ public class BattleManager : MonoBehaviour
 
         Debug.Log("[BattleManager] Enemy created and passed to TurnManager.");
     }
-
+    
+    //ButtonControllerに置くと取れなくなるのでここに置く
     public void EnableActButton()
     {
         actButton.SetActive(true);
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-        if (Keyboard.current.tabKey.wasPressedThisFrame && buttonNavigator.isInventory)
-        {
-            Debug.Log("closeInventory");
-            inventoryUI.isItem = false;
-            inventoryUI.contentParent.gameObject.SetActive(false);
-            buttonNavigator.SetInventoryState(false);
-            attackCommand.SetActive(true);
-        }
-        
-        if (Keyboard.current.spaceKey.isPressed)
-        {
-            SceneManager.LoadScene("MainScene");
-        } 
     }
     
     public void SpawnPhase2Boss()
