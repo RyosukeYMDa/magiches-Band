@@ -26,10 +26,10 @@ public class Item : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             isPlayerInRange = true;
+            inventoryUI.GetItem(itemName);
             inventoryUI.SetInventoryItem(itemId, itemName, 1);
             GameManager.Instance.obtainedItemIds.Add(itemId);
             SaveManager.SaveObtainedItemIds(GameManager.Instance.obtainedItemIds);
-            StartCoroutine(inventoryUI.MessageReception(itemName + ":get"));
             Destroy(this.gameObject); // アイテムを消す
         }
     }

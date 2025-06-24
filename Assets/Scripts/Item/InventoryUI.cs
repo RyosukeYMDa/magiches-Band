@@ -117,12 +117,15 @@ public class InventoryUI : MonoBehaviour
         Debug.Log("closeInventory"); 
         if(!buttonNavigator.isInventory) return;
         
+        //アクションマップを元に戻す
+        playerInput.SwitchCurrentActionMap("Player");
+        
         isItem = false;
         contentParent.gameObject.SetActive(false);
         buttonNavigator.SetInventoryState(false);
         
-        //アクションマップを元に戻す
-        playerInput.SwitchCurrentActionMap("Player");
+        
+        Debug.Log("closeInventory");
     }
 
     /// <summary>
@@ -198,6 +201,11 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
+    public void GetItem(string itemName)
+    {
+        StartCoroutine(MessageReception(itemName + ":get"));
+    }
+    
     //waitが機能してない
     public IEnumerator MessageReception(string msg)
     {
