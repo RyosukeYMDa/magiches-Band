@@ -877,6 +877,7 @@ GameObject:
   - component: {fileID: 275426391}
   - component: {fileID: 275426390}
   - component: {fileID: 275426393}
+  - component: {fileID: 275426394}
   m_Layer: 5
   m_Name: InventoryPanel
   m_TagString: Untagged
@@ -967,6 +968,25 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &275426394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275426389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 479d6363281f5d54e81cd388999181e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonNavigator: {fileID: 1582927736}
+  contentParent: {fileID: 275426392}
+  playerStatus: {fileID: 11400000, guid: 9797ff948bf232648a2320e925992a02, type: 2}
+  inventoryUI: {fileID: 1582927737}
+  itemTextPrefab: {fileID: 585160820923368427, guid: 2057e3d1b1c0b47498f10ed1134b1769, type: 3}
+  inventory:
+    items: []
 --- !u!1001 &315666523
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3698,10 +3718,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e59034f83b3b74fba79e69df493933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemTextPrefab: {fileID: 585160820923368427, guid: 2057e3d1b1c0b47498f10ed1134b1769, type: 3}
   buttonNavigator: {fileID: 1582927736}
-  contentParent: {fileID: 275426392}
-  playerStatus: {fileID: 11400000, guid: 9797ff948bf232648a2320e925992a02, type: 2}
+  inventory:
+    items: []
   isOpen: 0
   isItem: 0
   messageText: {fileID: 941362896}

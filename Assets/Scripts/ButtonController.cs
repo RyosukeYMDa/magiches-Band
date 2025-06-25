@@ -12,6 +12,7 @@ public class ButtonController : MonoBehaviour
     [SerializeField] private ButtonNavigator buttonNavigator;
     [SerializeField] private BattlePlayerController battlePlayerController;
     [SerializeField] private InventoryUI inventoryUI;
+    [SerializeField] private ItemSelect itemSelect;
     
     //messageを表示させる
     [SerializeField] private TextMeshProUGUI messageText;
@@ -50,7 +51,6 @@ public class ButtonController : MonoBehaviour
         
         if(buttonNavigator.justOpenedInventory)return;
         Debug.Log("InventoryDisplay");
-        inventoryUI.OpenInventory();
         StartCoroutine(ShowInventoryPanelNextFrame());
     }
 

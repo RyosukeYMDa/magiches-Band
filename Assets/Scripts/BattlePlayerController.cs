@@ -11,7 +11,8 @@ public class BattlePlayerController : MonoBehaviour,ICharacter
     [SerializeField] private ButtonNavigator buttonNavigator;
     [SerializeField] private InventoryUI inventoryUI;
     [SerializeField] private BattleManager battleManager;
-    
+    [SerializeField] private ItemSelect itemSelect;
+     
     private const float CriticalRate = 0.25f; //クリティカルの確率（今は25％）
     private const int CriticalMultiplier = 2; // クリティカル倍率
     private const float EvasionRate = 0.1f; //回避の確率（今は10％）
@@ -26,7 +27,7 @@ public class BattlePlayerController : MonoBehaviour,ICharacter
         if (!buttonNavigator.isInventory || !inventoryUI.isItem) return;
         
         inventoryUI.isItem = false;
-        inventoryUI.contentParent.gameObject.SetActive(false);
+        itemSelect.contentParent.gameObject.SetActive(false);
         buttonNavigator.SetInventoryState(false);
         NextState();
     }   
