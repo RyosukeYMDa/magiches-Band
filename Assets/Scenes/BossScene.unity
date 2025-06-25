@@ -680,7 +680,6 @@ MonoBehaviour:
   - {fileID: 716642532}
   - {fileID: 1673846225}
   isInventory: 0
-  justOpenedInventory: 0
 --- !u!224 &360705355
 RectTransform:
   m_ObjectHideFlags: 0
@@ -737,7 +736,6 @@ MonoBehaviour:
   - {fileID: 1022524069}
   - {fileID: 730645529}
   isInventory: 0
-  justOpenedInventory: 0
 --- !u!224 &456298482
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1414,6 +1412,7 @@ GameObject:
   - component: {fileID: 917343175}
   - component: {fileID: 917343174}
   - component: {fileID: 917343173}
+  - component: {fileID: 917343177}
   m_Layer: 5
   m_Name: InventoryPanel
   m_TagString: Untagged
@@ -1504,6 +1503,24 @@ RectTransform:
   m_AnchoredPosition: {x: -4.2943115, y: 0}
   m_SizeDelta: {x: -566.83777, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &917343177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917343172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 479d6363281f5d54e81cd388999181e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonNavigator: {fileID: 1430473318}
+  contentParent: {fileID: 917343176}
+  playerStatus: {fileID: 11400000, guid: 9797ff948bf232648a2320e925992a02, type: 2}
+  inventoryUI: {fileID: 1430473317}
+  itemTextPrefab: {fileID: 585160820923368427, guid: 2057e3d1b1c0b47498f10ed1134b1769, type: 3}
+  playerInput: {fileID: 2082121407}
 --- !u!1 &999055143
 GameObject:
   m_ObjectHideFlags: 0
@@ -2125,10 +2142,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e59034f83b3b74fba79e69df493933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemTextPrefab: {fileID: 8636773208782359555, guid: 569000042283fc248840baf9255bdced, type: 3}
   buttonNavigator: {fileID: 1430473318}
-  contentParent: {fileID: 917343176}
-  playerStatus: {fileID: 11400000, guid: 9797ff948bf232648a2320e925992a02, type: 2}
+  inventory:
+    items: []
   isOpen: 0
   isItem: 0
   messageText: {fileID: 1644727676}
@@ -2147,7 +2163,6 @@ MonoBehaviour:
   buttons:
   - {fileID: 1771276382}
   isInventory: 0
-  justOpenedInventory: 0
 --- !u!114 &1430473319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2166,6 +2181,7 @@ MonoBehaviour:
   buttonNavigator: {fileID: 1430473318}
   battlePlayerController: {fileID: 2082121405}
   inventoryUI: {fileID: 1430473317}
+  itemSelect: {fileID: 0}
   messageText: {fileID: 1644727676}
   inventoryPanel: {fileID: 917343172}
 --- !u!1 &1519973877

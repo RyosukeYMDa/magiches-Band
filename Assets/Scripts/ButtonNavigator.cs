@@ -13,8 +13,6 @@ public class ButtonNavigator : MonoBehaviour
     //Inventoryが表示されているのかを判別
     public bool isInventory;
     
-    public bool justOpenedInventory;
-    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {

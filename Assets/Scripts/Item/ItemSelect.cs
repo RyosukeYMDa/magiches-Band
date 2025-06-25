@@ -20,8 +20,10 @@ public class ItemSelect : MonoBehaviour
     [SerializeField] private InventoryUI inventoryUI;
     
     [SerializeField] private GameObject itemTextPrefab; // TextMeshProを含むプレハブ
-
-    public void OnEnable()
+    
+    [SerializeField] private PlayerInput playerInput;
+    
+    private void OnEnable()
     {
         // Inventoryを初期化 or 既存のものを取得
         inventoryUI.inventory = SaveManager.LoadInventory();
@@ -30,10 +32,38 @@ public class ItemSelect : MonoBehaviour
             inventoryUI.inventory = new Inventory();
         }
         
+        // PlayerInputが設定されていなければ警告だけ出す
+        if (playerInput == null)
+        {
+            Debug.LogWarning("PlayerInputが設定されていません！");
+            return;
+        }
+        
         OpenInventory();
+        
+        var navigateAction = playerInput.actions["Choice"];
+        var submitAction = playerInput.actions["UiSubmit"];
+        var cancelAction = playerInput.actions["UiCancel"];
+
+        // イベント登録
+        navigateAction.performed += OnNavigate;
+        submitAction.performed += OnSubmit;
+        cancelAction.performed += OnCancel;
+    }
+
+    private void OnDisable()
+    {
+        var navigateAction = playerInput.actions["Choice"];
+        var submitAction = playerInput.actions["UiSubmit"];
+        var cancelAction = playerInput.actions["UiCancel"];
+
+        // イベント登録
+        navigateAction.performed -= OnNavigate;
+        submitAction.performed -= OnSubmit;
+        cancelAction.performed -= OnCancel;
     }
     
-    public void OpenInventory()
+    private void OpenInventory()
     {   
         UpdateUI(); // 忘れずに最新のUIを生成
 

@@ -49,7 +49,6 @@ public class ButtonController : MonoBehaviour
         Debug.Log($"InventoryDisplay called at frame {Time.frameCount}");
         if (buttonNavigator.isInventory) return;
         
-        if(buttonNavigator.justOpenedInventory)return;
         Debug.Log("InventoryDisplay");
         StartCoroutine(ShowInventoryPanelNextFrame());
     }
@@ -60,9 +59,6 @@ public class ButtonController : MonoBehaviour
     /// <returns></returns>
     IEnumerator ShowInventoryPanelNextFrame()
     {
-        // バッファ先にセット
-        buttonNavigator.justOpenedInventory = true;
-
         yield return null;
 
         inventoryPanel.SetActive(true);

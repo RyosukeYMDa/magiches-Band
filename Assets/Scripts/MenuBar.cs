@@ -67,19 +67,8 @@ public class MenuBar : MonoBehaviour
 
     public void InventoryDisplay()
     {
-        if(buttonNavigator.justOpenedInventory)return;
         Debug.Log("InventoryDisplay");
         isShown = false;
-        StartCoroutine(ShowInventoryPanelNextFrame());
-    }
-
-    IEnumerator ShowInventoryPanelNextFrame()
-    {
-        // バッファ先にセット
-        buttonNavigator.justOpenedInventory = true;
-
-        yield return null;
-
         inventoryPanel.SetActive(true);
         panel.gameObject.SetActive(false);
         buttonNavigator.SetInventoryState(true);
