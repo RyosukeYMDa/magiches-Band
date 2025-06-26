@@ -25,13 +25,6 @@ public class ItemSelect : MonoBehaviour
     
     private void OnEnable()
     {
-        // Inventoryを初期化 or 既存のものを取得
-        inventoryUI.inventory = SaveManager.LoadInventory();
-        if (inventoryUI.inventory == null)
-        {
-            inventoryUI.inventory = new Inventory();
-        }
-        
         // PlayerInputが設定されていなければ警告だけ出す
         if (playerInput == null)
         {
@@ -53,14 +46,17 @@ public class ItemSelect : MonoBehaviour
 
     private void OnDisable()
     {
-        var navigateAction = playerInput.actions["Choice"];
-        var submitAction = playerInput.actions["UiSubmit"];
-        var cancelAction = playerInput.actions["UiCancel"];
+        if (playerInput && playerInput.actions)
+        {
+            var navigateAction = playerInput.actions["Choice"];
+            var submitAction = playerInput.actions["UiSubmit"];
+            var cancelAction = playerInput.actions["UiCancel"];
 
-        // イベント登録
-        navigateAction.performed -= OnNavigate;
-        submitAction.performed -= OnSubmit;
-        cancelAction.performed -= OnCancel;
+            // イベント登録
+            navigateAction.performed -= OnNavigate;
+            submitAction.performed -= OnSubmit;
+            cancelAction.performed -= OnCancel;   
+        }
     }
     
     private void OpenInventory()

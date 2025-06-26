@@ -1413,6 +1413,7 @@ GameObject:
   - component: {fileID: 917343174}
   - component: {fileID: 917343173}
   - component: {fileID: 917343177}
+  - component: {fileID: 917343178}
   m_Layer: 5
   m_Name: InventoryPanel
   m_TagString: Untagged
@@ -1520,6 +1521,20 @@ MonoBehaviour:
   playerStatus: {fileID: 11400000, guid: 9797ff948bf232648a2320e925992a02, type: 2}
   inventoryUI: {fileID: 1430473317}
   itemTextPrefab: {fileID: 585160820923368427, guid: 2057e3d1b1c0b47498f10ed1134b1769, type: 3}
+  playerInput: {fileID: 2082121407}
+--- !u!114 &917343178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917343172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d02c2b79a2197c2448d4561f77d6e210, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackCommand: {fileID: 360705353}
   playerInput: {fileID: 2082121407}
 --- !u!1 &999055143
 GameObject:
@@ -2181,7 +2196,7 @@ MonoBehaviour:
   buttonNavigator: {fileID: 1430473318}
   battlePlayerController: {fileID: 2082121405}
   inventoryUI: {fileID: 1430473317}
-  itemSelect: {fileID: 0}
+  itemSelect: {fileID: 917343177}
   messageText: {fileID: 1644727676}
   inventoryPanel: {fileID: 917343172}
 --- !u!1 &1519973877
@@ -3267,6 +3282,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8732552605721786611, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}
+      propertyPath: itemSelect
+      value: 
+      objectReference: {fileID: 917343177}
+    - target: {fileID: 8732552605721786611, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}
       propertyPath: inventoryUI
       value: 
       objectReference: {fileID: 1430473317}
@@ -3385,47 +3404,11 @@ MonoBehaviour:
     m_ActionId: a1b9bc84-83e7-4ec1-ba35-c41e421179ea
     m_ActionName: 'Player/Menu[/XInputControllerWindows/start]'
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1430473317}
-        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
-        m_MethodName: OnSubmit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 5fe294bd-66e8-455e-9ba2-aab261ca8c8c
     m_ActionName: 'Player/UiSubmit[/XInputControllerWindows/buttonEast]'
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1430473319}
-        m_TargetAssemblyTypeName: ButtonController, Assembly-CSharp
-        m_MethodName: OnAdditionCancel
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1430473317}
-        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
-        m_MethodName: OnCancel
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: f8caa6a0-5cc6-492d-b9be-758d2f7293b9
     m_ActionName: 'Player/UiCancel[/XInputControllerWindows/buttonSouth]'
   - m_PersistentCalls:
@@ -3469,19 +3452,7 @@ MonoBehaviour:
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1430473317}
-        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
-        m_MethodName: OnNavigate
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: ce6133e5-28cd-43d2-8538-534c2072405e
     m_ActionName: 'Player/Choice[/XInputControllerWindows/leftStick/up,/XInputControllerWindows/rightStick/up,/XInputControllerWindows/leftStick/down,/XInputControllerWindows/rightStick/down,/XInputControllerWindows/leftStick/left,/XInputControllerWindows/rightStick/left,/XInputControllerWindows/leftStick/right,/XInputControllerWindows/rightStick/right,/XInputControllerWindows/dpad,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   m_NeverAutoSwitchControlSchemes: 0

@@ -13,6 +13,16 @@ public class InventoryUI : MonoBehaviour
     
     //messageを表示させる
     [SerializeField] private TextMeshProUGUI messageText;
+
+    private void Start()
+    {
+        // Inventoryを初期化 or 既存のものを取得
+        inventory = SaveManager.LoadInventory();
+        if (inventory == null)
+        {
+            inventory = new Inventory();
+        }
+    }
     
     public void GetItem(string itemName)
     {

@@ -14,9 +14,26 @@ public class MenuBar : MonoBehaviour
 
     [SerializeField] private ButtonNavigator buttonNavigator;
     [SerializeField] private InventoryUI inventoryUI;
+    [SerializeField] private CharacterController characterController;
+    [SerializeField] private PlayerInput playerInput;
     public GameObject inventoryPanel;
 
-    public bool isShown; //menubarが出ているかどうか
+    private void OnEnable()
+    {
+        var menuAction = playerInput.actions["Menu"];
+
+        menuAction.performed += Menu;
+    }
+
+    private void OnDisable()
+    {
+        if (playerInput && playerInput.actions)
+        {
+            var menuAction = playerInput.actions["Menu"];
+
+            menuAction.performed -= Menu;   
+        }
+    }
     
     public void Menu(InputAction.CallbackContext context)
     {
@@ -28,16 +45,12 @@ public class MenuBar : MonoBehaviour
 
     private void TogglePanel()
     {
-        // 表示状態にする前にこのオブジェクトを有効化（SetActive(true)）
-        if (!isShown)
-            panel.gameObject.SetActive(true);
-        
         // すでにスライド中なら中断
         if (slideCoroutine != null)
             StopCoroutine(slideCoroutine);
 
-        slideCoroutine = StartCoroutine(SlidePanel(isShown ? hiddenPosition : shownPosition));
-        isShown = !isShown;
+        slideCoroutine = StartCoroutine(SlidePanel(characterController.isShown ? hiddenPosition : shownPosition)); 
+        characterController.isShown = !characterController.isShown;
         
     }
 
@@ -58,19 +71,17 @@ public class MenuBar : MonoBehaviour
         panel.anchoredPosition = targetPosition;
         slideCoroutine = null;
         
-        // 完全に非表示位置になったら MenuBar を無効化
-        if (hiding)
+        if (hiding && buttonNavigator.isInventory)
         {
-            panel.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 
     public void InventoryDisplay()
     {
-        Debug.Log("InventoryDisplay");
-        isShown = false;
+        Debug.Log("InventoryDisplay"); 
+        TogglePanel();
         inventoryPanel.SetActive(true);
-        panel.gameObject.SetActive(false);
         buttonNavigator.SetInventoryState(true);
     }
 }

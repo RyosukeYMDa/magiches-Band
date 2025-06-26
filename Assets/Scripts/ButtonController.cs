@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
-using UnityEngine.InputSystem;
 
 public class ButtonController : MonoBehaviour
 {
@@ -18,14 +17,6 @@ public class ButtonController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI messageText;
     
     public GameObject inventoryPanel;
-
-    public void OnAdditionCancel(InputAction.CallbackContext context)
-    {
-        if(!buttonNavigator.isInventory) return;
-        
-        Debug.Log("OnAdditionCancel");
-        attackCommand.SetActive(true);
-    }
     
     public void EnableAct()
     {

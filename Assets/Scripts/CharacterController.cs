@@ -37,9 +37,10 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private LoadingShaderController loadingShaderController;
     [SerializeField] private CameraController cameraController;
     [SerializeField] private ButtonNavigator buttonNavigator;
-    [SerializeField] private MenuBar menuBar;
 
     private Rigidbody rb;
+    
+    public bool isShown; //menubarが出ているかどうか
 
     private void Start()
     {
@@ -108,7 +109,7 @@ public class CharacterController : MonoBehaviour
     //InputSystemから呼び出されるplayerの動きの入力情報更新
     public void UpdateMoveInput(InputAction.CallbackContext context)
     {
-        if (context.performed && !menuBar.isShown && !buttonNavigator.isInventory)
+        if (context.performed && !isShown && !buttonNavigator.isInventory)
         {
             //playerの移動
             var input = context.ReadValue<Vector2>();
