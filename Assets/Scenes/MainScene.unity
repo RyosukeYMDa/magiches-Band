@@ -5214,6 +5214,10 @@ PrefabInstance:
       value: 'Player/ChoiceButton[/XInputControllerWindows/dpad/right,/XInputControllerWindows/dpad/up,/XInputControllerWindows/dpad/down,/XInputControllerWindows/dpad/left]'
       objectReference: {fileID: 0}
     - target: {fileID: 2197397995625243528, guid: 273e032ec1b58e84ab1399eaa1e5396c, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2197397995625243528, guid: 273e032ec1b58e84ab1399eaa1e5396c, type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}

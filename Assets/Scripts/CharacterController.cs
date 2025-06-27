@@ -26,7 +26,8 @@ public class CharacterController : MonoBehaviour
     private const float RotationSpeed = 10f;
     private Vector3 moveDirection; // 移動方向
     private Vector3 playerDirection; // プレイヤーの向いている方向
-
+    private PlayerInput playerInput; 
+    
     //spineAnimation関連
     private SkeletonAnimation skeletonAnimation;
     private Spine.AnimationState spAnimationState;
@@ -52,6 +53,23 @@ public class CharacterController : MonoBehaviour
         //これが無いとspineのanimationが動かない
         skeletonAnimation = GetComponent<SkeletonAnimation>();
         spAnimationState = skeletonAnimation.AnimationState;
+        
+        playerInput = GetComponent<PlayerInput>();
+        var moveAction = playerInput.actions["Move"];
+        
+        moveAction.performed += OnMovePerformed;
+        moveAction.canceled += OnMoveCanceled;
+    }
+    
+    private void OnDisable()
+    {
+        if (playerInput && playerInput.actions)
+        {
+            var moveAction = playerInput.actions["Move"];
+
+            moveAction.performed -= OnMovePerformed;
+            moveAction.canceled -= OnMoveCanceled;   
+        }
     }
 
     private void Update()
@@ -105,19 +123,18 @@ public class CharacterController : MonoBehaviour
     {
         rb.linearVelocity = moveDirection * MoveSpeed;
     }
-
-    //InputSystemから呼び出されるplayerの動きの入力情報更新
-    public void UpdateMoveInput(InputAction.CallbackContext context)
+    
+    private void OnMovePerformed(InputAction.CallbackContext context)
     {
-        if (context.performed && !isShown && !buttonNavigator.isInventory)
-        {
-            //playerの移動
-            var input = context.ReadValue<Vector2>();
-            moveInput = new Vector3(input.x, 0f, input.y);
-        }
+        if (isShown || buttonNavigator.isInventory) return;
 
-        // 入力が終了したときは移動を止める
-        if (context.canceled) moveInput = Vector3.zero;
+        Vector2 input = context.ReadValue<Vector2>();
+        moveInput = new Vector3(input.x, 0f, input.y);
+    }
+
+    private void OnMoveCanceled(InputAction.CallbackContext context)
+    {
+        moveInput = Vector3.zero;
     }
 
     /// <summary>
