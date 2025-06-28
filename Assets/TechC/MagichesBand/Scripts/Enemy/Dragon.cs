@@ -103,7 +103,7 @@ namespace TechC.MagichesBand.Enemy
             ResetStatus();
             BattleManager.Instance.SavePlayerInventory();
             Destroy(gameObject);
-            SceneManager.LoadScene("MainScene");
+            SceneManager.LoadScene("Filed");
         }
     
         public void NextState()

@@ -178,7 +178,7 @@ namespace TechC.MagichesBand.Item
                     Debug.Log("ドアを開けた");
                     inventoryUI.inventory.RemoveItem(item.itemName, 1);
                     GameManager.Instance.enemyType = GameManager.EnemyType.BossEnemy;
-                    SceneManager.LoadScene("BossScene");
+                    SceneManager.LoadScene("Boss");
                     break;
                 case "Key":
                     StartCoroutine(inventoryUI.MessageReception("You can't use it here"));

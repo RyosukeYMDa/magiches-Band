@@ -214,7 +214,7 @@ namespace TechC.MagichesBand.Field
 
                 SavePlayerPosition();
             
-                SceneManager.LoadScene("BattleScene");
+                SceneManager.LoadScene("Battle");
             }
             else
             {

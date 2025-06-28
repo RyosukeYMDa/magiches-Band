@@ -21,7 +21,7 @@ namespace TechC.MagichesBand.Title
         public void StartGame()
         {
             Debug.Log("StartGame");
-            SceneManager.LoadScene("MainScene");
+            SceneManager.LoadScene("Field");
         }
 
         public void TitleDateReset()
