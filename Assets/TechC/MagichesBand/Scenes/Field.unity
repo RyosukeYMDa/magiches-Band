@@ -938,10 +938,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1582927733}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -26.7594, y: 0}
-  m_SizeDelta: {x: -528.12, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 320, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &275426393
 MonoBehaviour:
@@ -2519,7 +2519,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &941362896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2633,11 +2633,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1582927733}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 313.7921, y: 11}
-  m_SizeDelta: {x: 238.4158, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 32, y: 0}
+  m_SizeDelta: {x: 240, y: 50}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!1 &1052696656
 GameObject:
   m_ObjectHideFlags: 0
@@ -2649,7 +2649,7 @@ GameObject:
   - component: {fileID: 1052696658}
   - component: {fileID: 1052696659}
   m_Layer: 0
-  m_Name: MainManager
+  m_Name: FieldManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2854,10 +2854,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1582927733}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.00023413}
-  m_SizeDelta: {x: 920, y: 517.67}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1161173659
 MonoBehaviour:
@@ -3610,11 +3610,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -4709,11 +4709,11 @@ RectTransform:
   - {fileID: 215041106}
   m_Father: {fileID: 1582927733}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 581, y: 0}
-  m_SizeDelta: {x: -689.3354, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 300, y: 0}
+  m_SizeDelta: {x: 180, y: 0}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &2043897688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4765,12 +4765,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 2043897687}
-  shownPosition: {x: 350, y: 0}
-  hiddenPosition: {x: 600, y: 0}
+  shownPosition: {x: 0, y: 0}
+  hiddenPosition: {x: 300, y: 0}
   slideDuration: 0.3
   buttonNavigator: {fileID: 1582927736}
   inventoryUI: {fileID: 1582927737}
-  characterController: {fileID: 1966283784}
+  playerController: {fileID: 1966283784}
   playerInput: {fileID: 3454504375464531476}
   inventoryPanel: {fileID: 275426389}
 --- !u!1 &2090189639 stripped
