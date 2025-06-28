@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TechC.MagichesBand
+namespace TechC.MagichesBand.Battle
 {
     public class StickRotationDetector : MonoBehaviour
     {

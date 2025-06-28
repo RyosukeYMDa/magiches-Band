@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using TechC.MagichesBand.Core;
+using TechC.MagichesBand.Game;
 using TechC.MagichesBand.Item;
 using UnityEngine;
 

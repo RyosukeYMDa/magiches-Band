@@ -1,8 +1,10 @@
+using TechC.MagichesBand.Core;
 using TechC.MagichesBand.Enemy;
+using TechC.MagichesBand.Field;
 using TechC.MagichesBand.Item;
 using UnityEngine;
 
-namespace TechC.MagichesBand
+namespace TechC.MagichesBand.Battle
 {
     public class BattleManager : MonoBehaviour
     {

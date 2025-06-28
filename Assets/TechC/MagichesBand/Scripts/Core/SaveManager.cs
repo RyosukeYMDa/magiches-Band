@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using TechC.MagichesBand.Field;
 using TechC.MagichesBand.Item;
 using UnityEngine;
 
-namespace TechC.MagichesBand
+namespace TechC.MagichesBand.Core
 {
     public static class SaveManager
     {

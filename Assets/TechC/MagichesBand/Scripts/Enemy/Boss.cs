@@ -1,3 +1,5 @@
+using TechC.MagichesBand.Battle;
+using TechC.MagichesBand.Game;
 using UnityEngine;
 
 namespace TechC.MagichesBand.Enemy

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TechC.MagichesBand
+namespace TechC.MagichesBand.StaffRoll
 {
     public class ScrollController : MonoBehaviour
     {

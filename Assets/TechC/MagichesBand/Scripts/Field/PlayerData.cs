@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TechC.MagichesBand
+namespace TechC.MagichesBand.Field
 {
     [System.Serializable]
     public class PlayerData

@@ -1,11 +1,12 @@
 using System;
 using Spine.Unity;
+using TechC.MagichesBand.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 //コンポーネント付け忘れ防止用Attribute(属性)
-namespace TechC.MagichesBand
+namespace TechC.MagichesBand.Field
 {
     [RequireComponent(typeof(SkeletonAnimation))]
     [RequireComponent(typeof(Rigidbody))]

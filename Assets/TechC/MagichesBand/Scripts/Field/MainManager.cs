@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace TechC.MagichesBand
+namespace TechC.MagichesBand.Field
 {
     public class MainManager : MonoBehaviour
     {

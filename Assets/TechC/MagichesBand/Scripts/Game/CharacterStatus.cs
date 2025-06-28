@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TechC.MagichesBand
+namespace TechC.MagichesBand.Game
 {
     [CreateAssetMenu(menuName = "Date/Character Status")]
     public class CharacterStatus : ScriptableObject

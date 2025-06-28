@@ -3,7 +3,7 @@ using System.Linq;
 using TechC.MagichesBand.Enemy;
 using UnityEngine;
 
-namespace TechC.MagichesBand
+namespace TechC.MagichesBand.Battle
 {
     public class TurnManager : MonoBehaviour
     {

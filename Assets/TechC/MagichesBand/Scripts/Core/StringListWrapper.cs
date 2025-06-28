@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace TechC.MagichesBand
+namespace TechC.MagichesBand.Core
 {
     [System.Serializable]
     public class StringListWrapper

@@ -3,7 +3,7 @@ using TechC.MagichesBand.Item;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace TechC.MagichesBand
+namespace TechC.MagichesBand.Field
 {
     public class MenuBar : MonoBehaviour
     {

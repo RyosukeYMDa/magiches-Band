@@ -1,10 +1,11 @@
 using TechC.MagichesBand.Enemy;
+using TechC.MagichesBand.Game;
 using TechC.MagichesBand.Item;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace TechC.MagichesBand
+namespace TechC.MagichesBand.Battle
 {
     public class BattlePlayerController : MonoBehaviour,ICharacter
     {

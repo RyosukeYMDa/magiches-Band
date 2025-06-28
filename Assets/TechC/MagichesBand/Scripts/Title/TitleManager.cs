@@ -1,7 +1,9 @@
+using TechC.MagichesBand.Core;
+using TechC.MagichesBand.Field;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace TechC.MagichesBand
+namespace TechC.MagichesBand.Title
 {
     public class TitleManager : MonoBehaviour
     {

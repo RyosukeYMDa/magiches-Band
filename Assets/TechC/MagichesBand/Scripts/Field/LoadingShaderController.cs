@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TechC.MagichesBand
+namespace TechC.MagichesBand.Field
 {
     public class LoadingShaderController : MonoBehaviour
     {

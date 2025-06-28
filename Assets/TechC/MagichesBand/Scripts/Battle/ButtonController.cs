@@ -3,7 +3,7 @@ using TechC.MagichesBand.Item;
 using TMPro;
 using UnityEngine;
 
-namespace TechC.MagichesBand
+namespace TechC.MagichesBand.Battle
 {
     public class ButtonController : MonoBehaviour
     {

@@ -1,3 +1,4 @@
+using TechC.MagichesBand.Core;
 using UnityEngine;
 
 namespace TechC.MagichesBand.Item

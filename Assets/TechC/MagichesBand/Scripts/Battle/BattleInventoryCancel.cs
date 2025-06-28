@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace TechC.MagichesBand
+namespace TechC.MagichesBand.Battle
 {
     public class BattleInventoryCancel : MonoBehaviour
     {
