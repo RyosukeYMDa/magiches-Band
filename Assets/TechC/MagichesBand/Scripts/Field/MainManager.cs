@@ -1,4 +1,5 @@
 using System.Collections;
+using TechC.MagichesBand.Game;
 using UnityEngine;
 
 namespace TechC.MagichesBand.Field

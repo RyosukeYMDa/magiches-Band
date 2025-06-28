@@ -1,6 +1,7 @@
 using System;
 using Spine.Unity;
 using TechC.MagichesBand.Core;
+using TechC.MagichesBand.Game;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;

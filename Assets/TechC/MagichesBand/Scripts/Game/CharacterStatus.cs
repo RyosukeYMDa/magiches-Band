@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace TechC.MagichesBand.Game
 {
     [CreateAssetMenu(menuName = "Date/Character Status")]
     public class CharacterStatus : ScriptableObject
     {
-        public string enemyName;//敵の名前
+        [FormerlySerializedAs("enemyName")] public string characterName;//敵の名前
         public int maxHp;//MaxHp
         public int maxMp;//MaxMp
         public int hp;//現在のMp

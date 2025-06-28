@@ -1,3 +1,4 @@
+using TechC.MagichesBand.Game;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

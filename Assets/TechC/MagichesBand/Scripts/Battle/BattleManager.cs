@@ -1,12 +1,13 @@
 using TechC.MagichesBand.Core;
 using TechC.MagichesBand.Enemy;
 using TechC.MagichesBand.Field;
+using TechC.MagichesBand.Game;
 using TechC.MagichesBand.Item;
 using UnityEngine;
 
 namespace TechC.MagichesBand.Battle
 {
-    public class BattleManager : MonoBehaviour
+    public class BattleManager : SingletonMonoBehaviour<BattleManager>
     {
         public EnemyFactory factory;
     
@@ -17,24 +18,10 @@ namespace TechC.MagichesBand.Battle
         [SerializeField] private GameObject attackCommand;
     
         public bool bossPhase2; //BossのPhase1が撃破されたかの判別
-        public static BattleManager Instance { get; private set; }
     
         // 現在の敵を外部から取得可能にする
         public ICharacter CurrentEnemy { get; private set; }
 
-        private void Awake()
-        {
-            if (!Instance)
-            {
-                Instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-                return;
-            }
-        }
-    
         private void Start()
         {
             // UI上に敵を1体生成

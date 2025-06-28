@@ -3,17 +3,6 @@ using UnityEngine;
 
 namespace TechC.MagichesBand.Enemy
 {
-    public interface ICharacter
-    {
-        void Act();
-        void TakeDamage(int damage);
-
-        void NextState();
-    
-        void ResetStatus();
-        CharacterStatus Status { get; }
-    }
-
     public enum EnemyTypeEnum
     {
         Slime,

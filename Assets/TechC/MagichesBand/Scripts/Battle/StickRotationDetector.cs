@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace TechC.MagichesBand.Battle
 {
+    /// <summary>
+    ///     バトルにおけるスティック回転入力の判定オブジェクト
+    /// </summary>
     public class StickRotationDetector : MonoBehaviour
     {
         [SerializeField] private float directionDeadZone = 0.5f;

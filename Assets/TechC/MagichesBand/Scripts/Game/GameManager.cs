@@ -1,18 +1,15 @@
 using System.Collections.Generic;
 using TechC.MagichesBand.Core;
-using TechC.MagichesBand.Game;
 using TechC.MagichesBand.Item;
 using UnityEngine;
 
-namespace TechC.MagichesBand
+namespace TechC.MagichesBand.Game
 {
     /// <summary>
     /// シーンを跨いで使う変数を管理するclass
     /// </summary>
-    public class GameManager : MonoBehaviour
+    public class GameManager : SingletonMonoBehaviour<GameManager>
     {
-        public static GameManager Instance { get; private set; }
-
         [SerializeField] public Vector3 playerPosition;
         [SerializeField] private CharacterStatus playerStatus;
     
@@ -34,19 +31,13 @@ namespace TechC.MagichesBand
         //インベントリ
         public Inventory inventory;
 
-        private void Awake()
+        protected override bool dontDestroyOnLoad => true;
+
+        protected override void Awake()
         {
+            base.Awake();
+            
             startPosition = new Vector3(-13f, 0.6f, 6);
-        
-            if (!Instance)
-            {
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
         
             var loadedData = SaveManager.LoadPlayerData();
         

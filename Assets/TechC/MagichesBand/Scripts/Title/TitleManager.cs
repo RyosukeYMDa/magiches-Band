@@ -1,5 +1,6 @@
 using TechC.MagichesBand.Core;
 using TechC.MagichesBand.Field;
+using TechC.MagichesBand.Game;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

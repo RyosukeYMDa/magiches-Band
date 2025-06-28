@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
+using TechC.MagichesBand.Core;
 using TechC.MagichesBand.Enemy;
 using UnityEngine;
 
 namespace TechC.MagichesBand.Battle
 {
-    public class TurnManager : MonoBehaviour
+    public class TurnManager : SingletonMonoBehaviour<TurnManager>
     {
         [SerializeField] private BattlePlayerController player;
         [SerializeField] private List<GameObject> enemyObjects = new List<GameObject>();
@@ -15,8 +16,6 @@ namespace TechC.MagichesBand.Battle
     
         public int turnCount;
     
-        public static TurnManager Instance { get; private set; }
-
         public enum TurnPhase
         {
             FirstMove,
@@ -25,18 +24,10 @@ namespace TechC.MagichesBand.Battle
     
         public TurnPhase CurrentTurnPhase { get; set; } = TurnPhase.FirstMove;
 
-
-        private void Awake()
+        protected override void Awake()
         {
-            if (!Instance)
-            {
-                Instance = this;
-            }
-            else
-            { 
-                Destroy(gameObject);
-            }
-        
+            base.Awake();
+            
             Debug.Log("【行動順】");
             foreach (var unit in turnOrder)
             {
@@ -108,4 +99,3 @@ namespace TechC.MagichesBand.Battle
         }
     }
 }
-
