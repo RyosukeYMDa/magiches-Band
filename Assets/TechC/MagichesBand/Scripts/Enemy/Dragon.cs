@@ -1,123 +1,126 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Dragon : MonoBehaviour,ICharacter
+namespace TechC.MagichesBand.Enemy
 {
-    [SerializeField] private CharacterStatus dragonStatus;
-    [SerializeField] private BattlePlayerController battlePlayerController;
-    
-    private const float CriticalRate = 0.25f; //クリティカルの確率（今は25％）
-    private const int CriticalMultiplier = 2; // クリティカル倍率
-    private const float EvasionRate = 0.1f; //回避の確率（今は10％）
-
-    private int consumptionMp; //消費Mp
-    public CharacterStatus Status => dragonStatus;
-    
-    public void Act()
+    public class Dragon : MonoBehaviour,ICharacter
     {
-        if(StickRotationDetector.Instance.defeatedEnemy) return;
-        
-        int damage;
-        
-        var randomAttack = Random.Range(0, 2);
+        [SerializeField] private CharacterStatus dragonStatus;
+        [SerializeField] private BattlePlayerController battlePlayerController;
+    
+        private const float CriticalRate = 0.25f; //クリティカルの確率（今は25％）
+        private const int CriticalMultiplier = 2; // クリティカル倍率
+        private const float EvasionRate = 0.1f; //回避の確率（今は10％）
 
-        switch (randomAttack)
+        private int consumptionMp; //消費Mp
+        public CharacterStatus Status => dragonStatus;
+    
+        public void Act()
         {
-            case 0:
-                Debug.Log("Bite");
-                // プレイヤーへのダメージ計算
-                damage = Mathf.Max(0, dragonStatus.atk - battlePlayerController.Status.def);
-                damage = CriticalCalculation(damage);
-                battlePlayerController.TakeDamage(damage);
-                break;
-            case 1:
-                consumptionMp = 3;
-                if ((dragonStatus.mp - consumptionMp) >= 0)
-                {
-                    dragonStatus.mp -= consumptionMp;
-                    Debug.Log("Breath");
+            if(StickRotationDetector.Instance.defeatedEnemy) return;
+        
+            int damage;
+        
+            var randomAttack = Random.Range(0, 2);
+
+            switch (randomAttack)
+            {
+                case 0:
+                    Debug.Log("Bite");
                     // プレイヤーへのダメージ計算
-                    damage = Mathf.Max(0, dragonStatus.mAtk - battlePlayerController.Status.mDef);
+                    damage = Mathf.Max(0, dragonStatus.atk - battlePlayerController.Status.def);
                     damage = CriticalCalculation(damage);
-                    battlePlayerController.TakeDamage(damage);   
-                }
-                else
-                {
-                    Debug.Log("失敗");
-                }
-                break;
-        }
+                    battlePlayerController.TakeDamage(damage);
+                    break;
+                case 1:
+                    consumptionMp = 3;
+                    if ((dragonStatus.mp - consumptionMp) >= 0)
+                    {
+                        dragonStatus.mp -= consumptionMp;
+                        Debug.Log("Breath");
+                        // プレイヤーへのダメージ計算
+                        damage = Mathf.Max(0, dragonStatus.mAtk - battlePlayerController.Status.mDef);
+                        damage = CriticalCalculation(damage);
+                        battlePlayerController.TakeDamage(damage);   
+                    }
+                    else
+                    {
+                        Debug.Log("失敗");
+                    }
+                    break;
+            }
         
-        NextState();
-    }
+            NextState();
+        }
     
-    /// <summary>
-    /// criticalの処理（クリティカルの確率を個別に変えたいのでまとめておかない）
-    /// </summary>
-    /// <param name="damage"></param>
-    private int CriticalCalculation(int damage)
-    {
-        // ランダム値を生成
-        float randomCritical = Random.Range(0.0f, 1.0f);
+        /// <summary>
+        /// criticalの処理（クリティカルの確率を個別に変えたいのでまとめておかない）
+        /// </summary>
+        /// <param name="damage"></param>
+        private int CriticalCalculation(int damage)
+        {
+            // ランダム値を生成
+            float randomCritical = Random.Range(0.0f, 1.0f);
         
-        //ランダム値よりクリティカル確率が上だったら、クリティカルがでる
-        if (randomCritical < CriticalRate)
-        {
-            damage *= CriticalMultiplier;
-            Debug.Log("Critical");
+            //ランダム値よりクリティカル確率が上だったら、クリティカルがでる
+            if (randomCritical < CriticalRate)
+            {
+                damage *= CriticalMultiplier;
+                Debug.Log("Critical");
+            }
+            return damage;
         }
-        return damage;
-    }
     
-    /// <summary>
-    /// 相手からダメージを受け取り、確率で回避をさせる
-    /// </summary>
-    /// <param name="damage"></param>
-    public void TakeDamage(int damage)
-    {
-        var randomEvasion = Random.Range(0.0f, 1.0f);
-
-        if (randomEvasion < EvasionRate)
+        /// <summary>
+        /// 相手からダメージを受け取り、確率で回避をさせる
+        /// </summary>
+        /// <param name="damage"></param>
+        public void TakeDamage(int damage)
         {
-            Debug.Log($"回避  残HP: {dragonStatus.hp}");
-        }
-        else
-        {
-            dragonStatus.hp -= damage;
-            Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {dragonStatus.hp}");   
-        }
+            var randomEvasion = Random.Range(0.0f, 1.0f);
 
-        if (dragonStatus.hp > 0) return;
+            if (randomEvasion < EvasionRate)
+            {
+                Debug.Log($"回避  残HP: {dragonStatus.hp}");
+            }
+            else
+            {
+                dragonStatus.hp -= damage;
+                Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {dragonStatus.hp}");   
+            }
+
+            if (dragonStatus.hp > 0) return;
         
-        StickRotationDetector.Instance.OnRotationCompleted += OnVictoryStickRotate;
-        StickRotationDetector.Instance.StartDetection();
-    }
-
-    private void OnVictoryStickRotate()
-    {
-        Debug.Log($"{gameObject.name} を撃破！");
-        ResetStatus();
-        BattleManager.Instance.SavePlayerInventory();
-        Destroy(gameObject);
-        SceneManager.LoadScene("MainScene");
-    }
-    
-    public void NextState()
-    {
-        if (TurnManager.Instance.CurrentTurnPhase == TurnManager.TurnPhase.FirstMove)
-        {
-            TurnManager.Instance.CurrentTurnPhase = TurnManager.TurnPhase.SecondMove;
-            battlePlayerController.Act();
-        }else if (TurnManager.Instance.CurrentTurnPhase == TurnManager.TurnPhase.SecondMove)
-        {
-            TurnManager.Instance.CurrentTurnPhase = TurnManager.TurnPhase.FirstMove;
-            TurnManager.Instance.ProceedTurn();
+            StickRotationDetector.Instance.OnRotationCompleted += OnVictoryStickRotate;
+            StickRotationDetector.Instance.StartDetection();
         }
-    }
+
+        private void OnVictoryStickRotate()
+        {
+            Debug.Log($"{gameObject.name} を撃破！");
+            ResetStatus();
+            BattleManager.Instance.SavePlayerInventory();
+            Destroy(gameObject);
+            SceneManager.LoadScene("MainScene");
+        }
     
-    public void ResetStatus()
-    {
-        dragonStatus.hp = dragonStatus.maxHp;
-        dragonStatus.mp = dragonStatus.maxMp;
+        public void NextState()
+        {
+            if (TurnManager.Instance.CurrentTurnPhase == TurnManager.TurnPhase.FirstMove)
+            {
+                TurnManager.Instance.CurrentTurnPhase = TurnManager.TurnPhase.SecondMove;
+                battlePlayerController.Act();
+            }else if (TurnManager.Instance.CurrentTurnPhase == TurnManager.TurnPhase.SecondMove)
+            {
+                TurnManager.Instance.CurrentTurnPhase = TurnManager.TurnPhase.FirstMove;
+                TurnManager.Instance.ProceedTurn();
+            }
+        }
+    
+        public void ResetStatus()
+        {
+            dragonStatus.hp = dragonStatus.maxHp;
+            dragonStatus.mp = dragonStatus.maxMp;
+        }
     }
 }

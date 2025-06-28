@@ -1,20 +1,23 @@
 using UnityEngine;
 
-public class ScrollController : MonoBehaviour
+namespace TechC.MagichesBand
 {
-    [SerializeField] private RectTransform rectTransform;
-    [SerializeField] private float endPosition;
-    [SerializeField] private GameObject buttons;
-    
-    // Update is called once per frame
-    private void Update()
+    public class ScrollController : MonoBehaviour
     {
-        rectTransform.position += new Vector3(0, 0.1f, 0);
-
-        if (rectTransform.anchoredPosition.y > endPosition)
+        [SerializeField] private RectTransform rectTransform;
+        [SerializeField] private float endPosition;
+        [SerializeField] private GameObject buttons;
+    
+        // Update is called once per frame
+        private void Update()
         {
-            buttons.SetActive(true);
-            gameObject.SetActive(false);
+            rectTransform.position += new Vector3(0, 0.1f, 0);
+
+            if (rectTransform.anchoredPosition.y > endPosition)
+            {
+                buttons.SetActive(true);
+                gameObject.SetActive(false);
+            }
         }
     }
 }

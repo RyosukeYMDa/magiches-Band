@@ -1,26 +1,29 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TitleManager : MonoBehaviour
+namespace TechC.MagichesBand
 {
-    private void Start()
+    public class TitleManager : MonoBehaviour
     {
-        PlayerData data = SaveManager.LoadPlayerData();
-        if (data != null)
+        private void Start()
         {
-            GameManager.Instance.playerPosition = data.GetPosition();
-            Debug.Log("Load");
+            PlayerData data = SaveManager.LoadPlayerData();
+            if (data != null)
+            {
+                GameManager.Instance.playerPosition = data.GetPosition();
+                Debug.Log("Load");
+            }
         }
-    }
     
-    public void StartGame()
-    {
-        Debug.Log("StartGame");
-        SceneManager.LoadScene("MainScene");
-    }
+        public void StartGame()
+        {
+            Debug.Log("StartGame");
+            SceneManager.LoadScene("MainScene");
+        }
 
-    public void TitleDateReset()
-    {
-        GameManager.Instance.DateReset();
+        public void TitleDateReset()
+        {
+            GameManager.Instance.DateReset();
+        }
     }
 }

@@ -1,16 +1,19 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class EndManager : MonoBehaviour
+namespace TechC.MagichesBand
 {
-    public void ReTry()
+    public class EndManager : MonoBehaviour
     {
-        GameManager.Instance.DateReset();
-        SceneManager.LoadScene("Title");
-    }
+        public void ReTry()
+        {
+            GameManager.Instance.DateReset();
+            SceneManager.LoadScene("Title");
+        }
 
-    public void EndGame()
-    {
-        Debug.Log("まだ未実装");
+        public void EndGame()
+        {
+            Debug.Log("まだ未実装");
+        }
     }
 }

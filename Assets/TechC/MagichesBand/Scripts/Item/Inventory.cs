@@ -1,35 +1,36 @@
-using UnityEngine;
-using System;
 using System.Collections.Generic;
 
-[System.Serializable]
-public class Inventory
+namespace TechC.MagichesBand.Item
 {
-    public List<InventoryItem> items = new List<InventoryItem>();
-
-    public void AddItem(string id, string itemName, int amount)
+    [System.Serializable]
+    public class Inventory
     {
-        InventoryItem item = items.Find(i => i.itemName == itemName);
-        if (item != null)
-        {
-            item.quantity += amount;
-        }
-        else
-        {
-            items.Add(new InventoryItem(id, itemName, amount));
-        }
-    }
+        public List<InventoryItem> items = new List<InventoryItem>();
 
-    public void RemoveItem(string itemName, int amount)
-    {
-        InventoryItem item = items.Find(i => i.itemName == itemName);
-
-        if (item != null)
+        public void AddItem(string id, string itemName, int amount)
         {
-            item.quantity -= amount;
-            if (item.quantity <= 0)
+            InventoryItem item = items.Find(i => i.itemName == itemName);
+            if (item != null)
             {
-                items.Remove(item);
+                item.quantity += amount;
+            }
+            else
+            {
+                items.Add(new InventoryItem(id, itemName, amount));
+            }
+        }
+
+        public void RemoveItem(string itemName, int amount)
+        {
+            InventoryItem item = items.Find(i => i.itemName == itemName);
+
+            if (item != null)
+            {
+                item.quantity -= amount;
+                if (item.quantity <= 0)
+                {
+                    items.Remove(item);
+                }
             }
         }
     }

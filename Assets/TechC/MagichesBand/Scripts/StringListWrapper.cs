@@ -1,12 +1,15 @@
 using System.Collections.Generic;
 
-[System.Serializable]
-public class StringListWrapper
+namespace TechC.MagichesBand
 {
-    public List<string> idList;
-
-    public StringListWrapper(List<string> idList)
+    [System.Serializable]
+    public class StringListWrapper
     {
-        this.idList = idList;
+        public List<string> idList;
+
+        public StringListWrapper(List<string> idList)
+        {
+            this.idList = idList;
+        }
     }
 }

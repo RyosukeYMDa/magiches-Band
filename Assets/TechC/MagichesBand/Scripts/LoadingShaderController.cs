@@ -2,68 +2,71 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoadingShaderController : MonoBehaviour
+namespace TechC.MagichesBand
 {
-    private static readonly int EffectProgress = Shader.PropertyToID("_EffectProgress");
-
-    [SerializeField] private Image loadingImage;
-    [SerializeField] private Material material;
-    private float progress;
-    private bool isPlaying;
-
-    private const float Speed = 1f;
-
-    //ループの周期
-    private const float LoopDuration = 1f;
-
-    public enum AreaState
+    public class LoadingShaderController : MonoBehaviour
     {
-        ResidenceArea,
-        RuinsArea
-    }
+        private static readonly int EffectProgress = Shader.PropertyToID("_EffectProgress");
 
-    public AreaState areaState = AreaState.ResidenceArea;
+        [SerializeField] private Image loadingImage;
+        [SerializeField] private Material material;
+        private float progress;
+        private bool isPlaying;
 
-    // Update is called once per frame
-    private void Update()
-    {
-        if (!isPlaying) return;
+        private const float Speed = 1f;
 
-        progress += Time.deltaTime * Speed;
+        //ループの周期
+        private const float LoopDuration = 1f;
 
-        var loopedProgress = Mathf.Repeat(progress, LoopDuration);
+        public enum AreaState
+        {
+            ResidenceArea,
+            RuinsArea
+        }
 
-        var normalized = loopedProgress / LoopDuration;
+        public AreaState areaState = AreaState.ResidenceArea;
 
-        material.SetFloat(EffectProgress, normalized);
-    }
+        // Update is called once per frame
+        private void Update()
+        {
+            if (!isPlaying) return;
 
-    /// <summary>
-    ///     effectを発生させ、数秒後にstopEffectを実行
-    /// </summary>
-    /// <returns></returns>
-    public IEnumerator PlayEffect()
-    {
-        loadingImage.enabled = true;
-        isPlaying = true;
+            progress += Time.deltaTime * Speed;
+
+            var loopedProgress = Mathf.Repeat(progress, LoopDuration);
+
+            var normalized = loopedProgress / LoopDuration;
+
+            material.SetFloat(EffectProgress, normalized);
+        }
+
+        /// <summary>
+        ///     effectを発生させ、数秒後にstopEffectを実行
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator PlayEffect()
+        {
+            loadingImage.enabled = true;
+            isPlaying = true;
 
 
-        yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(2.0f);
 
-        StopEffect();
-    }
+            StopEffect();
+        }
 
-    private void StopEffect()
-    {
-        isPlaying = false;
-        loadingImage.enabled = false;
+        private void StopEffect()
+        {
+            isPlaying = false;
+            loadingImage.enabled = false;
         
-        Debug.Log("No effect");
-    }
+            Debug.Log("No effect");
+        }
 
-    public void ResetEffect()
-    {
-        progress = 0f;
-        material.SetFloat(EffectProgress, 0f);
+        public void ResetEffect()
+        {
+            progress = 0f;
+            material.SetFloat(EffectProgress, 0f);
+        }
     }
 }
