@@ -2,10 +2,14 @@ using System.Collections;
 using TechC.MagichesBand.Item;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace TechC.MagichesBand.Field
 {
-    public class MenuBar : MonoBehaviour
+    /// <summary>
+    ///     セーブ等のメニューを管理するクラス
+    /// </summary>
+    public class GameMenu : MonoBehaviour
     {
         [Header("パネルの設定")]
         public RectTransform panel;          // スライドさせるパネル
@@ -17,7 +21,7 @@ namespace TechC.MagichesBand.Field
 
         [SerializeField] private ButtonNavigator buttonNavigator;
         [SerializeField] private InventoryUI inventoryUI;
-        [SerializeField] private CharacterController characterController;
+        [FormerlySerializedAs("characterController")] [SerializeField] private PlayerController playerController;
         [SerializeField] private PlayerInput playerInput;
         public GameObject inventoryPanel;
 
@@ -52,8 +56,8 @@ namespace TechC.MagichesBand.Field
             if (slideCoroutine != null)
                 StopCoroutine(slideCoroutine);
 
-            slideCoroutine = StartCoroutine(SlidePanel(characterController.isShown ? hiddenPosition : shownPosition)); 
-            characterController.isShown = !characterController.isShown;
+            slideCoroutine = StartCoroutine(SlidePanel(playerController.isShown ? hiddenPosition : shownPosition)); 
+            playerController.isShown = !playerController.isShown;
         
         }
 

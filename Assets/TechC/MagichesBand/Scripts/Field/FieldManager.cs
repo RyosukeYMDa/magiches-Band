@@ -4,7 +4,10 @@ using UnityEngine;
 
 namespace TechC.MagichesBand.Field
 {
-    public class MainManager : MonoBehaviour
+    /// <summary>
+    /// ゲームフィールドのマネージャー
+    /// </summary>
+    public class FieldManager : MonoBehaviour
     {
         [SerializeField] private GameObject enemy1;
     

@@ -35,14 +35,14 @@ namespace TechC.MagichesBand.Battle
                 var enemyObj = (enemy as MonoBehaviour)?.gameObject;
                 if (enemyObj)
                 {
-                    if (TurnManager.Instance)
+                    if (ButtleTurnManager.Instance)
                     {
-                        TurnManager.Instance.AddEnemy(enemyObj);
+                        ButtleTurnManager.Instance.AddEnemy(enemyObj);
                         Debug.Log("turnManager");
                     
-                        TurnManager.Instance.SetupTurnOrder();
+                        ButtleTurnManager.Instance.SetupTurnOrder();
                     
-                        TurnManager.Instance.ProceedTurn();
+                        ButtleTurnManager.Instance.ProceedTurn();
                     }
                     else
                     {
@@ -72,10 +72,10 @@ namespace TechC.MagichesBand.Battle
 
                 var enemyObj = (bossPhase2 as MonoBehaviour)?.gameObject;
 
-                if (enemyObj && TurnManager.Instance)
+                if (enemyObj && ButtleTurnManager.Instance)
                 {
-                    TurnManager.Instance.ReplaceEnemy(enemyObj);
-                    TurnManager.Instance.SetupTurnOrder();
+                    ButtleTurnManager.Instance.ReplaceEnemy(enemyObj);
+                    ButtleTurnManager.Instance.SetupTurnOrder();
                 }
             }
         }

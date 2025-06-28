@@ -5,22 +5,25 @@ using TechC.MagichesBand.Game;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
-//コンポーネント付け忘れ防止用Attribute(属性)
 namespace TechC.MagichesBand.Field
 {
+    /// <summary>
+    ///     プレイヤーキャラクターのコントローラー
+    /// </summary>
     [RequireComponent(typeof(SkeletonAnimation))]
     [RequireComponent(typeof(Rigidbody))]
-    public class CharacterController : MonoBehaviour
+    public class PlayerController : MonoBehaviour
     {
-        private enum PlayerState
+        private enum State
         {
             Idle,
             Walk
         }
 
         //playerのstate
-        private PlayerState playerState = PlayerState.Idle;
+        private State state = State.Idle;
     
         //playerの動き関連
         private const float MoveSpeed = 10f;
@@ -39,7 +42,7 @@ namespace TechC.MagichesBand.Field
         //カメラの位置
         [SerializeField] private Transform cameraTransform;
 
-        [SerializeField] private LoadingShaderController loadingShaderController;
+        [FormerlySerializedAs("loadingShaderController")] [SerializeField] private DissolveController disolveController;
         [SerializeField] private CameraController cameraController;
         [SerializeField] private ButtonNavigator buttonNavigator;
 
@@ -79,16 +82,16 @@ namespace TechC.MagichesBand.Field
         private void Update()
         {
             //state管理
-            switch (playerState)
+            switch (state)
             {
-                case PlayerState.Idle:
+                case State.Idle:
                     if(moveInput != Vector3.zero)
-                        ChangeState(PlayerState.Walk);
+                        ChangeState(State.Walk);
                     break;
             
-                case PlayerState.Walk:
+                case State.Walk:
                     if (moveInput == Vector3.zero)
-                        ChangeState(PlayerState.Idle);
+                        ChangeState(State.Idle);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -145,19 +148,19 @@ namespace TechC.MagichesBand.Field
         /// Stateを変える関数
         /// </summary>
         /// <param name="newState"></param>
-        private void ChangeState(PlayerState newState)
+        private void ChangeState(State newState)
         {
-            if (playerState == newState) return;
+            if (state == newState) return;
 
-            playerState = newState;
+            state = newState;
 
             //stateの状態によって再生するSpineAnimationを変える
             switch (newState)
             {
-                case PlayerState.Idle:
+                case State.Idle:
                     spAnimationState.SetAnimation(0, "idle", true);
                     break;
-                case PlayerState.Walk:
+                case State.Walk:
                     spAnimationState.SetAnimation(0, "walk", true);
                     break;
                 default:
@@ -176,24 +179,24 @@ namespace TechC.MagichesBand.Field
             if (collision.gameObject.CompareTag("CameraRotation"))
             {
                 //loading用のShaderを再生
-                StartCoroutine(loadingShaderController.PlayEffect());
+                StartCoroutine(disolveController.PlayEffect());
             
-                switch (loadingShaderController.areaState)
+                switch (disolveController.areaState)
                 {
                     //Playerが今いるAreaのStateによって処理を変える
-                    case LoadingShaderController.AreaState.ResidenceArea:
+                    case DissolveController.AreaState.ResidenceArea:
                         cameraController.CamRotation(90f);
                         Debug.Log("Area移動");
                         transform.position = new Vector3(collision.transform.position.x + 3f, transform.position.y,
                             transform.position.z);
-                        loadingShaderController.areaState = LoadingShaderController.AreaState.RuinsArea;
+                        disolveController.areaState = DissolveController.AreaState.RuinsArea;
                         break;
-                    case LoadingShaderController.AreaState.RuinsArea:
+                    case DissolveController.AreaState.RuinsArea:
                         cameraController.CamRotation(-90f);
                         Debug.Log("RuinsArea");
                         transform.position = new Vector3(collision.transform.position.x - 4f, transform.position.y,
                             transform.position.z);
-                        loadingShaderController.areaState = LoadingShaderController.AreaState.ResidenceArea;
+                        disolveController.areaState = DissolveController.AreaState.ResidenceArea;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -202,7 +205,7 @@ namespace TechC.MagichesBand.Field
             else if (collision.gameObject.CompareTag("Enemy1"))
             {
                 //Scene遷移時に再生する
-                StartCoroutine(loadingShaderController.PlayEffect());
+                StartCoroutine(disolveController.PlayEffect());
 
                 //scene遷移時にplayerの座標を記録させる
                 GameManager.Instance.playerPosition = collision.transform.position;

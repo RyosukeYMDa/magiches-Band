@@ -4,7 +4,10 @@ using UnityEngine.UI;
 
 namespace TechC.MagichesBand.Field
 {
-    public class LoadingShaderController : MonoBehaviour
+    /// <summary>
+    ///     画面遷移のコントローラー
+    /// </summary>
+    public class DissolveController : MonoBehaviour
     {
         private static readonly int EffectProgress = Shader.PropertyToID("_EffectProgress");
 

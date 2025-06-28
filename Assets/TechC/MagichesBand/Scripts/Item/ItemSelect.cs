@@ -10,7 +10,7 @@ namespace TechC.MagichesBand.Item
 {
     public class ItemSelect : MonoBehaviour
     {
-        private List<GameObject> itemUiObjects = new List<GameObject>();
+        private readonly List<GameObject> itemUiObjects = new();
     
         private int selectedIndex = 0;
     

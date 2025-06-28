@@ -6,7 +6,10 @@ using UnityEngine;
 
 namespace TechC.MagichesBand.Battle
 {
-    public class TurnManager : SingletonMonoBehaviour<TurnManager>
+    /// <summary>
+    ///     バトル時のターン管理
+    /// </summary>
+    public class ButtleTurnManager : SingletonMonoBehaviour<ButtleTurnManager>
     {
         [SerializeField] private BattlePlayerController player;
         [SerializeField] private List<GameObject> enemyObjects = new List<GameObject>();

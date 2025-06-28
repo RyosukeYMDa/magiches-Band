@@ -192,19 +192,19 @@ namespace TechC.MagichesBand.Battle
         {
             ICharacter enemy = BattleManager.Instance.CurrentEnemy;
         
-            if (TurnManager.Instance.CurrentTurnPhase == TurnManager.TurnPhase.FirstMove)
+            if (ButtleTurnManager.Instance.CurrentTurnPhase == ButtleTurnManager.TurnPhase.FirstMove)
             {
-                TurnManager.Instance.CurrentTurnPhase = TurnManager.TurnPhase.SecondMove;
+                ButtleTurnManager.Instance.CurrentTurnPhase = ButtleTurnManager.TurnPhase.SecondMove;
                 if (BattleManager.Instance.bossPhase2)
                 {
                     BattleManager.Instance.bossPhase2 = false;
                     return;
                 }
                 enemy.Act();
-            }else if(TurnManager.Instance.CurrentTurnPhase == TurnManager.TurnPhase.SecondMove)
+            }else if(ButtleTurnManager.Instance.CurrentTurnPhase == ButtleTurnManager.TurnPhase.SecondMove)
             {
-                TurnManager.Instance.CurrentTurnPhase = TurnManager.TurnPhase.FirstMove;
-                TurnManager.Instance.ProceedTurn();
+                ButtleTurnManager.Instance.CurrentTurnPhase = ButtleTurnManager.TurnPhase.FirstMove;
+                ButtleTurnManager.Instance.ProceedTurn();
             }
         }
     
