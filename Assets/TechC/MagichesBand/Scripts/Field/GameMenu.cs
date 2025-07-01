@@ -45,7 +45,7 @@ namespace TechC.MagichesBand.Field
         public void Menu(InputAction.CallbackContext context)
         {
             Debug.Log("Menu");
-            if(buttonNavigator.isInventory) return;
+            if(inventoryUI.isInventory) return;
         
             TogglePanel();
         }
@@ -78,7 +78,7 @@ namespace TechC.MagichesBand.Field
             panel.anchoredPosition = targetPosition;
             slideCoroutine = null;
         
-            if (hiding && buttonNavigator.isInventory)
+            if (hiding && inventoryUI.isInventory)
             {
                 gameObject.SetActive(false);
             }
@@ -89,7 +89,7 @@ namespace TechC.MagichesBand.Field
             Debug.Log("InventoryDisplay"); 
             TogglePanel();
             inventoryPanel.SetActive(true);
-            buttonNavigator.SetInventoryState(true);
+            inventoryUI.SetInventoryState(true);
         }
     }
 }

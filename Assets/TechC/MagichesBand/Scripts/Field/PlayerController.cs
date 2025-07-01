@@ -2,6 +2,7 @@ using System;
 using Spine.Unity;
 using TechC.MagichesBand.Core;
 using TechC.MagichesBand.Game;
+using TechC.MagichesBand.Item;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -44,7 +45,7 @@ namespace TechC.MagichesBand.Field
 
         [FormerlySerializedAs("loadingShaderController")] [SerializeField] private DissolveController disolveController;
         [SerializeField] private CameraController cameraController;
-        [SerializeField] private ButtonNavigator buttonNavigator;
+        [SerializeField] private InventoryUI inventoryUI;
 
         private Rigidbody rb;
     
@@ -133,7 +134,7 @@ namespace TechC.MagichesBand.Field
     
         private void OnMovePerformed(InputAction.CallbackContext context)
         {
-            if (isShown || buttonNavigator.isInventory) return;
+            if (isShown || inventoryUI.isInventory) return;
 
             Vector2 input = context.ReadValue<Vector2>();
             moveInput = new Vector3(input.x, 0f, input.y);

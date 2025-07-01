@@ -12,7 +12,6 @@ namespace TechC.MagichesBand.Battle
         [SerializeField] private CharacterStatus playerStatus;
         [SerializeField] private GameObject attackCommand;
         [SerializeField] private TextMeshProUGUI messageText;
-        [SerializeField] private ButtonNavigator buttonNavigator;
         [SerializeField] private InventoryUI inventoryUI;
         [SerializeField] private BattleManager battleManager;
         [SerializeField] private ItemSelect itemSelect;
@@ -29,11 +28,11 @@ namespace TechC.MagichesBand.Battle
         
         private void Update()
         {
-            if (!buttonNavigator.isInventory || !inventoryUI.isItem) return;
+            if (!inventoryUI.isInventory || !inventoryUI.isItem) return;
         
             inventoryUI.isItem = false;
             itemSelect.contentParent.gameObject.SetActive(false);
-            buttonNavigator.SetInventoryState(false);
+            inventoryUI.SetInventoryState(false);
             NextState();
         }   
     

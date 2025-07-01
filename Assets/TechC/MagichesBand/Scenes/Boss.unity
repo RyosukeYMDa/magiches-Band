@@ -679,7 +679,7 @@ MonoBehaviour:
   - {fileID: 18622407}
   - {fileID: 716642532}
   - {fileID: 1673846225}
-  isInventory: 0
+  inventoryUI: {fileID: 1430473317}
 --- !u!224 &360705355
 RectTransform:
   m_ObjectHideFlags: 0
@@ -735,7 +735,7 @@ MonoBehaviour:
   buttons:
   - {fileID: 1022524069}
   - {fileID: 730645529}
-  isInventory: 0
+  inventoryUI: {fileID: 1430473317}
 --- !u!224 &456298482
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1516,7 +1516,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 479d6363281f5d54e81cd388999181e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonNavigator: {fileID: 1430473318}
   contentParent: {fileID: 917343176}
   playerStatus: {fileID: 11400000, guid: 9797ff948bf232648a2320e925992a02, type: 2}
   inventoryUI: {fileID: 1430473317}
@@ -2045,7 +2044,6 @@ GameObject:
   - component: {fileID: 1430473315}
   - component: {fileID: 1430473314}
   - component: {fileID: 1430473313}
-  - component: {fileID: 1430473318}
   - component: {fileID: 1430473317}
   - component: {fileID: 1430473319}
   m_Layer: 5
@@ -2157,27 +2155,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e59034f83b3b74fba79e69df493933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonNavigator: {fileID: 1430473318}
   inventory:
     items: []
   isOpen: 0
   isItem: 0
-  messageText: {fileID: 1644727676}
---- !u!114 &1430473318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1430473312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fbb556b033e0c44d8fbefbc6ef504d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttons:
-  - {fileID: 1771276382}
   isInventory: 0
+  messageText: {fileID: 1644727676}
 --- !u!114 &1430473319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2193,7 +2176,6 @@ MonoBehaviour:
   actButton: {fileID: 1771276381}
   actCommand: {fileID: 456298480}
   attackCommand: {fileID: 360705353}
-  buttonNavigator: {fileID: 1430473318}
   battlePlayerController: {fileID: 2082121405}
   inventoryUI: {fileID: 1430473317}
   itemSelect: {fileID: 917343177}
@@ -2694,6 +2676,7 @@ GameObject:
   - component: {fileID: 1771276384}
   - component: {fileID: 1771276383}
   - component: {fileID: 1771276382}
+  - component: {fileID: 1771276386}
   m_Layer: 5
   m_Name: ActButtom
   m_TagString: Untagged
@@ -2815,6 +2798,21 @@ RectTransform:
   m_AnchoredPosition: {x: -334, y: 195}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1771276386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771276381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fbb556b033e0c44d8fbefbc6ef504d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttons:
+  - {fileID: 1771276382}
+  inventoryUI: {fileID: 1430473317}
 --- !u!1 &1850693391
 GameObject:
   m_ObjectHideFlags: 0
@@ -2898,10 +2896,11 @@ MonoBehaviour:
   factory: {fileID: 1519973878}
   uiParent: {fileID: 1850693392}
   actButton: {fileID: 1771276381}
-  buttonNavigator: {fileID: 1430473318}
-  inventoryUI: {fileID: 1430473317}
   attackCommand: {fileID: 360705353}
+  messageText: {fileID: 1644727676}
+  battlePlayerController: {fileID: 2082121405}
   bossPhase2: 0
+  playerDead: 0
 --- !u!4 &1951445043
 Transform:
   m_ObjectHideFlags: 0
@@ -3282,6 +3281,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8732552605721786611, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}
+      propertyPath: actButton
+      value: 
+      objectReference: {fileID: 1771276381}
+    - target: {fileID: 8732552605721786611, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}
       propertyPath: itemSelect
       value: 
       objectReference: {fileID: 917343177}
@@ -3304,7 +3307,7 @@ PrefabInstance:
     - target: {fileID: 8732552605721786611, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}
       propertyPath: buttonNavigator
       value: 
-      objectReference: {fileID: 1430473318}
+      objectReference: {fileID: 0}
     - target: {fileID: 8732552605721786611, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}
       propertyPath: buttonController
       value: 

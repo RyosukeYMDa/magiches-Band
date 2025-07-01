@@ -11,7 +11,6 @@ namespace TechC.MagichesBand.Battle
         [SerializeField] private GameObject actButton;
         [SerializeField] private GameObject actCommand;
         [SerializeField] private GameObject attackCommand;
-        [SerializeField] private ButtonNavigator buttonNavigator;
         [SerializeField] private BattlePlayerController battlePlayerController;
         [SerializeField] private InventoryUI inventoryUI;
         [SerializeField] private ItemSelect itemSelect;
@@ -23,7 +22,7 @@ namespace TechC.MagichesBand.Battle
     
         public void EnableAct()
         {
-            if (buttonNavigator.isInventory) return;
+            if (inventoryUI.isInventory) return;
         
             Debug.Log("Enabling act");
             actCommand.SetActive(true);
@@ -32,7 +31,7 @@ namespace TechC.MagichesBand.Battle
 
         public void EnableAttack()
         {
-            if (buttonNavigator.isInventory) return;
+            if (inventoryUI.isInventory) return;
         
             attackCommand.SetActive(true);
             actCommand.SetActive(false);
@@ -41,7 +40,7 @@ namespace TechC.MagichesBand.Battle
         public void InventoryDisplay()
         {
             Debug.Log($"InventoryDisplay called at frame {Time.frameCount}");
-            if (buttonNavigator.isInventory) return;
+            if (inventoryUI.isInventory) return;
         
             Debug.Log("InventoryDisplay");
             StartCoroutine(ShowInventoryPanelNextFrame());
@@ -57,7 +56,7 @@ namespace TechC.MagichesBand.Battle
 
             inventoryPanel.SetActive(true);
             actCommand.SetActive(false);
-            buttonNavigator.SetInventoryState(true);
+            inventoryUI.SetInventoryState(true);
         }
 
         public void SlashText()

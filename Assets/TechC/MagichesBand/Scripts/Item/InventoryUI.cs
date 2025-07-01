@@ -8,13 +8,12 @@ namespace TechC.MagichesBand.Item
 {
     public class InventoryUI : MonoBehaviour
     {
-        [SerializeField] private ButtonNavigator buttonNavigator;
-    
         public Inventory inventory;
 
         public bool isOpen; //扉の範囲内にいるかどうか
         public bool isItem; //item使ったかどうか 
-    
+        public bool isInventory; //Inventoryが表示されているのかを判別
+        
         //messageを表示させる
         [SerializeField] private TextMeshProUGUI messageText;
 
@@ -53,6 +52,12 @@ namespace TechC.MagichesBand.Item
             inventory.AddItem(itemId, itemName, quantity);
             GameManager.Instance.inventory.AddItem(itemId, itemName, quantity);
             //UpdateUI();
+        }
+        
+        public void SetInventoryState(bool state)
+        {
+            isInventory = state;
+            Debug.Log($"SetInventoryState: {isInventory}");
         }
     }
 }

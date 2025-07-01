@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 084a070f4e1b3d147bff72a0d8edebb9, type: 3}
   m_Name: Boss
   m_EditorClassIdentifier: 
-  enemyName: Boss
-  maxHp: 1
+  characterName: Boss
+  maxHp: 5
   maxMp: 2
-  hp: 1
+  hp: 5
   mp: 2
   atk: 2
   def: 0

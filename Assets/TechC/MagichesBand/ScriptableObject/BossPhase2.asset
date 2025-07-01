@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 084a070f4e1b3d147bff72a0d8edebb9, type: 3}
   m_Name: BossPhase2
   m_EditorClassIdentifier: 
-  enemyName: BossPhase2
+  characterName: BossPhase2
   maxHp: 9
   maxMp: 9
-  hp: 1
+  hp: 10
   mp: 9
   atk: 1
   def: 0

@@ -3697,7 +3697,7 @@ MonoBehaviour:
   buttons:
   - {fileID: 1935340832}
   - {fileID: 215041107}
-  isInventory: 0
+  inventoryUI: {fileID: 0}
 --- !u!114 &1582927737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3715,6 +3715,7 @@ MonoBehaviour:
     items: []
   isOpen: 0
   isItem: 0
+  isInventory: 0
   messageText: {fileID: 941362896}
 --- !u!1001 &1592725122
 PrefabInstance:
@@ -5370,6 +5371,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8951118495187019224, guid: 273e032ec1b58e84ab1399eaa1e5396c, type: 3}
+      propertyPath: inventoryUI
+      value: 
+      objectReference: {fileID: 1582927737}
+    - target: {fileID: 8951118495187019224, guid: 273e032ec1b58e84ab1399eaa1e5396c, type: 3}
       propertyPath: buttonNavigator
       value: 
       objectReference: {fileID: 1582927736}
@@ -5381,6 +5386,10 @@ PrefabInstance:
       propertyPath: cameraController
       value: 
       objectReference: {fileID: 330585548}
+    - target: {fileID: 8951118495187019224, guid: 273e032ec1b58e84ab1399eaa1e5396c, type: 3}
+      propertyPath: disolveController
+      value: 
+      objectReference: {fileID: 1582927734}
     - target: {fileID: 8951118495187019224, guid: 273e032ec1b58e84ab1399eaa1e5396c, type: 3}
       propertyPath: loadingShaderController
       value: 

@@ -14,8 +14,6 @@ namespace TechC.MagichesBand.Item
     
         private int selectedIndex = 0;
     
-        [SerializeField] private ButtonNavigator buttonNavigator;
-    
         public Transform contentParent;   // アイテムを並べる親（Vertical Layout Group）
     
         [SerializeField] private CharacterStatus playerStatus;
@@ -77,7 +75,7 @@ namespace TechC.MagichesBand.Item
         {
             Debug.Log("OnNavigate called!");
         
-            if (!buttonNavigator.isInventory || itemUiObjects.Count <= 0) return;
+            if (!inventoryUI.isInventory || itemUiObjects.Count <= 0) return;
 
             Vector2 input = context.ReadValue<Vector2>();
 
@@ -101,7 +99,7 @@ namespace TechC.MagichesBand.Item
         {
             Debug.Log("OnNavigate called!");
         
-            if (!buttonNavigator.isInventory || itemUiObjects.Count <= 0) return;
+            if (!inventoryUI.isInventory || itemUiObjects.Count <= 0) return;
 
             UseItem(selectedIndex);
             Debug.Log("Submit");
@@ -110,11 +108,11 @@ namespace TechC.MagichesBand.Item
         public void OnCancel(InputAction.CallbackContext context)
         {
             Debug.Log("closeInventory"); 
-            if(!buttonNavigator.isInventory) return;
+            if(!inventoryUI.isInventory) return;
         
             inventoryUI.isItem = false;
             contentParent.gameObject.SetActive(false);
-            buttonNavigator.SetInventoryState(false);
+            inventoryUI.SetInventoryState(false);
         
         
             Debug.Log("closeInventory");

@@ -15,8 +15,8 @@ MonoBehaviour:
   characterName: Slime
   maxHp: 10
   maxMp: 10
-  hp: 16
-  mp: 4
+  hp: 10
+  mp: 10
   atk: 1
   def: 0
   mAtk: 1

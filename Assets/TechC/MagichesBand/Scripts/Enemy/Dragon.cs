@@ -117,7 +117,7 @@ namespace TechC.MagichesBand.Enemy
             ResetStatus();
             BattleManager.Instance.SavePlayerInventory();
             Destroy(gameObject);
-            SceneManager.LoadScene("Filed");
+            SceneManager.LoadScene("Field");
         }
     
         public void NextState()

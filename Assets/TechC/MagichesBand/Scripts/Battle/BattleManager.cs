@@ -16,7 +16,6 @@ namespace TechC.MagichesBand.Battle
     
         [SerializeField] private RectTransform uiParent; 
         [SerializeField] private GameObject actButton;
-        [SerializeField] private ButtonNavigator buttonNavigator;
         [SerializeField] private GameObject attackCommand;
         [SerializeField] private TextMeshProUGUI messageText;
         [SerializeField] private BattlePlayerController battlePlayerController;
@@ -104,7 +103,7 @@ namespace TechC.MagichesBand.Battle
 
             while (!buttonPressed)
             {
-                if (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame)
+                if (Gamepad.current != null && Gamepad.current.buttonEast.wasPressedThisFrame)
                 {
                     buttonPressed = true;
                     
