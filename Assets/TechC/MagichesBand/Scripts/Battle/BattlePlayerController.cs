@@ -16,8 +16,9 @@ namespace TechC.MagichesBand.Battle
         [SerializeField] private InventoryUI inventoryUI;
         [SerializeField] private BattleManager battleManager;
         [SerializeField] private ItemSelect itemSelect;
+        [SerializeField] private GameObject actButton;
      
-        private const float CriticalRate = 0.25f; //クリティカルの確率（今は25％）
+        private const float CriticalRate = 0.9f; //クリティカルの確率（今は25％）
         private const int CriticalMultiplier = 2; // クリティカル倍率
         private const float EvasionRate = 0.1f; //回避の確率（今は10％）
     
@@ -25,7 +26,7 @@ namespace TechC.MagichesBand.Battle
 
         public int atkDoublingValue; //攻撃上昇補正
         public int defDoublingValue; //防御上昇補正
-    
+        
         private void Update()
         {
             if (!buttonNavigator.isInventory || !inventoryUI.isItem) return;
@@ -38,6 +39,11 @@ namespace TechC.MagichesBand.Battle
     
         public void Act()
         {
+            Debug.Log("NotButtonAct");
+            
+            if (BattleManager.Instance.playerDead) return;
+            
+            Debug.Log("ButtonAct");
             BattleManager.Instance.EnableActButton();
         }
     
@@ -55,18 +61,18 @@ namespace TechC.MagichesBand.Battle
                 ICharacter enemy = BattleManager.Instance.CurrentEnemy;
         
                 // ダメージ計算()
-                var damage = Mathf.Max(0, playerStatus.mAtk + atkDoublingValue - enemy.Status.mDef);
-                damage = CriticalCalculation(damage);
+                var damage = Mathf.Max(0, playerStatus.mAtk + atkDoublingValue);
+                damage = CriticalCalculation(damage, ICharacter.AttackType.Magical);
 
                 // 敵にダメージを与える
-                enemy.TakeDamage(damage);   
+                //enemy.TakeDamage(damage,ICharacter.AttackType.Magical);
             }
             else
             {
                 Debug.Log("失敗");
             }
-        
-            NextState();
+            
+            //NextState();
         }
 
         public void Slash()
@@ -78,14 +84,13 @@ namespace TechC.MagichesBand.Battle
         
             ICharacter enemy = BattleManager.Instance.CurrentEnemy;
         
-            int damage = Mathf.Max(0,playerStatus.atk + atkDoublingValue - enemy.Status.def);
-        
-            damage = CriticalCalculation(damage);
+            int damage = Mathf.Max(0,playerStatus.atk + atkDoublingValue);
+            damage = CriticalCalculation(damage, ICharacter.AttackType.Physical);
         
             // 敵にダメージを与える
-            enemy.TakeDamage(damage);
+            //enemy.TakeDamage(damage, ICharacter.AttackType.Physical);
         
-            NextState();
+            //NextState();
         }
 
         public void AtkUp()
@@ -143,8 +148,11 @@ namespace TechC.MagichesBand.Battle
         /// criticalの処理（クリティカルの確率を個別に変えたいのでまとめておかない）
         /// </summary>
         /// <param name="damage"></param>
-        private int CriticalCalculation(int damage)
+        /// <param name="type"></param>
+        private int CriticalCalculation(int damage, ICharacter.AttackType type)
         {
+            ICharacter enemy = BattleManager.Instance.CurrentEnemy;
+            
             // ランダム値を生成
             float randomCritical = Random.Range(0.0f, 1.0f);
         
@@ -152,17 +160,26 @@ namespace TechC.MagichesBand.Battle
             if (randomCritical < CriticalRate)
             {
                 damage *= CriticalMultiplier;
+                BattleManager.Instance.DisplayMessage("Player Is Critical", () =>
+                {
+                    enemy.TakeDamage(damage, type);
+                });
                 Debug.Log("Critical");
+            }
+            else
+            {
+                enemy.TakeDamage(damage, type);
             }
             return damage;
         }
-    
-    
+
+
         /// <summary>
         /// 相手からダメージを受け取り、確率で回避をさせる
         /// </summary>
         /// <param name="damage"></param>
-        public void TakeDamage(int damage)
+        /// <param name="type"></param>
+        public void TakeDamage(int damage, ICharacter.AttackType type)
         {
             var enemy = BattleManager.Instance.CurrentEnemy;
         
@@ -171,25 +188,50 @@ namespace TechC.MagichesBand.Battle
             if (randomEvasion < EvasionRate)
             {
                 Debug.Log($"回避  残HP: {playerStatus.hp}");
+                BattleManager.Instance.DisplayMessage("Player Is Avoidance");
             }
             else
             {
-                playerStatus.hp -= damage;
-                Debug.Log($"プレイヤーは {damage} ダメージを受けた！ 残HP: {playerStatus.hp}");
+                if (type == ICharacter.AttackType.Magical)
+                {
+                    Debug.Log("player mDef");
+                    
+                    damage -= playerStatus.mDef;
+                    playerStatus.hp -= damage;
+                    BattleManager.Instance.DisplayMessage("Player Is Hit" + damage);
+                }
+                else
+                {
+                    Debug.Log("player Def");
+                    
+                    damage -= playerStatus.def;
+                    playerStatus.hp -= damage;
+                    BattleManager.Instance.DisplayMessage("Player Is Hit" + damage);
+                }
             }
 
             if (playerStatus.hp <= 0)
             {
+                BattleManager.Instance.playerDead = true;
                 ResetStatus();
                 GameManager.Instance.playerPosition = new Vector3(-13f, 0.6f, 6);
                 enemy.ResetStatus();
-                SceneManager.LoadScene("Title");
-                Debug.Log("プレイヤーが倒れた！");
+                BattleManager.Instance.DisplayMessage("Player Dead", () =>
+                {
+                    SceneManager.LoadScene("Title");
+                });
             }
         }
 
         public void NextState()
         {
+            if (BattleManager.Instance.playerDead)
+            {
+                Debug.Log("playerDead");
+                actButton.SetActive(false);
+                return;
+            }
+            
             ICharacter enemy = BattleManager.Instance.CurrentEnemy;
         
             if (ButtleTurnManager.Instance.CurrentTurnPhase == ButtleTurnManager.TurnPhase.FirstMove)

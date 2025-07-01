@@ -30,9 +30,9 @@ namespace TechC.MagichesBand.Enemy
                 case 0:
                     Debug.Log("Charge");
                     // プレイヤーへのダメージ計算
-                    damage = Mathf.Max(0, (slimeStatus.atk - battlePlayerController.Status.def) - battlePlayerController.defDoublingValue);
+                    damage = Mathf.Max(0, slimeStatus.atk - battlePlayerController.Status.def);
                     damage = CriticalCalculation(damage);
-                    battlePlayerController.TakeDamage(damage);
+                    battlePlayerController.TakeDamage(damage, ICharacter.AttackType.Physical);
                     break;
                 case 1:
                     consumptionMp = 1;
@@ -41,9 +41,9 @@ namespace TechC.MagichesBand.Enemy
                         Debug.Log("Fire");
                         slimeStatus.mp -= consumptionMp;
                         // プレイヤーへのダメージ計算
-                        damage = Mathf.Max(0, (slimeStatus.mAtk - battlePlayerController.Status.mDef) - battlePlayerController.defDoublingValue);
+                        damage = Mathf.Max(0, slimeStatus.mAtk - battlePlayerController.Status.mDef);
                         damage = CriticalCalculation(damage);
-                        battlePlayerController.TakeDamage(damage);   
+                        battlePlayerController.TakeDamage(damage, ICharacter.AttackType.Magical);   
                     }
                     else
                     {
@@ -72,18 +72,32 @@ namespace TechC.MagichesBand.Enemy
             return damage;
         }
     
-        public void TakeDamage(int damage)
+        public void TakeDamage(int damage, ICharacter.AttackType type)
         {
             var randomEvasion = Random.Range(0.0f, 1.0f);
 
             if (randomEvasion < EvasionRate)
             {
                 Debug.Log($"回避  残HP: {slimeStatus.hp}");
+                BattleManager.Instance.DisplayMessage("Enemy Is Avoidance",NextState);
+                
             }
             else
             {
-                slimeStatus.hp -= damage;
-                Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {slimeStatus.hp}");   
+                if (type == ICharacter.AttackType.Magical)
+                {
+                    damage -= slimeStatus.mDef;
+                    slimeStatus.hp -= damage;
+                    BattleManager.Instance.DisplayMessage("Enemy Add Damage" + damage, NextState);
+                    Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {slimeStatus.hp}");
+                }
+                else
+                {
+                    damage -= slimeStatus.def;
+                    slimeStatus.hp -= damage;
+                    BattleManager.Instance.DisplayMessage("Enemy Add Damage" + damage, NextState);
+                    Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {slimeStatus.hp}");
+                }
             }
 
             if (slimeStatus.hp > 0) return;
@@ -103,6 +117,8 @@ namespace TechC.MagichesBand.Enemy
 
         public void NextState()
         {
+            if(BattleManager.Instance.playerDead)return;
+            
             Debug.Log("NextState");
             if (ButtleTurnManager.Instance.CurrentTurnPhase == ButtleTurnManager.TurnPhase.FirstMove)
             {

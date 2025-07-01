@@ -32,7 +32,7 @@ namespace TechC.MagichesBand.Enemy
                     // プレイヤーへのダメージ計算
                     damage = Mathf.Max(0, dragonStatus.atk - battlePlayerController.Status.def);
                     damage = CriticalCalculation(damage);
-                    battlePlayerController.TakeDamage(damage);
+                    battlePlayerController.TakeDamage(damage, ICharacter.AttackType.Physical);
                     break;
                 case 1:
                     consumptionMp = 3;
@@ -43,7 +43,7 @@ namespace TechC.MagichesBand.Enemy
                         // プレイヤーへのダメージ計算
                         damage = Mathf.Max(0, dragonStatus.mAtk - battlePlayerController.Status.mDef);
                         damage = CriticalCalculation(damage);
-                        battlePlayerController.TakeDamage(damage);   
+                        battlePlayerController.TakeDamage(damage, ICharacter.AttackType.Magical);   
                     }
                     else
                     {
@@ -72,23 +72,37 @@ namespace TechC.MagichesBand.Enemy
             }
             return damage;
         }
-    
+
         /// <summary>
         /// 相手からダメージを受け取り、確率で回避をさせる
         /// </summary>
         /// <param name="damage"></param>
-        public void TakeDamage(int damage)
+        /// <param name="type"></param>
+        public void TakeDamage(int damage, ICharacter.AttackType type)
         {
             var randomEvasion = Random.Range(0.0f, 1.0f);
 
             if (randomEvasion < EvasionRate)
             {
                 Debug.Log($"回避  残HP: {dragonStatus.hp}");
+                BattleManager.Instance.DisplayMessage("Enemy Is Avoidance",NextState);
             }
             else
             {
-                dragonStatus.hp -= damage;
-                Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {dragonStatus.hp}");   
+                if (type == ICharacter.AttackType.Magical)
+                {
+                    damage *= dragonStatus.mDef;
+                    dragonStatus.hp -= damage;
+                    BattleManager.Instance.DisplayMessage("Enemy Add Damage" + damage, NextState);
+                    Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {dragonStatus.hp}");   
+                }
+                else
+                {
+                    damage *= dragonStatus.def;
+                    dragonStatus.hp -= damage;
+                    BattleManager.Instance.DisplayMessage("Enemy Add Damage" + damage, NextState);
+                    Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {dragonStatus.hp}");   
+                }
             }
 
             if (dragonStatus.hp > 0) return;
@@ -108,6 +122,10 @@ namespace TechC.MagichesBand.Enemy
     
         public void NextState()
         {
+            Debug.Log("NotEnemyNextState");
+            
+            if(BattleManager.Instance.playerDead)return;
+            
             if (ButtleTurnManager.Instance.CurrentTurnPhase == ButtleTurnManager.TurnPhase.FirstMove)
             {
                 ButtleTurnManager.Instance.CurrentTurnPhase = ButtleTurnManager.TurnPhase.SecondMove;

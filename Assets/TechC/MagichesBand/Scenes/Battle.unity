@@ -2114,8 +2114,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000030518, y: 0.00082636}
-  m_SizeDelta: {x: 886, y: 498.33}
+  m_AnchoredPosition: {x: 0, y: -0.00051618}
+  m_SizeDelta: {x: 920, y: 517.67}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1373394566
 MonoBehaviour:
@@ -2751,8 +2751,9 @@ MonoBehaviour:
   uiParent: {fileID: 1434020547}
   actButton: {fileID: 1455069520}
   buttonNavigator: {fileID: 135609581}
-  inventoryUI: {fileID: 135609580}
   attackCommand: {fileID: 1752203270}
+  messageText: {fileID: 604540505}
+  battlePlayerController: {fileID: 2064498519}
   bossPhase2: 0
 --- !u!114 &1735000224
 MonoBehaviour:
@@ -3421,6 +3422,10 @@ PrefabInstance:
       propertyPath: itemSelect
       value: 
       objectReference: {fileID: 555882273}
+    - target: {fileID: 8732552605721786611, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}
+      propertyPath: playerDead
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8732552605721786611, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}
       propertyPath: inventoryUI
       value: 

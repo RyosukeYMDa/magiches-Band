@@ -29,7 +29,7 @@ namespace TechC.MagichesBand.Enemy
                     // プレイヤーへのダメージ計算
                     damage = Mathf.Max(0, bossStatus.atk - battlePlayerController.Status.def);
                     damage = CriticalCalculation(damage);
-                    battlePlayerController.TakeDamage(damage);
+                    battlePlayerController.TakeDamage(damage, ICharacter.AttackType.Physical);
                     break;
                 case 1:
                     consumptionMp = 1;
@@ -39,7 +39,7 @@ namespace TechC.MagichesBand.Enemy
                         // プレイヤーへのダメージ計算
                         damage = Mathf.Max(0, bossStatus.mAtk - battlePlayerController.Status.mDef);
                         damage = CriticalCalculation(damage);
-                        battlePlayerController.TakeDamage(damage);   
+                        battlePlayerController.TakeDamage(damage, ICharacter.AttackType.Magical);   
                     }
                     else
                     {
@@ -68,18 +68,31 @@ namespace TechC.MagichesBand.Enemy
             return damage;
         }
     
-        public void TakeDamage(int damage)
+        public void TakeDamage(int damage, ICharacter.AttackType type)
         {
             var randomEvasion = Random.Range(0.0f, 1.0f);
 
             if (randomEvasion < EvasionRate)
             {
                 Debug.Log($"回避  残HP: {bossStatus.hp}");
+                BattleManager.Instance.DisplayMessage("Enemy Is Avoidance",NextState);
             }
             else
             {
-                bossStatus.hp -= damage;
-                Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {bossStatus.hp}");   
+                if (type == ICharacter.AttackType.Magical)
+                {
+                    damage -= bossStatus.mDef;
+                    bossStatus.hp -= damage;
+                    BattleManager.Instance.DisplayMessage("Enemy Add Damage" + damage,NextState);
+                    Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {bossStatus.hp}");   
+                }
+                else
+                {
+                    damage -= bossStatus.def;
+                    bossStatus.hp -= damage;
+                    BattleManager.Instance.DisplayMessage("Enemy Add Damage" + damage,NextState);
+                    Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {bossStatus.hp}");   
+                }
             }
 
             if (bossStatus.hp <= 0)

@@ -7,7 +7,7 @@ namespace TechC.MagichesBand.Battle
 {
     public class ButtonController : MonoBehaviour
     {
-//Attackする為のbuttonの参照
+        //Attackする為のbuttonの参照
         [SerializeField] private GameObject actButton;
         [SerializeField] private GameObject actCommand;
         [SerializeField] private GameObject attackCommand;
