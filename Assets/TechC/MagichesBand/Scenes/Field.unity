@@ -2647,6 +2647,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1052696658}
   - component: {fileID: 1052696659}
+  - component: {fileID: 1052696660}
   m_Layer: 0
   m_Name: FieldManager
   m_TagString: Untagged
@@ -2683,6 +2684,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy1: {fileID: 2035583390}
   player: {x: 0, y: 0, z: 0}
+--- !u!114 &1052696660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052696656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ea7ae06d28363749a87714d153a0b16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  messageText: {fileID: 941362896}
 --- !u!1001 &1053880568
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3680,6 +3694,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingImage: {fileID: 1161173659}
   material: {fileID: 2100000, guid: 1abb8b5704e4c004fa7b3d7330d04a7a, type: 2}
+  nowLoading: 0
   areaState: 0
 --- !u!114 &1582927736
 MonoBehaviour:
@@ -4769,6 +4784,7 @@ MonoBehaviour:
   slideDuration: 0.3
   buttonNavigator: {fileID: 1582927736}
   inventoryUI: {fileID: 1582927737}
+  dissolveController: {fileID: 1582927734}
   playerController: {fileID: 1966283784}
   playerInput: {fileID: 3454504375464531476}
   inventoryPanel: {fileID: 275426389}

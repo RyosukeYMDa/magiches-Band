@@ -1,5 +1,6 @@
 using TechC.MagichesBand.Battle;
 using TechC.MagichesBand.Game;
+using TechC.MagichesBand.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -79,7 +80,7 @@ namespace TechC.MagichesBand.Enemy
             if (randomEvasion < EvasionRate)
             {
                 Debug.Log($"回避  残HP: {slimeStatus.hp}");
-                BattleManager.Instance.DisplayMessage("Enemy Is Avoidance",NextState);
+                MessageWindow.Instance.DisplayMessage("Enemy Is Avoidance",NextState);
                 
             }
             else
@@ -88,14 +89,14 @@ namespace TechC.MagichesBand.Enemy
                 {
                     damage -= slimeStatus.mDef;
                     slimeStatus.hp -= damage;
-                    BattleManager.Instance.DisplayMessage("Enemy Add Damage" + damage, NextState);
+                    MessageWindow.Instance.DisplayMessage("Enemy Add Damage" + damage, NextState);
                     Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {slimeStatus.hp}");
                 }
                 else
                 {
                     damage -= slimeStatus.def;
                     slimeStatus.hp -= damage;
-                    BattleManager.Instance.DisplayMessage("Enemy Add Damage" + damage, NextState);
+                    MessageWindow.Instance.DisplayMessage("Enemy Add Damage" + damage, NextState);
                     Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {slimeStatus.hp}");
                 }
             }
@@ -111,7 +112,7 @@ namespace TechC.MagichesBand.Enemy
             Debug.Log($"{gameObject.name} を撃破！");
             ResetStatus();
             BattleManager.Instance.SavePlayerInventory();
-            BattleManager.Instance.DisplayMessage("Slime Dead", () =>
+            MessageWindow.Instance.DisplayMessage("Slime Dead", () =>
             {
                 SceneManager.LoadScene("Field");
                 Destroy(gameObject); 

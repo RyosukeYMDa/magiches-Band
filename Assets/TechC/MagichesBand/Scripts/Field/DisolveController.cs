@@ -15,6 +15,7 @@ namespace TechC.MagichesBand.Field
         [SerializeField] private Material material;
         private float progress;
         private bool isPlaying;
+        public bool nowLoading;
 
         private const float Speed = 1f;
 
@@ -47,21 +48,18 @@ namespace TechC.MagichesBand.Field
         ///     effectを発生させ、数秒後にstopEffectを実行
         /// </summary>
         /// <returns></returns>
-        public IEnumerator PlayEffect()
+        public void PlayEffect()
         {
             loadingImage.enabled = true;
             isPlaying = true;
-
-
-            yield return new WaitForSeconds(2.0f);
-
-            StopEffect();
+            nowLoading = true;
         }
 
-        private void StopEffect()
+        public void StopEffect()
         {
             isPlaying = false;
             loadingImage.enabled = false;
+            nowLoading = false;
         
             Debug.Log("No effect");
         }

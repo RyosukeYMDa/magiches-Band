@@ -3,6 +3,7 @@ using Spine.Unity;
 using TechC.MagichesBand.Core;
 using TechC.MagichesBand.Game;
 using TechC.MagichesBand.Item;
+using TechC.MagichesBand.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -134,7 +135,7 @@ namespace TechC.MagichesBand.Field
     
         private void OnMovePerformed(InputAction.CallbackContext context)
         {
-            if (isShown || inventoryUI.isInventory) return;
+            if (isShown || inventoryUI.isInventory || dissolveController.nowLoading) return;
 
             Vector2 input = context.ReadValue<Vector2>();
             moveInput = new Vector3(input.x, 0f, input.y);
@@ -180,7 +181,7 @@ namespace TechC.MagichesBand.Field
             if (collision.gameObject.CompareTag("CameraRotation"))
             {
                 //loading用のShaderを再生
-                StartCoroutine(dissolveController.PlayEffect());
+                dissolveController.PlayEffect();
             
                 switch (dissolveController.areaState)
                 {
@@ -202,11 +203,16 @@ namespace TechC.MagichesBand.Field
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
+                
+                MessageWindow.Instance.DisplayMessage("Area Movement", () =>
+                {
+                    dissolveController.StopEffect();
+                });
             }
             else if (collision.gameObject.CompareTag("Enemy1"))
             {
                 //Scene遷移時に再生する
-                StartCoroutine(dissolveController.PlayEffect());
+                dissolveController.PlayEffect();
 
                 //scene遷移時にplayerの座標を記録させる
                 GameManager.Instance.playerPosition = collision.transform.position;
@@ -214,8 +220,12 @@ namespace TechC.MagichesBand.Field
                 GameManager.Instance.enemyType = GameManager.EnemyType.Enemy1;
 
                 SavePlayerPosition();
-            
-                SceneManager.LoadScene("Battle");
+                
+                MessageWindow.Instance.DisplayMessage("Enemy Encount", () =>
+                {
+                    dissolveController.StopEffect();
+                    SceneManager.LoadScene("Battle");
+                });
             }
             else
             {

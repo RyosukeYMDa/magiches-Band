@@ -21,6 +21,7 @@ namespace TechC.MagichesBand.Field
 
         [SerializeField] private ButtonNavigator buttonNavigator;
         [SerializeField] private InventoryUI inventoryUI;
+        [SerializeField] private DissolveController dissolveController;
         [FormerlySerializedAs("characterController")] [SerializeField] private PlayerController playerController;
         [SerializeField] private PlayerInput playerInput;
         public GameObject inventoryPanel;
@@ -45,7 +46,7 @@ namespace TechC.MagichesBand.Field
         public void Menu(InputAction.CallbackContext context)
         {
             Debug.Log("Menu");
-            if(inventoryUI.isInventory) return;
+            if(inventoryUI.isInventory || dissolveController.nowLoading) return;
         
             TogglePanel();
         }

@@ -1,12 +1,8 @@
-using System;
 using TechC.MagichesBand.Core;
 using TechC.MagichesBand.Enemy;
 using TechC.MagichesBand.Field;
 using TechC.MagichesBand.Game;
-using TMPro;
 using UnityEngine;
-using System.Collections;
-using UnityEngine.InputSystem;
 
 namespace TechC.MagichesBand.Battle
 {
@@ -17,7 +13,6 @@ namespace TechC.MagichesBand.Battle
         [SerializeField] private RectTransform uiParent; 
         [SerializeField] private GameObject actButton;
         [SerializeField] private GameObject attackCommand;
-        [SerializeField] private TextMeshProUGUI messageText;
         [SerializeField] private BattlePlayerController battlePlayerController;
         
         public bool bossPhase2; //BossのPhase1が撃破されたかの判別
@@ -84,38 +79,6 @@ namespace TechC.MagichesBand.Battle
                     ButtleTurnManager.Instance.SetupTurnOrder();
                 }
             }
-        }
-        
-        public void DisplayMessage(string message, Action callback = null)
-        {
-            messageText.gameObject.SetActive(true);
-            StartCoroutine(BattleMessage(message, callback));
-        }
-
-        private IEnumerator BattleMessage(string message, Action callback = null)
-        {
-            Debug.Log("[BattleManager] BattleMessage");
-            
-            messageText.text = message;
-        
-            bool buttonPressed = false;
-            
-            yield return new WaitForSeconds(0.1f);
-
-            while (!buttonPressed)
-            {
-                if (Gamepad.current != null && Gamepad.current.buttonEast.wasPressedThisFrame)
-                {
-                    buttonPressed = true;
-                    
-                    Debug.Log("[BattleManager] ButtonPressed");
-                }
-                
-                yield return null;
-            }
-            messageText.gameObject.SetActive(false);
-            
-            callback?.Invoke();
         }
     
         /// <summary>

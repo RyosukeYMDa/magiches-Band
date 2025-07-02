@@ -2859,6 +2859,7 @@ GameObject:
   - component: {fileID: 1951445043}
   - component: {fileID: 1951445042}
   - component: {fileID: 1951445041}
+  - component: {fileID: 1951445044}
   m_Layer: 0
   m_Name: BossSceneManager
   m_TagString: Untagged
@@ -2897,10 +2898,10 @@ MonoBehaviour:
   uiParent: {fileID: 1850693392}
   actButton: {fileID: 1771276381}
   attackCommand: {fileID: 360705353}
-  messageText: {fileID: 1644727676}
   battlePlayerController: {fileID: 2082121405}
   bossPhase2: 0
   playerDead: 0
+  enemyDead: 0
 --- !u!4 &1951445043
 Transform:
   m_ObjectHideFlags: 0
@@ -2916,6 +2917,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1951445044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1951445040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ea7ae06d28363749a87714d153a0b16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  messageText: {fileID: 1644727676}
 --- !u!1 &1958254296
 GameObject:
   m_ObjectHideFlags: 0

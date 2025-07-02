@@ -2711,6 +2711,7 @@ GameObject:
   - component: {fileID: 1735000223}
   - component: {fileID: 1735000224}
   - component: {fileID: 1735000225}
+  - component: {fileID: 1735000226}
   m_Layer: 0
   m_Name: BattleSceneManager
   m_TagString: Untagged
@@ -2749,10 +2750,10 @@ MonoBehaviour:
   uiParent: {fileID: 1434020547}
   actButton: {fileID: 1455069520}
   attackCommand: {fileID: 1752203270}
-  messageText: {fileID: 604540505}
   battlePlayerController: {fileID: 2064498519}
   bossPhase2: 0
   playerDead: 0
+  enemyDead: 0
 --- !u!114 &1735000224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2784,6 +2785,19 @@ MonoBehaviour:
   directionChangeAngle: 45
   rotationThreshold: 8
   defeatedEnemy: 0
+--- !u!114 &1735000226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735000219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ea7ae06d28363749a87714d153a0b16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  messageText: {fileID: 604540505}
 --- !u!1 &1752203270
 GameObject:
   m_ObjectHideFlags: 0

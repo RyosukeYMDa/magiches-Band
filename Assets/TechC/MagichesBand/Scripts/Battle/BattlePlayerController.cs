@@ -1,6 +1,7 @@
 using TechC.MagichesBand.Enemy;
 using TechC.MagichesBand.Game;
 using TechC.MagichesBand.Item;
+using TechC.MagichesBand.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -65,7 +66,7 @@ namespace TechC.MagichesBand.Battle
             }
             else
             {
-                BattleManager.Instance.DisplayMessage("Failure", NextState);
+                MessageWindow.Instance.DisplayMessage("Failure", NextState);
             }
         }
 
@@ -149,7 +150,7 @@ namespace TechC.MagichesBand.Battle
             if (randomCritical < CriticalRate)
             {
                 damage *= CriticalMultiplier;
-                BattleManager.Instance.DisplayMessage("Player Is Critical", () =>
+                MessageWindow.Instance.DisplayMessage("Player Is Critical", () =>
                 {
                     enemy.TakeDamage(damage, type);
                 });
@@ -177,7 +178,7 @@ namespace TechC.MagichesBand.Battle
             if (randomEvasion < EvasionRate)
             {
                 Debug.Log($"回避  残HP: {playerStatus.hp}");
-                BattleManager.Instance.DisplayMessage("Player Is Avoidance");
+                MessageWindow.Instance.DisplayMessage("Player Is Avoidance");
             }
             else
             {
@@ -187,7 +188,7 @@ namespace TechC.MagichesBand.Battle
                     
                     damage -= playerStatus.mDef;
                     playerStatus.hp -= damage;
-                    BattleManager.Instance.DisplayMessage("Player Is Hit" + damage);
+                    MessageWindow.Instance.DisplayMessage("Player Is Hit" + damage);
                 }
                 else
                 {
@@ -195,7 +196,7 @@ namespace TechC.MagichesBand.Battle
                     
                     damage -= playerStatus.def;
                     playerStatus.hp -= damage;
-                    BattleManager.Instance.DisplayMessage("Player Is Hit" + damage);
+                    MessageWindow.Instance.DisplayMessage("Player Is Hit" + damage);
                 }
             }
 
@@ -205,7 +206,7 @@ namespace TechC.MagichesBand.Battle
                 ResetStatus();
                 GameManager.Instance.playerPosition = new Vector3(-13f, 0.6f, 6);
                 enemy.ResetStatus();
-                BattleManager.Instance.DisplayMessage("Player Dead", () =>
+                MessageWindow.Instance.DisplayMessage("Player Dead", () =>
                 {
                     SceneManager.LoadScene("Title");
                 });

@@ -1,5 +1,6 @@
 using TechC.MagichesBand.Battle;
 using TechC.MagichesBand.Game;
+using TechC.MagichesBand.UI;
 using UnityEngine;
 
 namespace TechC.MagichesBand.Enemy
@@ -75,7 +76,7 @@ namespace TechC.MagichesBand.Enemy
             if (randomEvasion < EvasionRate)
             {
                 Debug.Log($"回避  残HP: {bossStatus.hp}");
-                BattleManager.Instance.DisplayMessage("Enemy Is Avoidance",NextState);
+                MessageWindow.Instance.DisplayMessage("Enemy Is Avoidance",NextState);
             }
             else
             {
@@ -83,14 +84,14 @@ namespace TechC.MagichesBand.Enemy
                 {
                     damage -= bossStatus.mDef;
                     bossStatus.hp -= damage;
-                    BattleManager.Instance.DisplayMessage("Enemy Add Damage" + damage,NextState);
+                    MessageWindow.Instance.DisplayMessage("Enemy Add Damage" + damage,NextState);
                     Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {bossStatus.hp}");   
                 }
                 else
                 {
                     damage -= bossStatus.def;
                     bossStatus.hp -= damage;
-                    BattleManager.Instance.DisplayMessage("Enemy Add Damage" + damage,NextState);
+                    MessageWindow.Instance.DisplayMessage("Enemy Add Damage" + damage,NextState);
                     Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {bossStatus.hp}");   
                 }
             }
@@ -103,7 +104,7 @@ namespace TechC.MagichesBand.Enemy
 
                     Debug.Log($"{gameObject.name} を撃破！");
                     ResetStatus();
-                    BattleManager.Instance.DisplayMessage("Boss Mutation", () =>
+                    MessageWindow.Instance.DisplayMessage("Boss Mutation", () =>
                     {
                         BattleManager.Instance.SpawnPhase2Boss();
                         // 現在のボスを削除して2段階目を生成

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TechC.MagichesBand.UI;
 using UnityEngine;
 
 namespace TechC.MagichesBand.Battle
@@ -72,7 +73,7 @@ namespace TechC.MagichesBand.Battle
         {
             Debug.Log("StartDetection");
             BattleManager.Instance.enemyDead = true;
-            BattleManager.Instance.DisplayMessage("Turn The Stick", () =>
+            MessageWindow.Instance.DisplayMessage("Turn The Stick", () =>
             {
                 directionHistory.Clear();
                 lastDirection = -1;
