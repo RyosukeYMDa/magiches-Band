@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   characterName: Player
-  maxHp: 10
-  maxMp: 10
-  hp: 1000
+  maxHp: 20
+  maxMp: 12
+  hp: 20
   mp: 10
-  atk: 1
-  def: 0
+  atk: 3
+  def: 2
   mAtk: 1
-  mDef: 0
+  mDef: 2
   agi: 2

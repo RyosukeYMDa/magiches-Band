@@ -103,13 +103,12 @@ namespace TechC.MagichesBand.Enemy
 
                     Debug.Log($"{gameObject.name} を撃破！");
                     ResetStatus();
-                    BattleManager.Instance.SpawnPhase2Boss();
-                    // 現在のボスを削除して2段階目を生成
-                    Destroy(gameObject);
-                }
-                else
-                {
-                    Debug.Log("miss");
+                    BattleManager.Instance.DisplayMessage("Boss Mutation", () =>
+                    {
+                        BattleManager.Instance.SpawnPhase2Boss();
+                        // 現在のボスを削除して2段階目を生成
+                        Destroy(gameObject);
+                    });
                 }
             }
         }

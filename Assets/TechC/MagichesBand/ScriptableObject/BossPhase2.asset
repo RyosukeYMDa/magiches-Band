@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: BossPhase2
   m_EditorClassIdentifier: 
   characterName: BossPhase2
-  maxHp: 9
-  maxMp: 9
-  hp: 10
-  mp: 9
-  atk: 1
-  def: 0
-  mAtk: 1
-  mDef: 0
-  agi: 1
+  maxHp: 24
+  maxMp: 20
+  hp: 24
+  mp: 20
+  atk: 2
+  def: 1
+  mAtk: 6
+  mDef: 6
+  agi: 3

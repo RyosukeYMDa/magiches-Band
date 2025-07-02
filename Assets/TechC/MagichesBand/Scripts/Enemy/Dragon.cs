@@ -116,8 +116,11 @@ namespace TechC.MagichesBand.Enemy
             Debug.Log($"{gameObject.name} を撃破！");
             ResetStatus();
             BattleManager.Instance.SavePlayerInventory();
-            Destroy(gameObject);
-            SceneManager.LoadScene("Field");
+            BattleManager.Instance.DisplayMessage("Dragon", () =>
+            {
+                SceneManager.LoadScene("Field");
+                Destroy(gameObject);
+            });
         }
     
         public void NextState()

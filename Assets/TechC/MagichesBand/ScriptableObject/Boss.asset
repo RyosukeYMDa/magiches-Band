@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Boss
   m_EditorClassIdentifier: 
   characterName: Boss
-  maxHp: 5
-  maxMp: 2
-  hp: 5
-  mp: 2
-  atk: 2
+  maxHp: 10
+  maxMp: 8
+  hp: 10
+  mp: 8
+  atk: 1
   def: 0
-  mAtk: 2
-  mDef: 0
-  agi: 1
+  mAtk: 4
+  mDef: 4
+  agi: 3

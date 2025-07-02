@@ -111,8 +111,11 @@ namespace TechC.MagichesBand.Enemy
             Debug.Log($"{gameObject.name} を撃破！");
             ResetStatus();
             BattleManager.Instance.SavePlayerInventory();
-            SceneManager.LoadScene("Field");
-            Destroy(gameObject);
+            BattleManager.Instance.DisplayMessage("Slime Dead", () =>
+            {
+                SceneManager.LoadScene("Field");
+                Destroy(gameObject); 
+            });
         }
 
         public void NextState()

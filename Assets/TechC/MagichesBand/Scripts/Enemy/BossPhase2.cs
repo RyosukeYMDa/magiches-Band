@@ -117,8 +117,11 @@ namespace TechC.MagichesBand.Enemy
             Debug.Log($"{gameObject.name} を撃破！");
             ResetStatus();
             BattleManager.Instance.SavePlayerInventory();
-            Destroy(gameObject);
-            SceneManager.LoadScene("End");
+            BattleManager.Instance.DisplayMessage("Boss Dead",() =>
+            {
+                SceneManager.LoadScene("End");
+                Destroy(gameObject);
+            });
         }
 
         public void NextState()

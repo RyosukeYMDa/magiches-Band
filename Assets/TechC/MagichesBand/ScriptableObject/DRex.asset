@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: DRex
   m_EditorClassIdentifier: 
   characterName: DRex
-  maxHp: 10
+  maxHp: 20
   maxMp: 10
-  hp: 10
+  hp: 20
   mp: 1
-  atk: 1
-  def: 2
-  mAtk: 1
-  mDef: 2
+  atk: 4
+  def: 3
+  mAtk: 6
+  mDef: 1
   agi: 3
