@@ -43,7 +43,7 @@ namespace TechC.MagichesBand.Field
         //カメラの位置
         [SerializeField] private Transform cameraTransform;
 
-        [FormerlySerializedAs("loadingShaderController")] [SerializeField] private DissolveController disolveController;
+        [FormerlySerializedAs("disolveController")] [FormerlySerializedAs("loadingShaderController")] [SerializeField] private DissolveController dissolveController;
         [SerializeField] private CameraController cameraController;
         [SerializeField] private InventoryUI inventoryUI;
 
@@ -180,9 +180,9 @@ namespace TechC.MagichesBand.Field
             if (collision.gameObject.CompareTag("CameraRotation"))
             {
                 //loading用のShaderを再生
-                StartCoroutine(disolveController.PlayEffect());
+                StartCoroutine(dissolveController.PlayEffect());
             
-                switch (disolveController.areaState)
+                switch (dissolveController.areaState)
                 {
                     //Playerが今いるAreaのStateによって処理を変える
                     case DissolveController.AreaState.ResidenceArea:
@@ -190,14 +190,14 @@ namespace TechC.MagichesBand.Field
                         Debug.Log("Area移動");
                         transform.position = new Vector3(collision.transform.position.x + 3f, transform.position.y,
                             transform.position.z);
-                        disolveController.areaState = DissolveController.AreaState.RuinsArea;
+                        dissolveController.areaState = DissolveController.AreaState.RuinsArea;
                         break;
                     case DissolveController.AreaState.RuinsArea:
                         cameraController.CamRotation(-90f);
                         Debug.Log("RuinsArea");
                         transform.position = new Vector3(collision.transform.position.x - 4f, transform.position.y,
                             transform.position.z);
-                        disolveController.areaState = DissolveController.AreaState.ResidenceArea;
+                        dissolveController.areaState = DissolveController.AreaState.ResidenceArea;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -206,7 +206,7 @@ namespace TechC.MagichesBand.Field
             else if (collision.gameObject.CompareTag("Enemy1"))
             {
                 //Scene遷移時に再生する
-                StartCoroutine(disolveController.PlayEffect());
+                StartCoroutine(dissolveController.PlayEffect());
 
                 //scene遷移時にplayerの座標を記録させる
                 GameManager.Instance.playerPosition = collision.transform.position;

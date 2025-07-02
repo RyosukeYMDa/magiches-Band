@@ -981,7 +981,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 479d6363281f5d54e81cd388999181e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonNavigator: {fileID: 1582927736}
   contentParent: {fileID: 275426392}
   playerStatus: {fileID: 11400000, guid: 9797ff948bf232648a2320e925992a02, type: 2}
   inventoryUI: {fileID: 1582927737}
@@ -1107,8 +1106,8 @@ Camera:
   m_GameObject: {fileID: 330585543}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -3710,7 +3709,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e59034f83b3b74fba79e69df493933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonNavigator: {fileID: 1582927736}
   inventory:
     items: []
   isOpen: 0
@@ -5388,6 +5386,10 @@ PrefabInstance:
       objectReference: {fileID: 330585548}
     - target: {fileID: 8951118495187019224, guid: 273e032ec1b58e84ab1399eaa1e5396c, type: 3}
       propertyPath: disolveController
+      value: 
+      objectReference: {fileID: 1582927734}
+    - target: {fileID: 8951118495187019224, guid: 273e032ec1b58e84ab1399eaa1e5396c, type: 3}
+      propertyPath: dissolveController
       value: 
       objectReference: {fileID: 1582927734}
     - target: {fileID: 8951118495187019224, guid: 273e032ec1b58e84ab1399eaa1e5396c, type: 3}
