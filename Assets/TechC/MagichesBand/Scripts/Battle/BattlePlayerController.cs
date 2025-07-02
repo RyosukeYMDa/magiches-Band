@@ -62,16 +62,11 @@ namespace TechC.MagichesBand.Battle
                 // ダメージ計算()
                 var damage = Mathf.Max(0, playerStatus.mAtk + atkDoublingValue);
                 damage = CriticalCalculation(damage, ICharacter.AttackType.Magical);
-
-                // 敵にダメージを与える
-                //enemy.TakeDamage(damage,ICharacter.AttackType.Magical);
             }
             else
             {
-                Debug.Log("失敗");
+                BattleManager.Instance.DisplayMessage("Failure", NextState);
             }
-            
-            //NextState();
         }
 
         public void Slash()
@@ -85,11 +80,6 @@ namespace TechC.MagichesBand.Battle
         
             int damage = Mathf.Max(0,playerStatus.atk + atkDoublingValue);
             damage = CriticalCalculation(damage, ICharacter.AttackType.Physical);
-        
-            // 敵にダメージを与える
-            //enemy.TakeDamage(damage, ICharacter.AttackType.Physical);
-        
-            //NextState();
         }
 
         public void AtkUp()
