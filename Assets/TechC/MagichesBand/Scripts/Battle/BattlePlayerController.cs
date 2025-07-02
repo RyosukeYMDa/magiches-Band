@@ -17,7 +17,7 @@ namespace TechC.MagichesBand.Battle
         [SerializeField] private ItemSelect itemSelect;
         [SerializeField] private GameObject actButton;
      
-        private const float CriticalRate = 0.9f; //クリティカルの確率（今は25％）
+        private const float CriticalRate = 0.25f; //クリティカルの確率（今は25％）
         private const int CriticalMultiplier = 2; // クリティカル倍率
         private const float EvasionRate = 0.1f; //回避の確率（今は10％）
     
