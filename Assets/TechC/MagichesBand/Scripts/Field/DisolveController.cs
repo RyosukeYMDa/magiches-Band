@@ -65,11 +65,5 @@ namespace TechC.MagichesBand.Field
         
             Debug.Log("No effect");
         }
-
-        public void ResetEffect()
-        {
-            progress = 0f;
-            material.SetFloat(EffectProgress, 0f);
-        }
     }
 }

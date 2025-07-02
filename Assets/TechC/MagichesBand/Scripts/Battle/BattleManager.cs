@@ -23,6 +23,7 @@ namespace TechC.MagichesBand.Battle
         public bool bossPhase2; //BossのPhase1が撃破されたかの判別
     
         public bool playerDead;
+        public bool enemyDead;
         
         // 現在の敵を外部から取得可能にする
         public ICharacter CurrentEnemy { get; private set; }

@@ -71,9 +71,13 @@ namespace TechC.MagichesBand.Battle
         public void StartDetection()
         {
             Debug.Log("StartDetection");
-            directionHistory.Clear();
-            lastDirection = -1;
-            defeatedEnemy = true;
+            BattleManager.Instance.enemyDead = true;
+            BattleManager.Instance.DisplayMessage("Turn The Stick", () =>
+            {
+                directionHistory.Clear();
+                lastDirection = -1;
+                defeatedEnemy = true;
+            });
         }
     }
 }

@@ -40,7 +40,7 @@ namespace TechC.MagichesBand.Battle
         {
             Debug.Log("NotButtonAct");
             
-            if (BattleManager.Instance.playerDead) return;
+            if (BattleManager.Instance.playerDead || BattleManager.Instance.enemyDead) return;
             
             Debug.Log("ButtonAct");
             BattleManager.Instance.EnableActButton();
