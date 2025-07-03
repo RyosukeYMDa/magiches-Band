@@ -1,34 +1,35 @@
+using TechC.MagichesBand.Game;
 using UnityEngine;
 
 namespace TechC.MagichesBand.Field
 {
     public class CameraController : MonoBehaviour
     {
-        [SerializeField] private GameObject targetObject;
+        [SerializeField] private Transform target;
         private Vector3 offset;
 
-        [SerializeField] private Transform target;
-
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
         private void Start()
         {
-            offset = gameObject.transform.position - targetObject.transform.position;
+            // カメラ位置 = ターゲット位置 + offset
+            offset = GameManager.Instance.cameraOffset;
+            transform.position = target.position + offset;
+            transform.rotation = GameManager.Instance.cameraRotation;
         }
 
-        // Update is called once per frame
         private void LateUpdate()
         {
-            gameObject.transform.position = targetObject.transform.position + offset;
+            transform.position = target.position + offset;
         }
 
         public void CamRotation(float angle)
         {
-            var targetPosition = target.position;
-
             Debug.Log("CameraRotate");
-            transform.RotateAround(targetPosition, Vector3.up, angle);
 
-            offset = transform.position - targetPosition;
+            transform.RotateAround(target.position, Vector3.up, angle);
+
+            offset = transform.position - target.position;
+            GameManager.Instance.cameraRotation = transform.rotation;
+            GameManager.Instance.cameraOffset = offset;
         }
     }
 }

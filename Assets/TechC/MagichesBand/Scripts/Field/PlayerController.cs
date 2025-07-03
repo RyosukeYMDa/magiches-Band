@@ -58,7 +58,8 @@ namespace TechC.MagichesBand.Field
             //空気抵抗
             rb.linearDamping = 10f;
             gameObject.transform.position = GameManager.Instance.playerPosition;
-
+            gameObject.transform.rotation = GameManager.Instance.playerRotation;
+            
             //これが無いとspineのanimationが動かない
             skeletonAnimation = GetComponent<SkeletonAnimation>();
             spAnimationState = skeletonAnimation.AnimationState;
@@ -239,11 +240,13 @@ namespace TechC.MagichesBand.Field
         public void SavePlayerPosition()
         {
             GameManager.Instance.playerPosition = transform.position;
+            GameManager.Instance.playerRotation = gameObject.transform.rotation;
         
-            var playerData = new PlayerData(GameManager.Instance.playerPosition);
+            var playerData = new PlayerData(GameManager.Instance.playerPosition, GameManager.Instance.playerRotation);
+            var cameraDate = new CameraData(GameManager.Instance.cameraOffset,GameManager.Instance.cameraRotation);
             var inventory = GameManager.Instance.inventory;
 
-            SaveManager.SavePlayerData(playerData, inventory);
+            SaveManager.SavePlayerData(playerData, inventory,cameraDate);
             Debug.Log("Save"); 
         }
     }

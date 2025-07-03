@@ -86,10 +86,11 @@ namespace TechC.MagichesBand.Battle
         /// </summary>
         public void SavePlayerInventory()
         {
-            var playerData = new PlayerData(GameManager.Instance.playerPosition);
+            var playerData = new PlayerData(GameManager.Instance.playerPosition, GameManager.Instance.playerRotation);
+            var cameraDate = new CameraData(GameManager.Instance.cameraOffset,GameManager.Instance.cameraRotation);
             var inventory = GameManager.Instance.inventory;
 
-            SaveManager.SavePlayerData(playerData, inventory);
+            SaveManager.SavePlayerData(playerData, inventory,cameraDate);
             Debug.Log("Save"); 
         }
     }

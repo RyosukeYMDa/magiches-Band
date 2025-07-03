@@ -11,12 +11,19 @@ namespace TechC.MagichesBand.Game
     public class GameManager : SingletonMonoBehaviour<GameManager>
     {
         [SerializeField] public Vector3 playerPosition;
+        [SerializeField] public Quaternion playerRotation;
+        [SerializeField] public Quaternion cameraRotation;
+        [SerializeField] public Vector3 cameraOffset;
         [SerializeField] private CharacterStatus playerStatus;
     
         //取得したItemのIdのList
         public List<string> obtainedItemIds = new List<string>();
     
-        private Vector3 startPosition;
+        private Vector3 startPlayerPosition;
+        private Quaternion startPlayerRotation;
+        
+        private Vector3 startCameraOffset;
+        private Quaternion startCameraRotation;
 
         public EnemyType enemyType;
 
@@ -37,19 +44,36 @@ namespace TechC.MagichesBand.Game
         {
             base.Awake();
             
-            startPosition = new Vector3(-13f, 0.6f, 6);
+            startPlayerPosition = new Vector3(-13f, 0.6f, 6);
+            startPlayerRotation = Quaternion.Euler(0, 270f, 0);
+            
+            startCameraOffset = new Vector3(-4f, 3f, 0);
+            startCameraRotation = Quaternion.Euler(15f, 90f, 0);
         
-            var loadedData = SaveManager.LoadPlayerData();
+            var loadedPlayerData = SaveManager.LoadPlayerData();
+            var loadedCameraData = SaveManager.LoadCameraData();
         
-            if (loadedData != null)
+            if (loadedPlayerData != null)
             {
-                playerPosition = loadedData.GetPosition();
+                playerPosition = loadedPlayerData.GetPosition();
                 Debug.Log("Load Success");
             }
             else
             {
-                playerPosition = startPosition;
+                playerPosition = startPlayerPosition;
+                playerRotation = startPlayerRotation;
                 Debug.Log("Load Failed");
+            }
+
+            if (loadedCameraData != null)
+            {
+                cameraOffset = loadedCameraData.GetOffset();
+                cameraRotation = loadedCameraData.GetRotation();
+            }
+            else
+            {
+                cameraOffset = startCameraOffset;
+                cameraRotation = startCameraRotation;
             }
         
             // インベントリの読み込み
@@ -68,20 +92,37 @@ namespace TechC.MagichesBand.Game
             //取得済みデータも読み込み
             obtainedItemIds = SaveManager.LoadObtainedItemIds() ?? new List<string>();
         }
-    
-        public void ReloadPlayerData()
+
+        private void ReloadPlayerData()
         {
             var data = SaveManager.LoadPlayerData();
             if (data != null)
             {
                 playerPosition = data.GetPosition();
+                playerRotation = data.GetRotation();
                 Debug.Log("再読み込み成功: " + playerPosition);
             }
             else
             {
                 obtainedItemIds = new List<string>();
-                playerPosition = startPosition;
+                playerPosition = startPlayerPosition;
+                playerRotation = startPlayerRotation;
                 Debug.Log("データなし → 初期位置にリセット: " + playerPosition);
+            }
+        }
+
+        private void ReloadCameraData()
+        {
+            var data = SaveManager.LoadCameraData();
+            if (data != null)
+            {
+                cameraOffset = data.GetOffset();
+                cameraRotation = data.GetRotation();
+            }
+            else
+            {
+                cameraOffset = startCameraOffset;
+                cameraRotation = startCameraRotation;
             }
         }
     
@@ -92,6 +133,7 @@ namespace TechC.MagichesBand.Game
             playerStatus.mp = playerStatus.maxMp;
             SaveManager.DeleteAllData();
             ReloadPlayerData();
+            ReloadCameraData();
         }
     }
 }

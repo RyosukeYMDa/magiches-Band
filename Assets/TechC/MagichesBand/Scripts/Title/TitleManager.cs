@@ -11,10 +11,19 @@ namespace TechC.MagichesBand.Title
         private void Start()
         {
             PlayerData data = SaveManager.LoadPlayerData();
+            CameraData cameraData = SaveManager.LoadCameraData();
             if (data != null)
             {
                 GameManager.Instance.playerPosition = data.GetPosition();
+                GameManager.Instance.playerRotation = data.GetRotation();
                 Debug.Log("Load");
+            }
+            
+            if (cameraData != null)
+            {
+                GameManager.Instance.cameraOffset = cameraData.GetOffset();
+                GameManager.Instance.cameraRotation = cameraData.GetRotation();
+                Debug.Log("Camera Load");
             }
         }
     
