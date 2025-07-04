@@ -25,7 +25,7 @@ namespace TechC.MagichesBand.Field
         [FormerlySerializedAs("characterController")] [SerializeField] private PlayerController playerController;
         [SerializeField] private PlayerInput playerInput;
         public GameObject inventoryPanel;
-
+        
         private void OnEnable()
         {
             var menuAction = playerInput.actions["Menu"];
@@ -48,6 +48,7 @@ namespace TechC.MagichesBand.Field
             Debug.Log("Menu");
             if(inventoryUI.isInventory || dissolveController.nowLoading) return;
         
+            buttonNavigator.ReSelectButton();
             TogglePanel();
         }
 
