@@ -61,7 +61,17 @@ namespace TechC.MagichesBand.Battle
             {
                 var comp = obj.GetComponent<ICharacter>(); // IEnemy 取得
                 return comp?.Status?.agi ?? 0;         // AGIを取得
-            }).ToList();
+            })
+            .ThenBy(_ => Random.value)
+            .ToList();
+            
+            
+            Debug.Log("[TurnManager] 行動順決定：");
+            foreach (var obj in turnOrder)
+            {
+                var comp = obj.GetComponent<ICharacter>();
+                Debug.Log($" {obj.name}  AGI:{comp?.Status?.agi}");
+            }
         }
 
         public void ProceedTurn()
@@ -76,6 +86,7 @@ namespace TechC.MagichesBand.Battle
             var enemy = currentUnit.GetComponent<ICharacter>();
             if (enemy != null)
             {
+                BattleManager.Instance.enemyDead = false;
                 Debug.Log($"[TurnManager] 行動ユニット: {currentUnit.name} AGI: {enemy.Status.agi}");
                 Debug.Log("Act");
                 enemy.Act();
@@ -88,6 +99,8 @@ namespace TechC.MagichesBand.Battle
     
         public void ReplaceEnemy(GameObject newEnemy)
         {
+            Debug.Log("ReplayEnemy");
+            
             if (enemyObjects.Count > 0)
             {
                 enemyObjects[0] = newEnemy;

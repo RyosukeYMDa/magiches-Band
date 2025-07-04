@@ -48,7 +48,7 @@ namespace TechC.MagichesBand.Enemy
                     }
                     else
                     {
-                        Debug.Log("失敗");
+                        MessageWindow.Instance.DisplayMessage("SkillFailed");
                     }
                     break;
             }
@@ -88,17 +88,15 @@ namespace TechC.MagichesBand.Enemy
                 if (type == ICharacter.AttackType.Magical)
                 {
                     damage -= slimeStatus.mDef;
-                    slimeStatus.hp -= damage;
-                    MessageWindow.Instance.DisplayMessage("Enemy Add Damage" + damage, NextState);
-                    Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {slimeStatus.hp}");
                 }
                 else
                 {
                     damage -= slimeStatus.def;
-                    slimeStatus.hp -= damage;
-                    MessageWindow.Instance.DisplayMessage("Enemy Add Damage" + damage, NextState);
-                    Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {slimeStatus.hp}");
                 }
+                damage = Mathf.Max(0, damage);
+                slimeStatus.hp -= damage;
+                MessageWindow.Instance.DisplayMessage("Enemy Add Damage" + damage, NextState);
+                Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {slimeStatus.hp}");
             }
 
             if (slimeStatus.hp > 0) return;

@@ -187,17 +187,16 @@ namespace TechC.MagichesBand.Battle
                     Debug.Log("player mDef");
                     
                     damage -= playerStatus.mDef;
-                    playerStatus.hp -= damage;
-                    MessageWindow.Instance.DisplayMessage("Player Is Hit" + damage);
                 }
                 else
                 {
                     Debug.Log("player Def");
                     
                     damage -= playerStatus.def;
-                    playerStatus.hp -= damage;
-                    MessageWindow.Instance.DisplayMessage("Player Is Hit" + damage);
                 }
+                damage = Mathf.Max(0, damage);
+                playerStatus.hp -= damage;
+                MessageWindow.Instance.DisplayMessage("Player Is Hit" + damage);
             }
 
             if (playerStatus.hp <= 0)
@@ -227,11 +226,7 @@ namespace TechC.MagichesBand.Battle
             if (ButtleTurnManager.Instance.CurrentTurnPhase == ButtleTurnManager.TurnPhase.FirstMove)
             {
                 ButtleTurnManager.Instance.CurrentTurnPhase = ButtleTurnManager.TurnPhase.SecondMove;
-                if (BattleManager.Instance.bossPhase2)
-                {
-                    BattleManager.Instance.bossPhase2 = false;
-                    return;
-                }
+                if (BattleManager.Instance.enemyDead)return;
                 enemy.Act();
             }else if(ButtleTurnManager.Instance.CurrentTurnPhase == ButtleTurnManager.TurnPhase.SecondMove)
             {

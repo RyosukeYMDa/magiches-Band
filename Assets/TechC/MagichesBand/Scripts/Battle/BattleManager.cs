@@ -14,8 +14,6 @@ namespace TechC.MagichesBand.Battle
         [SerializeField] private GameObject actButton;
         [SerializeField] private GameObject attackCommand;
         [SerializeField] private BattlePlayerController battlePlayerController;
-        
-        public bool bossPhase2; //BossのPhase1が撃破されたかの判別
     
         public bool playerDead;
         public bool enemyDead;
@@ -75,6 +73,7 @@ namespace TechC.MagichesBand.Battle
 
                 if (enemyObj && ButtleTurnManager.Instance)
                 {
+                    Debug.Log("turnManager");
                     ButtleTurnManager.Instance.ReplaceEnemy(enemyObj);
                     ButtleTurnManager.Instance.SetupTurnOrder();
                 }

@@ -44,7 +44,7 @@ namespace TechC.MagichesBand.Enemy
                     }
                     else
                     {
-                        Debug.Log("失敗");
+                        MessageWindow.Instance.DisplayMessage("SkillFailed");
                     }
                     break;
             }
@@ -83,24 +83,22 @@ namespace TechC.MagichesBand.Enemy
                 if (type == ICharacter.AttackType.Magical)
                 {
                     damage -= bossStatus.mDef;
-                    bossStatus.hp -= damage;
-                    MessageWindow.Instance.DisplayMessage("Enemy Add Damage" + damage,NextState);
-                    Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {bossStatus.hp}");   
                 }
                 else
                 {
                     damage -= bossStatus.def;
-                    bossStatus.hp -= damage;
-                    MessageWindow.Instance.DisplayMessage("Enemy Add Damage" + damage,NextState);
-                    Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {bossStatus.hp}");   
                 }
+                damage = Mathf.Max(0, damage);
+                bossStatus.hp -= damage;
+                MessageWindow.Instance.DisplayMessage("Enemy Add Damage" + damage,NextState);
+                Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {bossStatus.hp}"); 
             }
 
             if (bossStatus.hp <= 0)
             {
-                if (!BattleManager.Instance.bossPhase2)
+                if (!BattleManager.Instance.enemyDead)
                 {
-                    BattleManager.Instance.bossPhase2 = true;
+                    BattleManager.Instance.enemyDead = true;
 
                     Debug.Log($"{gameObject.name} を撃破！");
                     ResetStatus();
@@ -116,7 +114,7 @@ namespace TechC.MagichesBand.Enemy
 
         public void NextState()
         {
-            if(BattleManager.Instance.bossPhase2)return;
+            if(BattleManager.Instance.enemyDead)return;
         
             Debug.Log("NextState");
             if (ButtleTurnManager.Instance.CurrentTurnPhase == ButtleTurnManager.TurnPhase.FirstMove)

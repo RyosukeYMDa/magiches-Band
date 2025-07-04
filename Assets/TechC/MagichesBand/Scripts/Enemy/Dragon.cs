@@ -48,7 +48,7 @@ namespace TechC.MagichesBand.Enemy
                     }
                     else
                     {
-                        Debug.Log("失敗");
+                        MessageWindow.Instance.DisplayMessage("SkillFailed");
                     }
                     break;
             }
@@ -92,18 +92,16 @@ namespace TechC.MagichesBand.Enemy
             {
                 if (type == ICharacter.AttackType.Magical)
                 {
-                    damage *= dragonStatus.mDef;
-                    dragonStatus.hp -= damage;
-                    MessageWindow.Instance.DisplayMessage("Enemy Add Damage" + damage, NextState);
-                    Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {dragonStatus.hp}");   
+                    damage -= dragonStatus.mDef;
                 }
                 else
                 {
-                    damage *= dragonStatus.def;
-                    dragonStatus.hp -= damage;
-                    MessageWindow.Instance.DisplayMessage("Enemy Add Damage" + damage, NextState);
-                    Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {dragonStatus.hp}");   
+                    damage -= dragonStatus.def;
                 }
+                damage = Mathf.Max(0, damage);
+                dragonStatus.hp -= damage;
+                MessageWindow.Instance.DisplayMessage("Enemy Add Damage" + damage, NextState);
+                Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {dragonStatus.hp}");
             }
 
             if (dragonStatus.hp > 0) return;

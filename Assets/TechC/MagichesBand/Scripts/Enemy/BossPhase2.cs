@@ -47,14 +47,14 @@ namespace TechC.MagichesBand.Enemy
                     }
                     else
                     {
-                        Debug.Log("失敗");
+                        MessageWindow.Instance.DisplayMessage("SkillFailed");
                     }
                     break;
                 case 2:
                     consumptionMp = 1;
                     if ((bossPhase2Status.mp - consumptionMp) >= 0)
                     {
-                        Debug.Log("NegationBuff");
+                        MessageWindow.Instance.DisplayMessage("NegationBuff");
                         battlePlayerController.ResetBuff();
                     }
                     break;
@@ -94,17 +94,15 @@ namespace TechC.MagichesBand.Enemy
                 if (type == ICharacter.AttackType.Magical)
                 {
                     damage -= bossPhase2Status.mDef;
-                    bossPhase2Status.hp -= damage;
-                    MessageWindow.Instance.DisplayMessage("Enemy Add Damage" + damage, NextState);
-                    Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {bossPhase2Status.hp}");  
                 }
                 else
                 {
                     damage -= bossPhase2Status.def;
-                    bossPhase2Status.hp -= damage;
-                    MessageWindow.Instance.DisplayMessage("Enemy Add Damage" + damage, NextState);
-                    Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {bossPhase2Status.hp}");  
                 }
+                damage = Mathf.Max(0, damage);
+                bossPhase2Status.hp -= damage;
+                MessageWindow.Instance.DisplayMessage("Enemy Add Damage" + damage, NextState);
+                Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {bossPhase2Status.hp}");  
             }
 
             if (bossPhase2Status.hp > 0) return;

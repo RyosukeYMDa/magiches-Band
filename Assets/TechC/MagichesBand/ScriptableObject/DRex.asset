@@ -16,7 +16,7 @@ MonoBehaviour:
   maxHp: 20
   maxMp: 10
   hp: 20
-  mp: 1
+  mp: 10
   atk: 4
   def: 3
   mAtk: 6
