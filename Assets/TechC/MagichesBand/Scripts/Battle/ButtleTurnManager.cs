@@ -16,98 +16,57 @@ namespace TechC.MagichesBand.Battle
     
         private List<GameObject> turnOrder = new List<GameObject>();
         private int currentTurnIndex;
-    
-        public int turnCount;
-    
-        public enum TurnPhase
-        {
-            FirstMove,
-            SecondMove
-        }
-    
-        public TurnPhase CurrentTurnPhase { get; set; } = TurnPhase.FirstMove;
 
-        protected override void Awake()
-        {
-            base.Awake();
-            
-            Debug.Log("【行動順】");
-            foreach (var unit in turnOrder)
-            {
-                var status = unit.GetComponent<ICharacter>() as MonoBehaviour;
-            }
-        }
+        public int turnCount;
 
         public void SetupTurnOrder()
         {
             turnOrder.Clear();
-            turnOrder.AddRange(enemyObjects); // 敵（BattleManagerなどで生成された）
-            turnOrder.Add(player.gameObject); // プレイヤー
+            turnOrder.AddRange(enemyObjects);
+            turnOrder.Add(player.gameObject);
 
-            foreach (var obj in turnOrder)
-            {
-                var enemy = obj.GetComponent<ICharacter>();
-                if (enemy != null)
-                {
-                    Debug.Log($"[TurnManager] {obj.name} AGI: {enemy.Status.agi}");
-                }
-                else
-                {
-                    Debug.LogWarning($"[TurnManager] IEnemy 取得失敗: {obj.name}");
-                }
-            }
-        
-            turnOrder = turnOrder.OrderByDescending(obj =>
-            {
-                var comp = obj.GetComponent<ICharacter>(); // IEnemy 取得
-                return comp?.Status?.agi ?? 0;         // AGIを取得
-            })
-            .ThenBy(_ => Random.value)
-            .ToList();
-            
-            
+            turnOrder = turnOrder
+                .OrderByDescending(obj => obj.GetComponent<ICharacter>()?.Status?.agi ?? 0)
+                .ThenBy(_ => Random.value)
+                .ToList();
+
             Debug.Log("[TurnManager] 行動順決定：");
             foreach (var obj in turnOrder)
             {
-                var comp = obj.GetComponent<ICharacter>();
-                Debug.Log($" {obj.name}  AGI:{comp?.Status?.agi}");
+                Debug.Log($" {obj.name} AGI: {obj.GetComponent<ICharacter>()?.Status?.agi}");
             }
+
+            currentTurnIndex = -1;
         }
 
         public void ProceedTurn()
         {
             if (turnOrder.Count == 0) return;
 
-            //turn数を増加
+            currentTurnIndex = (currentTurnIndex + 1) % turnOrder.Count;
             turnCount++;
-            Debug.Log(turnCount);
-            GameObject currentUnit = turnOrder[currentTurnIndex];
-    
-            var enemy = currentUnit.GetComponent<ICharacter>();
-            if (enemy != null)
+
+            var currentUnit = turnOrder[currentTurnIndex];
+            var character = currentUnit.GetComponent<ICharacter>();
+
+            if (character != null)
             {
-                BattleManager.Instance.enemyDead = false;
-                Debug.Log($"[TurnManager] 行動ユニット: {currentUnit.name} AGI: {enemy.Status.agi}");
-                Debug.Log("Act");
-                enemy.Act();
-            }
-            else
-            {
-                Debug.LogWarning($"[TurnManager] IEnemy が見つかりません: {currentUnit.name}");
+                Debug.Log($"[TurnManager] 行動ユニット: {currentUnit.name} AGI: {character.Status.agi}");
+                character.Act();
             }
         }
-    
+
         public void ReplaceEnemy(GameObject newEnemy)
         {
-            Debug.Log("ReplayEnemy");
-            
             if (enemyObjects.Count > 0)
             {
                 enemyObjects[0] = newEnemy;
             }
+
+            SetupTurnOrder();
             ProceedTurn();
         }
-    
+
         public void AddEnemy(GameObject enemy)
         {
             enemyObjects.Add(enemy);

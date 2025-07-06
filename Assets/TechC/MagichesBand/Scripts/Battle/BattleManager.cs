@@ -1,6 +1,6 @@
 using TechC.MagichesBand.Core;
 using TechC.MagichesBand.Enemy;
-using TechC.MagichesBand.Field;
+using UnityEngine.UI;
 using TechC.MagichesBand.Game;
 using UnityEngine;
 
@@ -14,7 +14,8 @@ namespace TechC.MagichesBand.Battle
         [SerializeField] private GameObject actButton;
         [SerializeField] private GameObject attackCommand;
         [SerializeField] private BattlePlayerController battlePlayerController;
-    
+        [SerializeField] private Image effectImage;
+        
         public bool playerDead;
         public bool enemyDead;
         
@@ -23,6 +24,8 @@ namespace TechC.MagichesBand.Battle
 
         private void Start()
         {
+            effectImage.color = Color.clear;
+            
             // UI上に敵を1体生成
             Vector3 spawnPos = new Vector3(0, 40, -23); // anchoredPosition（中央表示）
             var enemy = factory.CreateEnemy(spawnPos, uiParent);
@@ -52,7 +55,17 @@ namespace TechC.MagichesBand.Battle
 
             Debug.Log("[BattleManager] Enemy created and passed to TurnManager.");
         }
-    
+
+        private void Update()
+        {
+            effectImage.color = Color.Lerp(effectImage.color, Color.clear, Time.deltaTime);
+        }
+
+        public void DamageEffect()
+        {
+            effectImage.color = new Color(0.4f,0,0,0.4f);
+        }
+        
         //ButtonControllerに置くと取れなくなるのでここに置く
         public void EnableActButton()
         {

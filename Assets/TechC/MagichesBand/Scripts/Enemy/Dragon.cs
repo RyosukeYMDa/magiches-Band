@@ -20,6 +20,8 @@ namespace TechC.MagichesBand.Enemy
     
         public void Act()
         {
+            Debug.Log("EnemyAct");
+            
             if(StickRotationDetector.Instance.defeatedEnemy) return;
         
             int damage;
@@ -128,15 +130,7 @@ namespace TechC.MagichesBand.Enemy
             
             if(BattleManager.Instance.playerDead)return;
             
-            if (ButtleTurnManager.Instance.CurrentTurnPhase == ButtleTurnManager.TurnPhase.FirstMove)
-            {
-                ButtleTurnManager.Instance.CurrentTurnPhase = ButtleTurnManager.TurnPhase.SecondMove;
-                battlePlayerController.Act();
-            }else if (ButtleTurnManager.Instance.CurrentTurnPhase == ButtleTurnManager.TurnPhase.SecondMove)
-            {
-                ButtleTurnManager.Instance.CurrentTurnPhase = ButtleTurnManager.TurnPhase.FirstMove;
-                ButtleTurnManager.Instance.ProceedTurn();
-            }
+            ButtleTurnManager.Instance.ProceedTurn();
         }
     
         public void ResetStatus()

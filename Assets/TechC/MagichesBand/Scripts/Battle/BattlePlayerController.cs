@@ -196,6 +196,10 @@ namespace TechC.MagichesBand.Battle
                 }
                 damage = Mathf.Max(0, damage);
                 playerStatus.hp -= damage;
+                if (damage > 0)
+                {
+                    BattleManager.Instance.DamageEffect();
+                }
                 MessageWindow.Instance.DisplayMessage("Player Is Hit" + damage);
             }
 
@@ -221,18 +225,7 @@ namespace TechC.MagichesBand.Battle
                 return;
             }
             
-            ICharacter enemy = BattleManager.Instance.CurrentEnemy;
-        
-            if (ButtleTurnManager.Instance.CurrentTurnPhase == ButtleTurnManager.TurnPhase.FirstMove)
-            {
-                ButtleTurnManager.Instance.CurrentTurnPhase = ButtleTurnManager.TurnPhase.SecondMove;
-                if (BattleManager.Instance.enemyDead)return;
-                enemy.Act();
-            }else if(ButtleTurnManager.Instance.CurrentTurnPhase == ButtleTurnManager.TurnPhase.SecondMove)
-            {
-                ButtleTurnManager.Instance.CurrentTurnPhase = ButtleTurnManager.TurnPhase.FirstMove;
-                ButtleTurnManager.Instance.ProceedTurn();
-            }
+            ButtleTurnManager.Instance.ProceedTurn();
         }
     
         public void ResetStatus()

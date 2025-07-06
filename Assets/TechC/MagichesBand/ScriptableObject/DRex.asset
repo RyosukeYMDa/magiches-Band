@@ -15,8 +15,8 @@ MonoBehaviour:
   characterName: DRex
   maxHp: 20
   maxMp: 10
-  hp: 20
-  mp: 10
+  hp: 16
+  mp: 20
   atk: 4
   def: 3
   mAtk: 6

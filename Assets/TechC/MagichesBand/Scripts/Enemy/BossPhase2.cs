@@ -126,17 +126,8 @@ namespace TechC.MagichesBand.Enemy
         public void NextState()
         {
             Debug.Log("NextState");
-            if (ButtleTurnManager.Instance.CurrentTurnPhase == ButtleTurnManager.TurnPhase.FirstMove)
-            {
-                ButtleTurnManager.Instance.CurrentTurnPhase = ButtleTurnManager.TurnPhase.SecondMove;
-                battlePlayerController.Act();
-                Debug.Log("Act");
-            }else if (ButtleTurnManager.Instance.CurrentTurnPhase == ButtleTurnManager.TurnPhase.SecondMove)
-            {
-                ButtleTurnManager.Instance.CurrentTurnPhase = ButtleTurnManager.TurnPhase.FirstMove;
-                ButtleTurnManager.Instance.ProceedTurn();
-                Debug.Log("ProceedTurn");
-            }
+            
+            ButtleTurnManager.Instance.ProceedTurn();
         }
 
         public void ResetStatus()
