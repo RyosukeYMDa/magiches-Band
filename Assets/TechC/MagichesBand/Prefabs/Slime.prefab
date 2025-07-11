@@ -75,7 +75,7 @@ MonoBehaviour:
   initialFlipX: 0
   initialFlipY: 0
   startingAnimation: 
-  startingLoop: 1
+  startingLoop: 0
   timeScale: 1
   freeze: 0
   layoutScaleMode: 0
@@ -123,4 +123,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slimeStatus: {fileID: 11400000, guid: 37e5eaa20c7245947b6ba8dba38f2387, type: 2}
   battlePlayerController: {fileID: 8732552605721786611, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}
-  stickRotationDetector: {fileID: 709974229282147140, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}

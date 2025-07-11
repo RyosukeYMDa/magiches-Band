@@ -4206,6 +4206,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7223046081121607160, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}
+      propertyPath: startingLoop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7223046081121607160, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}
+      propertyPath: startingAnimation
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8732552605721786611, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}
       propertyPath: actButton
       value: 
@@ -4243,9 +4251,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8732552605721786611, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}
+      propertyPath: skeletonGraphic
+      value: 
+      objectReference: {fileID: 753839453967078296}
+    - target: {fileID: 8732552605721786611, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}
       propertyPath: buttonController
       value: 
       objectReference: {fileID: 135609582}
+    - target: {fileID: 8732552605721786611, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}
+      propertyPath: skeletonAnimation
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8732552605721786611, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}
       propertyPath: stickRotationDetector
       value: 
@@ -4385,6 +4401,17 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &753839453967078296 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7223046081121607160, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}
+  m_PrefabInstance: {fileID: 753839453967078293}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 753839453967078294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d85b887af7e6c3f45a2e2d2920d641bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
