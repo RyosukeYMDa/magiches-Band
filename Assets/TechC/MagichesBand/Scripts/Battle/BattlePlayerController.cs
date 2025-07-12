@@ -1,3 +1,5 @@
+using System;
+using TechC.MagichesBand.Core;
 using TechC.MagichesBand.Enemy;
 using TechC.MagichesBand.Game;
 using TechC.MagichesBand.Item;
@@ -5,6 +7,7 @@ using TechC.MagichesBand.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 namespace TechC.MagichesBand.Battle
 {
@@ -17,7 +20,7 @@ namespace TechC.MagichesBand.Battle
         [SerializeField] private BattleManager battleManager;
         [SerializeField] private ItemSelect itemSelect;
         [SerializeField] private GameObject actButton;
-     
+        
         private const float CriticalRate = 0.25f; //クリティカルの確率（今は25％）
         private const int CriticalMultiplier = 2; // クリティカル倍率
         private const float EvasionRate = 0.1f; //回避の確率（今は10％）
@@ -26,7 +29,12 @@ namespace TechC.MagichesBand.Battle
 
         public int atkDoublingValue; //攻撃上昇補正
         public int defDoublingValue; //防御上昇補正
-        
+
+        private void Start()
+        {
+            Sound.Instance.Play(SoundType.SlimeBGM,true);
+        }
+
         private void Update()
         {
             if (!inventoryUI.isInventory || !inventoryUI.isItem) return;
@@ -70,7 +78,7 @@ namespace TechC.MagichesBand.Battle
             }
         }
 
-        public void Slash()
+        public void Shoot()
         {
             Debug.Log("Slash");
             messageText.gameObject.SetActive(false);
@@ -91,7 +99,7 @@ namespace TechC.MagichesBand.Battle
                 NextState();
                 return;
             }
-
+            
             if (atkDoublingValue == 0)
             {
                 atkDoublingValue　= (atkDoublingValue + 1) * 2;
@@ -101,12 +109,14 @@ namespace TechC.MagichesBand.Battle
             }
         
             Debug.Log(atkDoublingValue);
+            
+            BattleManager.Instance.BuffEffect();
+            Sound.Instance.Play(SoundType.AtkUp);
         
             messageText.gameObject.SetActive(false);
-        
             attackCommand.SetActive(false);
-        
-            NextState();
+            
+            MessageWindow.Instance.DisplayMessage("攻撃力が少し上がった", NextState);
         }
 
         public void DefUp()
@@ -127,11 +137,12 @@ namespace TechC.MagichesBand.Battle
 
             Debug.Log(defDoublingValue);
         
+            BattleManager.Instance.BuffEffect();
+            
             messageText.gameObject.SetActive(false);
-        
             attackCommand.SetActive(false);
         
-            NextState();
+            MessageWindow.Instance.DisplayMessage("防御力が少し上がった", NextState);
         }
 
         /// <summary>

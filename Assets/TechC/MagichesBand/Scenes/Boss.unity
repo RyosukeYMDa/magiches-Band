@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 18622407}
   - component: {fileID: 18622411}
   m_Layer: 5
-  m_Name: SlashButton
+  m_Name: ShootButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -184,8 +184,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2082121405}
-        m_TargetAssemblyTypeName: BattlePlayerController, Assembly-CSharp
-        m_MethodName: Slash
+        m_TargetAssemblyTypeName: TechC.MagichesBand.Battle.BattlePlayerController,
+          Assembly-CSharp
+        m_MethodName: Shoot
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -271,8 +272,8 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1430473319}
-          m_TargetAssemblyTypeName: ButtonController, Assembly-CSharp
-          m_MethodName: SlashText
+          m_TargetAssemblyTypeName: TechC.MagichesBand.Battle.ButtonController, Assembly-CSharp
+          m_MethodName: ShootText
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -3688,7 +3689,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Slash
+  m_text: Shoot
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

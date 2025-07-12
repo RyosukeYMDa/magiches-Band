@@ -75,7 +75,7 @@ MonoBehaviour:
   initialFlipX: 0
   initialFlipY: 0
   startingAnimation: 
-  startingLoop: 1
+  startingLoop: 0
   timeScale: 1
   freeze: 0
   layoutScaleMode: 0
@@ -123,4 +123,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dragonStatus: {fileID: 11400000, guid: 527e080ac10f58f4fbb61cfae9d9f0f9, type: 2}
   battlePlayerController: {fileID: 8732552605721786611, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}
-  battleManager: {fileID: 0}
+  skeletonGraphic: {fileID: 893292696346392419}

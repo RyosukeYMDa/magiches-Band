@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TechC.MagichesBand.Core;
 using TechC.MagichesBand.UI;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace TechC.MagichesBand.Battle
     /// <summary>
     ///     バトルにおけるスティック回転入力の判定オブジェクト
     /// </summary>
-    public class StickRotationDetector : MonoBehaviour
+    public class StickRotationDetector : SingletonMonoBehaviour<StickRotationDetector>
     {
         [SerializeField] private float directionDeadZone = 0.5f;
         [SerializeField] private float directionChangeAngle = 45f;
@@ -19,19 +20,6 @@ namespace TechC.MagichesBand.Battle
         public System.Action OnRotationCompleted;
     
         public bool defeatedEnemy; //倒されているかの判別
-
-        public static StickRotationDetector Instance { get; private set; }
-
-        private void Awake()
-        {
-            if (Instance && Instance != this)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            Instance = this;
-        }
     
         private void Update()
         {

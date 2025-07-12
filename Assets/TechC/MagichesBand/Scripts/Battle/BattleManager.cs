@@ -61,9 +61,15 @@ namespace TechC.MagichesBand.Battle
             effectImage.color = Color.Lerp(effectImage.color, Color.clear, Time.deltaTime);
         }
 
+        //Damageを受けた際に縁を赤くする
         public void DamageEffect()
         {
             effectImage.color = new Color(0.4f,0,0,0.4f);
+        }
+
+        public void BuffEffect()
+        {
+            effectImage.color = new Color(0,0.7f,0.5f,0.9f);
         }
         
         //ButtonControllerに置くと取れなくなるのでここに置く

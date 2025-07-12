@@ -17,8 +17,6 @@ namespace TechC.MagichesBand.Battle
         private List<GameObject> turnOrder = new List<GameObject>();
         private int currentTurnIndex;
 
-        public int turnCount;
-
         public void SetupTurnOrder()
         {
             turnOrder.Clear();
@@ -44,7 +42,6 @@ namespace TechC.MagichesBand.Battle
             if (turnOrder.Count == 0) return;
 
             currentTurnIndex = (currentTurnIndex + 1) % turnOrder.Count;
-            turnCount++;
 
             var currentUnit = turnOrder[currentTurnIndex];
             var character = currentUnit.GetComponent<ICharacter>();

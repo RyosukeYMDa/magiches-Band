@@ -11,7 +11,7 @@ namespace TechC.MagichesBand.Core
 
         protected virtual void Awake()
         {
-            if (Instance == null)
+            if (!Instance)
             {
                 Instance = (T)this;
 

@@ -59,7 +59,7 @@ namespace TechC.MagichesBand.Battle
             inventoryUI.SetInventoryState(true);
         }
 
-        public void SlashText()
+        public void ShootText()
         {
             messageText.gameObject.SetActive(true);
             messageText.text = "slash:enemy - 1";

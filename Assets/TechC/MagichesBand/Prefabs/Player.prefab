@@ -131,7 +131,7 @@ MonoBehaviour:
   physicsMovementRelativeTo: {fileID: 0}
   updateTiming: 1
   unscaledTime: 0
-  _animationName: idle
+  _animationName: jump old
   loop: 1
   timeScale: 1
 --- !u!114 &2197397995625243528
@@ -259,6 +259,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ce6133e5-28cd-43d2-8538-534c2072405e
+    m_ActionName: 'Player/Choice[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a1b9bc84-83e7-4ec1-ba35-c41e421179ea
+    m_ActionName: Player/Menu
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5fe294bd-66e8-455e-9ba2-aab261ca8c8c
+    m_ActionName: Player/UiSubmit
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f8caa6a0-5cc6-492d-b9be-758d2f7293b9
+    m_ActionName: Player/UiCancel
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -278,8 +294,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testAnimationName: Move
   cameraTransform: {fileID: 0}
-  loadingShaderController: {fileID: 0}
+  dissolveController: {fileID: 0}
   cameraController: {fileID: 0}
+  inventoryUI: {fileID: 0}
+  isShown: 0
 --- !u!65 &183298708340865889
 BoxCollider:
   m_ObjectHideFlags: 0
