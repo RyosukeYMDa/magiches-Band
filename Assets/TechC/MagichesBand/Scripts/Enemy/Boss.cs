@@ -4,6 +4,7 @@ using TechC.MagichesBand.UI;
 using UnityEngine;
 using Spine.Unity;
 using System.Collections;
+using TechC.MagichesBand.Core;
 
 namespace TechC.MagichesBand.Enemy
 {
@@ -27,6 +28,8 @@ namespace TechC.MagichesBand.Enemy
         {
             // 初期色を保存
             originalColor = skeletonGraphic.color;
+            
+            Sound.Instance.Play(SoundType.BossBGM,true);
         }
         
         public void Act()
@@ -118,7 +121,7 @@ namespace TechC.MagichesBand.Enemy
 
                     Debug.Log($"{gameObject.name} を撃破！");
                     ResetStatus();
-                    MessageWindow.Instance.DisplayMessage("Boss Mutation", () =>
+                    MessageWindow.Instance.DisplayMessage("Boss", () =>
                     {
                         BattleManager.Instance.SpawnPhase2Boss();
                         // 現在のボスを削除して2段階目を生成

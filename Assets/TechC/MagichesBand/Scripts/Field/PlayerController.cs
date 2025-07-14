@@ -51,6 +51,10 @@ namespace TechC.MagichesBand.Field
         private Rigidbody rb;
     
         public bool isShown; //menubarが出ているかどうか
+        
+        private float footstepTimer = 0f;
+        private const float FootstepInterval = 0.4f; // 秒ごとに足音
+
 
         private void Start()
         {
@@ -95,6 +99,16 @@ namespace TechC.MagichesBand.Field
                 case State.Walk:
                     if (moveInput == Vector3.zero)
                         ChangeState(State.Idle);
+                    else
+                    {
+                        // 歩行中だけ足音のタイマーを更新
+                        footstepTimer += Time.deltaTime;
+                        if (footstepTimer >= FootstepInterval)
+                        {
+                            PlayFootstepSound();
+                            footstepTimer = 0f;
+                        }
+                    }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -128,7 +142,7 @@ namespace TechC.MagichesBand.Field
 
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed * Time.deltaTime);
         }
-
+        
         private void FixedUpdate()
         {
             rb.linearVelocity = moveDirection * MoveSpeed;
@@ -147,6 +161,11 @@ namespace TechC.MagichesBand.Field
             moveInput = Vector3.zero;
         }
 
+        private void PlayFootstepSound()
+        {
+            Sound.Instance.Play(SoundType.PlayerFootstep);
+        }
+        
         /// <summary>
         /// Stateを変える関数
         /// </summary>
@@ -234,6 +253,11 @@ namespace TechC.MagichesBand.Field
             }
         }
 
+        public void LogMessage()
+        {
+            Debug.Log("walk");
+        }
+        
         /// <summary>
         /// playerのpositionを記録
         /// </summary>

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TechC.MagichesBand.Core;
 using TechC.MagichesBand.Enemy;
+using TechC.MagichesBand.UI;
 using UnityEngine;
 
 namespace TechC.MagichesBand.Battle
@@ -59,7 +60,9 @@ namespace TechC.MagichesBand.Battle
             {
                 enemyObjects[0] = newEnemy;
             }
-
+            
+            BattleManager.Instance.enemyDead = false; 
+            
             SetupTurnOrder();
             ProceedTurn();
         }

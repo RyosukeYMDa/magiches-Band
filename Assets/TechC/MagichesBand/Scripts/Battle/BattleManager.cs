@@ -94,7 +94,6 @@ namespace TechC.MagichesBand.Battle
                 {
                     Debug.Log("turnManager");
                     ButtleTurnManager.Instance.ReplaceEnemy(enemyObj);
-                    ButtleTurnManager.Instance.SetupTurnOrder();
                 }
             }
         }

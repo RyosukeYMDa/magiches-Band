@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Spine.Unity;
 using System.Collections;
+using TechC.MagichesBand.Core;
 
 namespace TechC.MagichesBand.Enemy
 {
@@ -24,10 +25,13 @@ namespace TechC.MagichesBand.Enemy
         
         public CharacterStatus Status => bossPhase2Status;
         
+        
         private void Start()
         {
             // 初期色を保存
             originalColor = skeletonGraphic.color;
+            
+            //Sound.Instance.Play(SoundType.Boss2BGM,true);
         }
         
         public void Act()

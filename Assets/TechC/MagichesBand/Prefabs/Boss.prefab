@@ -123,4 +123,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossStatus: {fileID: 11400000, guid: 205370a627cbaae4dadb30e9d95dd36c, type: 2}
   battlePlayerController: {fileID: 8732552605721786611, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}
-  battleManager: {fileID: 0}
+  skeletonGraphic: {fileID: 3370327800985310167}

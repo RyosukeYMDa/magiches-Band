@@ -7,43 +7,39 @@ namespace TechC.MagichesBand.Core
     {
         [SerializeField] private AudioSource seSource;
         [SerializeField] private AudioSource bgmSource;
+        [SerializeField] private SoundDatabase database;
 
-        [SerializeField] private AudioClip atkUpClip;
-
-        [SerializeField] private AudioClip slimeBgmClip;
-        
         private Dictionary<SoundType, AudioClip> clipDict;
 
         private void Start()
         {
-            clipDict = new Dictionary<SoundType, AudioClip>
+            clipDict = new Dictionary<SoundType, AudioClip>();
+
+            foreach (var entry in database.entries)
             {
-                { SoundType.AtkUp, atkUpClip },
-                { SoundType.SlimeBGM, slimeBgmClip}
-            };
+                if (entry.clip != null && !clipDict.ContainsKey(entry.type))
+                {
+                    clipDict.Add(entry.type, entry.clip);
+                }
+            }
         }
 
-        /// <summary>
-        /// 汎用再生関数：ループ有無も指定可能
-        /// </summary>
         public void Play(SoundType type, bool loop = false)
         {
-            if (!clipDict.TryGetValue(type, out var clip))
+            if (!clipDict.TryGetValue(type, out var clip) || clip == null)
             {
-                Debug.LogWarning($"Clip not found for {type}");
+                Debug.LogWarning($"AudioClip not found for {type}");
                 return;
             }
 
             if (loop)
             {
-                // BGMなど：ループ再生
                 bgmSource.clip = clip;
                 bgmSource.loop = true;
                 bgmSource.Play();
             }
             else
             {
-                // 効果音など：1回だけ再生
                 seSource.PlayOneShot(clip);
             }
         }

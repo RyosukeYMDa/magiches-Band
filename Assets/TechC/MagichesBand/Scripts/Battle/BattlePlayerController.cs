@@ -30,11 +30,6 @@ namespace TechC.MagichesBand.Battle
         public int atkDoublingValue; //攻撃上昇補正
         public int defDoublingValue; //防御上昇補正
 
-        private void Start()
-        {
-            Sound.Instance.Play(SoundType.SlimeBGM,true);
-        }
-
         private void Update()
         {
             if (!inventoryUI.isInventory || !inventoryUI.isItem) return;

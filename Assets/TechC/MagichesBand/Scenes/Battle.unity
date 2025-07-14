@@ -3519,8 +3519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seSource: {fileID: 1735000228}
   bgmSource: {fileID: 1735000228}
-  atkUpClip: {fileID: 8300000, guid: 888ec62f2d1823e47bf53d7edf3619e5, type: 3}
-  slimeBgmClip: {fileID: 8300000, guid: ea28d39ca6ff61d4fabd806fdedc3066, type: 3}
+  database: {fileID: 11400000, guid: e10665813dabdb64d966397b11b5551f, type: 2}
 --- !u!82 &1735000228
 AudioSource:
   m_ObjectHideFlags: 0

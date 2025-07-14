@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Spine.Unity;
 using System.Collections;
+using TechC.MagichesBand.Core;
 
 namespace TechC.MagichesBand.Enemy
 {
@@ -28,6 +29,8 @@ namespace TechC.MagichesBand.Enemy
         {
             // 初期色を保存
             originalColor = skeletonGraphic.color;
+            
+            Sound.Instance.Play(SoundType.DragonBGM,true);
         }
         
         public void Act()
