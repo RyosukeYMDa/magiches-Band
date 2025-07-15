@@ -47,6 +47,8 @@ namespace TechC.MagichesBand.Field
         [FormerlySerializedAs("disolveController")] [FormerlySerializedAs("loadingShaderController")] [SerializeField] private DissolveController dissolveController;
         [SerializeField] private CameraController cameraController;
         [SerializeField] private InventoryUI inventoryUI;
+        [SerializeField] private GameObject menuBar;
+        [SerializeField] private GameMenu gameMenu;
 
         private Rigidbody rb;
     
@@ -58,6 +60,8 @@ namespace TechC.MagichesBand.Field
 
         private void Start()
         {
+            isShown = false;
+            
             rb =  GetComponent<Rigidbody>();
             //空気抵抗
             rb.linearDamping = 10f;
@@ -70,9 +74,11 @@ namespace TechC.MagichesBand.Field
         
             playerInput = GetComponent<PlayerInput>();
             var moveAction = playerInput.actions["Move"];
-        
+            var menuAction = playerInput.actions["Menu"];
+            
             moveAction.performed += OnMovePerformed;
             moveAction.canceled += OnMoveCanceled;
+            menuAction.performed += Menu;
         }
     
         private void OnDisable()
@@ -80,9 +86,11 @@ namespace TechC.MagichesBand.Field
             if (playerInput && playerInput.actions)
             {
                 var moveAction = playerInput.actions["Move"];
-
+                var menuAction = playerInput.actions["Menu"];
+                
                 moveAction.performed -= OnMovePerformed;
-                moveAction.canceled -= OnMoveCanceled;   
+                moveAction.canceled -= OnMoveCanceled;
+                menuAction.performed -= Menu;
             }
         }
 
@@ -159,6 +167,20 @@ namespace TechC.MagichesBand.Field
         private void OnMoveCanceled(InputAction.CallbackContext context)
         {
             moveInput = Vector3.zero;
+        }
+        
+        public void Menu(InputAction.CallbackContext context)
+        {
+            Debug.Log("Menu");
+
+            if (!isShown)
+            {
+                menuBar.SetActive(true);
+            }
+            else
+            {
+                gameMenu.CloseMenu();
+            }
         }
 
         private void PlayFootstepSound()
@@ -271,7 +293,9 @@ namespace TechC.MagichesBand.Field
             var inventory = GameManager.Instance.inventory;
 
             SaveManager.SavePlayerData(playerData, inventory,cameraDate);
-            Debug.Log("Save"); 
+            gameMenu.CloseMenu();
+            Sound.Instance.Play(SoundType.ButtonSelect);
+            MessageWindow.Instance.DisplayMessage("Save");
         }
     }
 }

@@ -49,17 +49,10 @@ namespace TechC.MagichesBand.UI
         {
             if(inventoryUI.isInventory)return;
             
-            Debug.Log("決定buttonが押された");
-            
-            Sound.Instance.Play(SoundType.ButtonSelect);
+            Sound.Instance.Play(SoundType.ButtonNavi);
             
             // UnityのEventSystemで選択状態を更新（見た目上の強調も含む）
             EventSystem.current.SetSelectedGameObject(buttons[index].gameObject);
-        }
-
-        public void ReSelectButton()
-        {
-            SelectButton(currentIndex);
         }
     }
 }

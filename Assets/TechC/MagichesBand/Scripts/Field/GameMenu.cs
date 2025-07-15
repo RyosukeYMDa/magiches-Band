@@ -1,4 +1,5 @@
 using System.Collections;
+using TechC.MagichesBand.Core;
 using TechC.MagichesBand.Item;
 using TechC.MagichesBand.UI;
 using UnityEngine;
@@ -20,51 +21,47 @@ namespace TechC.MagichesBand.Field
     
         private Coroutine slideCoroutine;
 
-        [SerializeField] private ButtonNavigator buttonNavigator;
+        [SerializeField] private FieldButtonNavi fieldButtonNavi;
         [SerializeField] private InventoryUI inventoryUI;
         [SerializeField] private DissolveController dissolveController;
         [FormerlySerializedAs("characterController")] [SerializeField] private PlayerController playerController;
         [SerializeField] private PlayerInput playerInput;
         public GameObject inventoryPanel;
-        
+
         private void OnEnable()
         {
-            var menuAction = playerInput.actions["Menu"];
-
-            menuAction.performed += Menu;
-        }
-
-        private void OnDisable()
-        {
-            if (playerInput && playerInput.actions)
+            if (playerController.isShown && inventoryUI.isInventory || dissolveController.nowLoading)
             {
-                var menuAction = playerInput.actions["Menu"];
-
-                menuAction.performed -= Menu;   
+                gameObject.SetActive(false);
+                return;
             }
+            
+            fieldButtonNavi.ReSelectButton();
+            OpenMenu();
         }
-    
-        public void Menu(InputAction.CallbackContext context)
-        {
-            Debug.Log("Menu");
-            if(!playerController.isShown && inventoryUI.isInventory || dissolveController.nowLoading ) return;
         
-            buttonNavigator.ReSelectButton();
-            TogglePanel();
+        private void OpenMenu()
+        {
+            // 二重起動防止
+            if (slideCoroutine != null)
+                StopCoroutine(slideCoroutine);
+            
+            slideCoroutine = StartCoroutine(SlidePanel(shownPosition));
+            playerController.isShown = true;
         }
 
-        private void TogglePanel()
+        public void CloseMenu()
         {
-            // すでにスライド中なら中断
+            // 二重起動防止
             if (slideCoroutine != null)
                 StopCoroutine(slideCoroutine);
 
-            slideCoroutine = StartCoroutine(SlidePanel(playerController.isShown ? hiddenPosition : shownPosition)); 
-            playerController.isShown = !playerController.isShown;
-        
+            slideCoroutine = StartCoroutine(SlidePanel(hiddenPosition));
+            playerController.isShown = false;
+            gameObject.SetActive(false);
         }
 
-        IEnumerator SlidePanel(Vector2 targetPosition)
+        private IEnumerator SlidePanel(Vector2 targetPosition)
         {
             Vector2 startPos = panel.anchoredPosition;
             float elapsed = 0f;
@@ -81,7 +78,7 @@ namespace TechC.MagichesBand.Field
             panel.anchoredPosition = targetPosition;
             slideCoroutine = null;
         
-            if (hiding && inventoryUI.isInventory)
+            if (hiding)
             {
                 gameObject.SetActive(false);
             }
@@ -89,8 +86,9 @@ namespace TechC.MagichesBand.Field
 
         public void InventoryDisplay()
         {
-            Debug.Log("InventoryDisplay"); 
-            TogglePanel();
+            Debug.Log("InventoryDisplay");
+            Sound.Instance.Play(SoundType.ButtonSelect);
+            CloseMenu();
             inventoryPanel.SetActive(true);
             inventoryUI.SetInventoryState(true);
         }

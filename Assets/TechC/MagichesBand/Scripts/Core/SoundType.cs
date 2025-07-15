@@ -12,6 +12,7 @@ namespace TechC.MagichesBand.Core
         AtkUp,
         PlayerFootstep,
         ButtonNavi,
-        ButtonSelect
+        ButtonSelect,
+        ButtonCancel
     }
 }

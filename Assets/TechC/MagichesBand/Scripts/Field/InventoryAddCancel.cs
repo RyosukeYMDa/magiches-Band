@@ -1,3 +1,4 @@
+using TechC.MagichesBand.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -29,7 +30,7 @@ namespace TechC.MagichesBand.Field
 
         private void OnAddMainCancel(InputAction.CallbackContext context)
         {
-            slidePanel.SetActive(true);
+            Sound.Instance.Play(SoundType.ButtonCancel);
         }
     }
 }

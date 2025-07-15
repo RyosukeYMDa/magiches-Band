@@ -4146,7 +4146,6 @@ GameObject:
   - component: {fileID: 1582927731}
   - component: {fileID: 1582927730}
   - component: {fileID: 1582927734}
-  - component: {fileID: 1582927736}
   - component: {fileID: 1582927737}
   m_Layer: 5
   m_Name: Canvas
@@ -4260,22 +4259,6 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 1abb8b5704e4c004fa7b3d7330d04a7a, type: 2}
   nowLoading: 0
   areaState: 0
---- !u!114 &1582927736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1582927729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fbb556b033e0c44d8fbefbc6ef504d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttons:
-  - {fileID: 1935340832}
-  - {fileID: 215041107}
-  inventoryUI: {fileID: 1582927737}
 --- !u!114 &1582927737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5537,13 +5520,14 @@ GameObject:
   - component: {fileID: 2043897689}
   - component: {fileID: 2043897688}
   - component: {fileID: 2043897690}
+  - component: {fileID: 2043897691}
   m_Layer: 5
   m_Name: MenuBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2043897687
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5619,12 +5603,28 @@ MonoBehaviour:
   shownPosition: {x: 0, y: 0}
   hiddenPosition: {x: 300, y: 0}
   slideDuration: 0.3
-  buttonNavigator: {fileID: 1582927736}
+  fieldButtonNavi: {fileID: 2043897691}
   inventoryUI: {fileID: 1582927737}
   dissolveController: {fileID: 1582927734}
   playerController: {fileID: 1966283784}
   playerInput: {fileID: 3454504375464531476}
   inventoryPanel: {fileID: 275426389}
+--- !u!114 &2043897691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2043897686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d223cb3eec0137540addfea31aa54b9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttons:
+  - {fileID: 1935340832}
+  - {fileID: 215041107}
+  inventoryUI: {fileID: 1582927737}
 --- !u!1 &2090189639 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9051471459771294861, guid: 109ec6beacb5e0b43bf65f596dd07a05, type: 3}
@@ -6236,7 +6236,11 @@ PrefabInstance:
     - target: {fileID: 8951118495187019224, guid: 273e032ec1b58e84ab1399eaa1e5396c, type: 3}
       propertyPath: menuBar
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2043897686}
+    - target: {fileID: 8951118495187019224, guid: 273e032ec1b58e84ab1399eaa1e5396c, type: 3}
+      propertyPath: gameMenu
+      value: 
+      objectReference: {fileID: 2043897690}
     - target: {fileID: 8951118495187019224, guid: 273e032ec1b58e84ab1399eaa1e5396c, type: 3}
       propertyPath: inventoryUI
       value: 
@@ -6248,7 +6252,7 @@ PrefabInstance:
     - target: {fileID: 8951118495187019224, guid: 273e032ec1b58e84ab1399eaa1e5396c, type: 3}
       propertyPath: buttonNavigator
       value: 
-      objectReference: {fileID: 1582927736}
+      objectReference: {fileID: 0}
     - target: {fileID: 8951118495187019224, guid: 273e032ec1b58e84ab1399eaa1e5396c, type: 3}
       propertyPath: cameraTransform
       value: 
