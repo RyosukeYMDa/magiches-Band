@@ -1,5 +1,6 @@
 using System.Collections;
 using TechC.MagichesBand.Item;
+using TechC.MagichesBand.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -46,7 +47,7 @@ namespace TechC.MagichesBand.Field
         public void Menu(InputAction.CallbackContext context)
         {
             Debug.Log("Menu");
-            if(inventoryUI.isInventory || dissolveController.nowLoading) return;
+            if(!playerController.isShown && inventoryUI.isInventory || dissolveController.nowLoading ) return;
         
             buttonNavigator.ReSelectButton();
             TogglePanel();

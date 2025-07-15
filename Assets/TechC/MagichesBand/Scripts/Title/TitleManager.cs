@@ -1,5 +1,4 @@
 using TechC.MagichesBand.Core;
-using TechC.MagichesBand.Field;
 using TechC.MagichesBand.Game;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -25,6 +24,8 @@ namespace TechC.MagichesBand.Title
                 GameManager.Instance.cameraRotation = cameraData.GetRotation();
                 Debug.Log("Camera Load");
             }
+            
+            Sound.Instance.Play(SoundType.TitleBGM,true);
         }
     
         public void StartGame()

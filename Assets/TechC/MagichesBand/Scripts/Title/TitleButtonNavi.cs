@@ -1,24 +1,22 @@
-using TechC.MagichesBand.Core;
-using TechC.MagichesBand.Item;
 using UnityEngine;
+using TechC.MagichesBand.Core;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-namespace TechC.MagichesBand.UI
+namespace TechC.MagichesBand.Title
 {
-    public class ButtonNavigator : MonoBehaviour
+    public class TitleButtonNavi : MonoBehaviour
     {
     
         //ボタンを格納
         public Button[] buttons;
         private int currentIndex = 0;
-        [SerializeField] private InventoryUI inventoryUI;
         
-        private void OnEnable()
+        private void Start()
         {
             currentIndex = 0;
-            SelectButton(currentIndex);
+            SelectTitleButton(currentIndex);
         }
 
         private void Update()
@@ -36,30 +34,21 @@ namespace TechC.MagichesBand.UI
             if (upPressed)
             {
                 currentIndex = (currentIndex - 1 + buttons.Length) % buttons.Length;
-                SelectButton(currentIndex);
+                SelectTitleButton(currentIndex);
             }
             else if (downPressed)
             {
                 currentIndex = (currentIndex + 1) % buttons.Length;
-                SelectButton(currentIndex);
+                SelectTitleButton(currentIndex);
             }
         }
     
-        private void SelectButton(int index)
+        private void SelectTitleButton(int index)
         {
-            if(inventoryUI.isInventory)return;
-            
-            Debug.Log("決定buttonが押された");
-            
             Sound.Instance.Play(SoundType.ButtonSelect);
             
             // UnityのEventSystemで選択状態を更新（見た目上の強調も含む）
             EventSystem.current.SetSelectedGameObject(buttons[index].gameObject);
-        }
-
-        public void ReSelectButton()
-        {
-            SelectButton(currentIndex);
         }
     }
 }

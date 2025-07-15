@@ -2,11 +2,16 @@ namespace TechC.MagichesBand.Core
 {
     public enum SoundType
     {
-        AtkUp,
+        TitleBGM,
         SlimeBGM,
         DragonBGM,
         BossBGM,
         Boss2BGM,
-        PlayerFootstep
+        EndingRollBGM,
+        EndingBGM,
+        AtkUp,
+        PlayerFootstep,
+        ButtonNavi,
+        ButtonSelect
     }
 }

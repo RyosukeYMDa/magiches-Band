@@ -4275,7 +4275,7 @@ MonoBehaviour:
   buttons:
   - {fileID: 1935340832}
   - {fileID: 215041107}
-  inventoryUI: {fileID: 0}
+  inventoryUI: {fileID: 1582927737}
 --- !u!114 &1582927737
 MonoBehaviour:
   m_ObjectHideFlags: 0

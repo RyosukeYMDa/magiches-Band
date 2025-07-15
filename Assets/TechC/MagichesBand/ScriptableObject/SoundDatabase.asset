@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: SoundDatabase
   m_EditorClassIdentifier: 
   entries:
+  - type: 0
+    clip: {fileID: 8300000, guid: 66c553291d363af42923071aad58e641, type: 3}
   - type: 3
     clip: {fileID: 8300000, guid: 094fb91fb7babc148afba3bec37e2624, type: 3}
   - type: 4
@@ -22,6 +24,14 @@ MonoBehaviour:
   - type: 2
     clip: {fileID: 8300000, guid: f338dbbb67c2b1c4cbb3dfa725b8ccb9, type: 3}
   - type: 5
-    clip: {fileID: 8300000, guid: daa3306d386691e4786a7cae118901cd, type: 3}
-  - type: 0
+    clip: {fileID: 8300000, guid: c351a7e4d1ba3644c95120ca85f38a2d, type: 3}
+  - type: 6
+    clip: {fileID: 8300000, guid: dfc6ab3cd2338bd4ba130ccf2ff3dedd, type: 3}
+  - type: 7
     clip: {fileID: 8300000, guid: 888ec62f2d1823e47bf53d7edf3619e5, type: 3}
+  - type: 8
+    clip: {fileID: 8300000, guid: daa3306d386691e4786a7cae118901cd, type: 3}
+  - type: 9
+    clip: {fileID: 8300000, guid: 327d2c74a4aa3404ebb210b509390a5f, type: 3}
+  - type: 10
+    clip: {fileID: 8300000, guid: 8392648ad71d57548a6edd5ba6152209, type: 3}

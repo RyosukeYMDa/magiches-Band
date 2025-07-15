@@ -15,7 +15,7 @@ MonoBehaviour:
   characterName: BossPhase2
   maxHp: 24
   maxMp: 20
-  hp: 24
+  hp: 1
   mp: 20
   atk: 2
   def: 1

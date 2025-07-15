@@ -1,13 +1,19 @@
+using TechC.MagichesBand.Core;
 using UnityEngine;
 
-namespace TechC.MagichesBand.StaffRoll
+namespace TechC.MagichesBand.EndRoll
 {
     public class ScrollController : MonoBehaviour
     {
         [SerializeField] private RectTransform rectTransform;
         [SerializeField] private float endPosition;
-        [SerializeField] private GameObject buttons;
-    
+        [SerializeField] private GameObject thankText;
+
+        private void Start()
+        {
+            Sound.Instance.Play(SoundType.EndingRollBGM,true);
+        }
+        
         // Update is called once per frame
         private void Update()
         {
@@ -15,8 +21,8 @@ namespace TechC.MagichesBand.StaffRoll
 
             if (rectTransform.anchoredPosition.y > endPosition)
             {
-                buttons.SetActive(true);
                 gameObject.SetActive(false);
+                thankText.SetActive(true);
             }
         }
     }

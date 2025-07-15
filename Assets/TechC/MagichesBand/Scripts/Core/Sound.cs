@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TechC.MagichesBand.Core
 {
@@ -10,23 +11,28 @@ namespace TechC.MagichesBand.Core
         [SerializeField] private SoundDatabase database;
 
         private Dictionary<SoundType, AudioClip> clipDict;
-
-        private void Start()
+        
+        protected override void Awake()
         {
+            base.Awake(); // SingletonMonoBehaviour で Instance を設定
+
             clipDict = new Dictionary<SoundType, AudioClip>();
 
-            foreach (var entry in database.entries)
+            if (!database)
             {
-                if (entry.clip != null && !clipDict.ContainsKey(entry.type))
-                {
-                    clipDict.Add(entry.type, entry.clip);
-                }
+                Debug.LogError("SoundDatabase が設定されていません！");
+                return;
+            }
+
+            foreach (var entry in database.entries.Where(entry => entry.clip && !clipDict.ContainsKey(entry.type)))
+            {
+                clipDict.Add(entry.type, entry.clip);
             }
         }
 
         public void Play(SoundType type, bool loop = false)
         {
-            if (!clipDict.TryGetValue(type, out var clip) || clip == null)
+            if (!clipDict.TryGetValue(type, out var clip) || !clip)
             {
                 Debug.LogWarning($"AudioClip not found for {type}");
                 return;

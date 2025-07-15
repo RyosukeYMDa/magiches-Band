@@ -31,7 +31,7 @@ namespace TechC.MagichesBand.Enemy
             // 初期色を保存
             originalColor = skeletonGraphic.color;
             
-            //Sound.Instance.Play(SoundType.Boss2BGM,true);
+            Sound.Instance.Play(SoundType.Boss2BGM,true);
         }
         
         public void Act()
