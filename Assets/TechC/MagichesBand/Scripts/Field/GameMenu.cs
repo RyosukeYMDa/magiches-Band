@@ -63,6 +63,8 @@ namespace TechC.MagichesBand.Field
 
         private IEnumerator SlidePanel(Vector2 targetPosition)
         {
+            Sound.Instance.Play(SoundType.MenuSlide);
+            
             Vector2 startPos = panel.anchoredPosition;
             float elapsed = 0f;
             bool hiding = targetPosition == hiddenPosition;

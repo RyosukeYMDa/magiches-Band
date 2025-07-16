@@ -1,4 +1,5 @@
 using System.Collections;
+using TechC.MagichesBand.Core;
 using TechC.MagichesBand.Item;
 using TMPro;
 using UnityEngine;
@@ -25,6 +26,7 @@ namespace TechC.MagichesBand.Battle
             if (inventoryUI.isInventory) return;
         
             Debug.Log("Enabling act");
+            Sound.Instance.Play(SoundType.ButtonSelect);
             actCommand.SetActive(true);
             actButton.SetActive(false);
         }

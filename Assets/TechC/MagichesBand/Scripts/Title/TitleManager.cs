@@ -31,11 +31,13 @@ namespace TechC.MagichesBand.Title
         public void StartGame()
         {
             Debug.Log("StartGame");
+            Sound.Instance.Play(SoundType.ButtonSelect);
             SceneManager.LoadScene("Field");
         }
 
         public void TitleDateReset()
         {
+            Sound.Instance.Play(SoundType.ButtonSelect);
             GameManager.Instance.DateReset();
         }
     }

@@ -1,10 +1,14 @@
 using System.Collections.Generic;
+using TechC.MagichesBand.Core;
+using TechC.MagichesBand.Field;
 using TechC.MagichesBand.Game;
+using TechC.MagichesBand.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace TechC.MagichesBand.Item
 {
@@ -17,9 +21,10 @@ namespace TechC.MagichesBand.Item
         public Transform contentParent;   // アイテムを並べる親（Vertical Layout Group）
     
         [SerializeField] private CharacterStatus playerStatus;
-    
+        
         [SerializeField] private InventoryUI inventoryUI;
-    
+        [FormerlySerializedAs("disolveController")] [FormerlySerializedAs("loadingShaderController")] [SerializeField] private DissolveController dissolveController;
+        
         [SerializeField] private GameObject itemTextPrefab; // TextMeshProを含むプレハブ
     
         [SerializeField] private PlayerInput playerInput;
@@ -76,12 +81,13 @@ namespace TechC.MagichesBand.Item
             Debug.Log("OnNavigate called!");
         
             if (!inventoryUI.isInventory || itemUiObjects.Count <= 0) return;
-
+            
             Vector2 input = context.ReadValue<Vector2>();
 
             if (input.y < -0.5f)
             {
                 // 下に移動
+                Sound.Instance.Play(SoundType.ButtonNavi);
                 selectedIndex = (selectedIndex + 1) % itemUiObjects.Count;
                 UpdateHighlight();
                 Debug.Log("Navigate Down");
@@ -89,6 +95,7 @@ namespace TechC.MagichesBand.Item
             else if (input.y > 0.5f)
             {
                 // 上に移動
+                Sound.Instance.Play(SoundType.ButtonNavi);
                 selectedIndex = (selectedIndex - 1 + itemUiObjects.Count) % itemUiObjects.Count;
                 UpdateHighlight();
                 Debug.Log("Navigate Up");
@@ -106,6 +113,11 @@ namespace TechC.MagichesBand.Item
         }
     
         public void OnCancel(InputAction.CallbackContext context)
+        {
+            CloseInventory();
+        }
+
+        private void CloseInventory()
         {
             Debug.Log("closeInventory"); 
             if(!inventoryUI.isInventory) return;
@@ -171,12 +183,21 @@ namespace TechC.MagichesBand.Item
                     UpdateUI();
                     StartCoroutine(inventoryUI.MessageReception("Recover 7 HP"));
                     inventoryUI.isItem = true;
+                    Sound.Instance.Play(SoundType.Potion);
                     break;
                 case "Key" when inventoryUI.isOpen:
                     Debug.Log("ドアを開けた");
+                    CloseInventory();
                     inventoryUI.inventory.RemoveItem(item.itemName, 1);
                     GameManager.Instance.enemyType = GameManager.EnemyType.BossEnemy;
-                    SceneManager.LoadScene("Boss");
+                    //loading用のShaderを再生
+                    dissolveController.PlayEffect();
+                    MessageWindow.Instance.DisplayMessage("Area Movement", () =>
+                    {
+                        Sound.Instance.Play(SoundType.AreaMovement);
+                        dissolveController.StopEffect();
+                        SceneManager.LoadScene("Boss");
+                    });
                     break;
                 case "Key":
                     StartCoroutine(inventoryUI.MessageReception("You can't use it here"));
@@ -187,6 +208,7 @@ namespace TechC.MagichesBand.Item
                     UpdateUI();
                     StartCoroutine(inventoryUI.MessageReception("Recover 7 MP"));
                     inventoryUI.isItem = true;
+                    Sound.Instance.Play(SoundType.MPotion);
                     break;
             }
         }

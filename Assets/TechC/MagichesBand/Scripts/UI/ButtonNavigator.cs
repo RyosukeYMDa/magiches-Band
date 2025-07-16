@@ -13,12 +13,11 @@ namespace TechC.MagichesBand.UI
         //ボタンを格納
         public Button[] buttons;
         private int currentIndex = 0;
-        [SerializeField] private InventoryUI inventoryUI;
         
-        private void OnEnable()
+        private void Start()
         {
             currentIndex = 0;
-            SelectButton(currentIndex);
+            SelectButton(currentIndex,playSound:false);
         }
 
         private void Update()
@@ -36,19 +35,17 @@ namespace TechC.MagichesBand.UI
             if (upPressed)
             {
                 currentIndex = (currentIndex - 1 + buttons.Length) % buttons.Length;
-                SelectButton(currentIndex);
+                SelectButton(currentIndex,playSound:true);
             }
             else if (downPressed)
             {
                 currentIndex = (currentIndex + 1) % buttons.Length;
-                SelectButton(currentIndex);
+                SelectButton(currentIndex,playSound:true);
             }
         }
     
-        private void SelectButton(int index)
+        private void SelectButton(int index, bool playSound)
         {
-            if(inventoryUI.isInventory)return;
-            
             Sound.Instance.Play(SoundType.ButtonNavi);
             
             // UnityのEventSystemで選択状態を更新（見た目上の強調も含む）

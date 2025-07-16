@@ -46,6 +46,7 @@ namespace TechC.MagichesBand.Enemy
                     damage = Mathf.Max(0, bossStatus.atk - battlePlayerController.Status.def);
                     damage = CriticalCalculation(damage);
                     battlePlayerController.TakeDamage(damage, ICharacter.AttackType.Physical);
+                    Sound.Instance.Play(SoundType.Rain);
                     break;
                 case 1:
                     consumptionMp = 1;
@@ -55,7 +56,8 @@ namespace TechC.MagichesBand.Enemy
                         // プレイヤーへのダメージ計算
                         damage = Mathf.Max(0, bossStatus.mAtk - battlePlayerController.Status.mDef);
                         damage = CriticalCalculation(damage);
-                        battlePlayerController.TakeDamage(damage, ICharacter.AttackType.Magical);   
+                        battlePlayerController.TakeDamage(damage, ICharacter.AttackType.Magical); 
+                        Sound.Instance.Play(SoundType.Electricity);
                     }
                     else
                     {
@@ -108,6 +110,7 @@ namespace TechC.MagichesBand.Enemy
                 if (damage > 0)
                 {
                     Flash(Color.red, 1f);
+                    Sound.Instance.Play(SoundType.Damage);
                 }
                 MessageWindow.Instance.DisplayMessage("Enemy Add Damage" + damage,NextState);
                 Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {bossStatus.hp}"); 
@@ -124,6 +127,7 @@ namespace TechC.MagichesBand.Enemy
                     MessageWindow.Instance.DisplayMessage("Boss", () =>
                     {
                         BattleManager.Instance.SpawnPhase2Boss();
+                        Sound.Instance.Play(SoundType.Defeated);
                         // 現在のボスを削除して2段階目を生成
                         Destroy(gameObject);
                     });

@@ -419,59 +419,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 68736691}
   m_CullTransparentMesh: 1
---- !u!1 &90857937
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 90857939}
-  - component: {fileID: 90857938}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &90857938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 90857937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bb490e06b181c647a2fd5a054ea11a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerPosition: {x: 0, y: 0, z: 0}
-  playerRotation: {x: 0, y: 0, z: 0, w: 0}
-  cameraRotation: {x: 0, y: 0, z: 0, w: 0}
-  cameraOffset: {x: 0, y: 0, z: 0}
-  playerStatus: {fileID: 11400000, guid: 9797ff948bf232648a2320e925992a02, type: 2}
-  obtainedItemIds: []
-  enemyType: 0
-  inventory:
-    items: []
---- !u!4 &90857939
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 90857937}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 515.21185, y: 265.47134, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &135609574
 GameObject:
   m_ObjectHideFlags: 0
@@ -1019,6 +966,7 @@ MonoBehaviour:
   contentParent: {fileID: 555882269}
   playerStatus: {fileID: 11400000, guid: 9797ff948bf232648a2320e925992a02, type: 2}
   inventoryUI: {fileID: 135609580}
+  dissolveController: {fileID: 0}
   itemTextPrefab: {fileID: 585160820923368427, guid: 2057e3d1b1c0b47498f10ed1134b1769, type: 3}
   playerInput: {fileID: 753839453967078295}
 --- !u!114 &555882274
@@ -2754,7 +2702,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttons:
   - {fileID: 1455069522}
-  inventoryUI: {fileID: 135609580}
 --- !u!1 &1547825122
 GameObject:
   m_ObjectHideFlags: 0
@@ -3220,7 +3167,6 @@ MonoBehaviour:
   - {fileID: 7824941}
   - {fileID: 1957432977}
   - {fileID: 1131881738}
-  inventoryUI: {fileID: 135609580}
 --- !u!1 &1710843384
 GameObject:
   m_ObjectHideFlags: 0
@@ -3670,7 +3616,6 @@ MonoBehaviour:
   buttons:
   - {fileID: 887780446}
   - {fileID: 1036812425}
-  inventoryUI: {fileID: 135609580}
 --- !u!1 &1907348148
 GameObject:
   m_ObjectHideFlags: 0
@@ -4548,4 +4493,3 @@ SceneRoots:
   - {fileID: 1343944416}
   - {fileID: 1735000221}
   - {fileID: 1711303363}
-  - {fileID: 90857939}

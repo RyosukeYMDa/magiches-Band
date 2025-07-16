@@ -171,6 +171,8 @@ namespace TechC.MagichesBand.Field
         
         public void Menu(InputAction.CallbackContext context)
         {
+            if(inventoryUI.isInventory)return;
+            
             Debug.Log("Menu");
 
             if (!isShown)
@@ -248,6 +250,7 @@ namespace TechC.MagichesBand.Field
                 
                 MessageWindow.Instance.DisplayMessage("Area Movement", () =>
                 {
+                    Sound.Instance.Play(SoundType.AreaMovement);
                     dissolveController.StopEffect();
                 });
             }
@@ -265,6 +268,7 @@ namespace TechC.MagichesBand.Field
                 
                 MessageWindow.Instance.DisplayMessage("Enemy Encount", () =>
                 {
+                    Sound.Instance.Play(SoundType.AreaMovement);
                     dissolveController.StopEffect();
                     SceneManager.LoadScene("Battle");
                 });
@@ -293,7 +297,6 @@ namespace TechC.MagichesBand.Field
             var inventory = GameManager.Instance.inventory;
 
             SaveManager.SavePlayerData(playerData, inventory,cameraDate);
-            gameMenu.CloseMenu();
             Sound.Instance.Play(SoundType.ButtonSelect);
             MessageWindow.Instance.DisplayMessage("Save");
         }

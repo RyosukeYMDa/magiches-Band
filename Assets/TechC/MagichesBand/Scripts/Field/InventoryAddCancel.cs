@@ -18,7 +18,7 @@ namespace TechC.MagichesBand.Field
             cancelAction.performed += OnAddMainCancel;
         }
 
-        private void OnDisable()
+        public void OnDisable()
         {
             if (playerInput && playerInput.actions)
             {

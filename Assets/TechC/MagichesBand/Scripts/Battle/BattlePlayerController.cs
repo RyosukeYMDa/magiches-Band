@@ -56,6 +56,8 @@ namespace TechC.MagichesBand.Battle
             if ((playerStatus.mp - consumptionMp) >= 0)
             {
                 Debug.Log("Explosion");
+             
+                Sound.Instance.Play(SoundType.Explosion);
                 messageText.gameObject.SetActive(false);
             
                 attackCommand.SetActive(false);
@@ -76,6 +78,8 @@ namespace TechC.MagichesBand.Battle
         public void Shoot()
         {
             Debug.Log("Slash");
+            
+            Sound.Instance.Play(SoundType.Shoot);
             messageText.gameObject.SetActive(false);
         
             attackCommand.SetActive(false);
@@ -88,25 +92,24 @@ namespace TechC.MagichesBand.Battle
 
         public void AtkUp()
         {
-            if (atkDoublingValue == 16)
+            switch (atkDoublingValue)
             {
-                attackCommand.SetActive(false);
-                NextState();
-                return;
+                case 16:
+                    attackCommand.SetActive(false);
+                    NextState();
+                    return;
+                case 0:
+                    atkDoublingValue　= (atkDoublingValue + 1) * 2;
+                    break;
+                default:
+                    atkDoublingValue *= 2;
+                    break;
             }
-            
-            if (atkDoublingValue == 0)
-            {
-                atkDoublingValue　= (atkDoublingValue + 1) * 2;
-            }else
-            {
-                atkDoublingValue *= 2;   
-            }
-        
+
             Debug.Log(atkDoublingValue);
             
             BattleManager.Instance.BuffEffect();
-            Sound.Instance.Play(SoundType.AtkUp);
+            Sound.Instance.Play(SoundType.StatusUp);
         
             messageText.gameObject.SetActive(false);
             attackCommand.SetActive(false);
@@ -133,6 +136,7 @@ namespace TechC.MagichesBand.Battle
             Debug.Log(defDoublingValue);
         
             BattleManager.Instance.BuffEffect();
+            Sound.Instance.Play(SoundType.StatusUp);
             
             messageText.gameObject.SetActive(false);
             attackCommand.SetActive(false);
@@ -205,6 +209,7 @@ namespace TechC.MagichesBand.Battle
                 if (damage > 0)
                 {
                     BattleManager.Instance.DamageEffect();
+                    Sound.Instance.Play(SoundType.Damage);
                 }
                 MessageWindow.Instance.DisplayMessage("Player Is Hit" + damage);
             }
@@ -217,6 +222,7 @@ namespace TechC.MagichesBand.Battle
                 enemy.ResetStatus();
                 MessageWindow.Instance.DisplayMessage("Player Dead", () =>
                 {
+                    Sound.Instance.Play(SoundType.Defeated);
                     SceneManager.LoadScene("Title");
                 });
             }

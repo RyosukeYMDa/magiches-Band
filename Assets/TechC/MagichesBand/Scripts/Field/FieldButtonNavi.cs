@@ -18,7 +18,7 @@ namespace TechC.MagichesBand.Field
         private void OnEnable()
         {
             currentIndex = 0;
-            SelectButton(currentIndex);
+            SelectButton(currentIndex,playSound:false);
         }
 
         private void Update()
@@ -36,22 +36,23 @@ namespace TechC.MagichesBand.Field
             if (upPressed)
             {
                 currentIndex = (currentIndex - 1 + buttons.Length) % buttons.Length;
-                SelectButton(currentIndex);
+                SelectButton(currentIndex,playSound:true);
             }
             else if (downPressed)
             {
                 currentIndex = (currentIndex + 1) % buttons.Length;
-                SelectButton(currentIndex);
+                SelectButton(currentIndex,playSound:true);
             }
         }
     
-        private void SelectButton(int index)
+        private void SelectButton(int index, bool playSound)
         {
             if(inventoryUI.isInventory)return;
-            
-            Debug.Log("決定buttonが押された");
-            
-            Sound.Instance.Play(SoundType.ButtonNavi);
+
+            if (playSound)
+            {
+                Sound.Instance.Play(SoundType.ButtonNavi);   
+            }
             
             // UnityのEventSystemで選択状態を更新（見た目上の強調も含む）
             EventSystem.current.SetSelectedGameObject(buttons[index].gameObject);
@@ -59,9 +60,7 @@ namespace TechC.MagichesBand.Field
 
         public void ReSelectButton()
         {
-            Debug.Log("再提");
-            
-            SelectButton(currentIndex);
+            SelectButton(currentIndex,playSound:false);
         }
     }
 }

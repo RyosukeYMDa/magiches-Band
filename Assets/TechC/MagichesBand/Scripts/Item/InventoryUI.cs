@@ -29,6 +29,8 @@ namespace TechC.MagichesBand.Item
     
         public void GetItem(string itemName)
         {
+            Sound.Instance.Play(SoundType.ItemGet);
+            
             StartCoroutine(MessageReception(itemName + ":get"));
         }
     
@@ -51,7 +53,6 @@ namespace TechC.MagichesBand.Item
             Debug.Log($"SetInventoryItem {itemName}");
             inventory.AddItem(itemId, itemName, quantity);
             GameManager.Instance.inventory.AddItem(itemId, itemName, quantity);
-            //UpdateUI();
         }
         
         public void SetInventoryState(bool state)
