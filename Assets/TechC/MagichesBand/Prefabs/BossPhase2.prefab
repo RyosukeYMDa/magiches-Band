@@ -121,6 +121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2dfc29e54130024a91c8d910302f90b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossPhase2Status: {fileID: 11400000, guid: feddff642003b764fae7a7d26fe87c0e, type: 2}
+  charaStatus: {fileID: 11400000, guid: feddff642003b764fae7a7d26fe87c0e, type: 2}
   battlePlayerController: {fileID: 8732552605721786611, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}
   skeletonGraphic: {fileID: 1397531988638300642}

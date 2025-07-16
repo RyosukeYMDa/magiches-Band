@@ -21,7 +21,7 @@ namespace TechC.MagichesBand.Enemy
         {
             Debug.Log("EnemyAct");
 
-            if (StickRotationDetector.Instance.defeatedEnemy) return;
+            if (BattleManager.Instance.enemyDead) return;
 
             int damage;
             var randomAttack = Random.Range(0, 2);

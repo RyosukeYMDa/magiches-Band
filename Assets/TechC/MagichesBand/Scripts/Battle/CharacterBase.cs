@@ -13,6 +13,7 @@ namespace TechC.MagichesBand.Battle
         [SerializeField] private CharacterStatus charaStatus;
         [SerializeField] protected BattlePlayerController battlePlayerController;
         [SerializeField] private SkeletonGraphic skeletonGraphic;
+        [SerializeField] protected bool useStickToDie = true;
         
         private const float CriticalRate = 0.25f; //クリティカルの確率（今は25％）
         private const int CriticalMultiplier = 2; // クリティカル倍率
@@ -64,8 +65,15 @@ namespace TechC.MagichesBand.Battle
 
             if (Status.hp <= 0)
             {
-                StickRotationDetector.Instance.OnRotationCompleted += OnVictoryStickRotate;
-                StickRotationDetector.Instance.StartDetection();
+                if (useStickToDie)
+                {
+                    StickRotationDetector.Instance.OnRotationCompleted += OnVictoryStickRotate;
+                    StickRotationDetector.Instance.StartDetection();
+                }
+                else
+                {
+                    OnVictoryStickRotate();
+                }
             }
         }
 

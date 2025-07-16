@@ -121,6 +121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ae21f35c60b604ca1c4d2ad2da8c50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dragonStatus: {fileID: 11400000, guid: 527e080ac10f58f4fbb61cfae9d9f0f9, type: 2}
+  charaStatus: {fileID: 11400000, guid: 527e080ac10f58f4fbb61cfae9d9f0f9, type: 2}
   battlePlayerController: {fileID: 8732552605721786611, guid: 1eefc3de8ac8cf14aba31756fc36002a, type: 3}
   skeletonGraphic: {fileID: 893292696346392419}
