@@ -27,7 +27,7 @@ namespace TechC.MagichesBand.Battle
             effectImage.color = Color.clear;
             
             // UI上に敵を1体生成
-            Vector3 spawnPos = new Vector3(0, 40, -23); // anchoredPosition（中央表示）
+            var spawnPos = new Vector3(0, 40, -23); // anchoredPosition（中央表示）
             var enemy = factory.CreateEnemy(spawnPos, uiParent);
 
             if (enemy != null)
@@ -80,22 +80,19 @@ namespace TechC.MagichesBand.Battle
     
         public void SpawnPhase2Boss()
         {
-            Vector3 spawnPos = new Vector3(0, 40, -23); // 表示位置は調整可
+            var spawnPos = new Vector3(0, 40, -23); // 表示位置は調整可
 
             var bossPhase2 = factory.CreateEnemy(spawnPos, uiParent, isPhase2: true);
 
-            if (bossPhase2 != null)
-            {
-                CurrentEnemy = bossPhase2;
+            if (bossPhase2 == null) return;
+            CurrentEnemy = bossPhase2;
 
-                var enemyObj = (bossPhase2 as MonoBehaviour)?.gameObject;
+            var enemyObj = (bossPhase2 as MonoBehaviour)?.gameObject;
 
-                if (enemyObj && ButtleTurnManager.Instance)
-                {
-                    Debug.Log("turnManager");
-                    ButtleTurnManager.Instance.ReplaceEnemy(enemyObj);
-                }
-            }
+            if (!enemyObj || !ButtleTurnManager.Instance) return;
+            
+            Debug.Log("turnManager");
+            ButtleTurnManager.Instance.ReplaceEnemy(enemyObj);
         }
     
         /// <summary>

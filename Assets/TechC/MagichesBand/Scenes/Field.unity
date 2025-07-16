@@ -1122,6 +1122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   contentParent: {fileID: 275426392}
   playerStatus: {fileID: 11400000, guid: 9797ff948bf232648a2320e925992a02, type: 2}
+  playerController: {fileID: 1966283784}
   inventoryUI: {fileID: 1582927737}
   dissolveController: {fileID: 1582927734}
   itemTextPrefab: {fileID: 585160820923368427, guid: 2057e3d1b1c0b47498f10ed1134b1769, type: 3}

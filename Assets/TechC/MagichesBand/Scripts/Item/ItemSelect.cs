@@ -22,6 +22,7 @@ namespace TechC.MagichesBand.Item
     
         [SerializeField] private CharacterStatus playerStatus;
         
+        [SerializeField] private PlayerController playerController;
         [SerializeField] private InventoryUI inventoryUI;
         [FormerlySerializedAs("disolveController")] [FormerlySerializedAs("loadingShaderController")] [SerializeField] private DissolveController dissolveController;
         
@@ -188,12 +189,12 @@ namespace TechC.MagichesBand.Item
                 case "Key" when inventoryUI.isOpen:
                     Debug.Log("ドアを開けた");
                     CloseInventory();
-                    inventoryUI.inventory.RemoveItem(item.itemName, 1);
                     GameManager.Instance.enemyType = GameManager.EnemyType.BossEnemy;
                     //loading用のShaderを再生
                     dissolveController.PlayEffect();
                     MessageWindow.Instance.DisplayMessage("Area Movement", () =>
                     {
+                        playerController.SavePlayerPosition();
                         Sound.Instance.Play(SoundType.AreaMovement);
                         dissolveController.StopEffect();
                         SceneManager.LoadScene("Boss");

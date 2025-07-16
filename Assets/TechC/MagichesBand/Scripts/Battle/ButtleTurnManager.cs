@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using TechC.MagichesBand.Core;
 using TechC.MagichesBand.Enemy;
-using TechC.MagichesBand.UI;
 using UnityEngine;
 
 namespace TechC.MagichesBand.Battle
@@ -47,11 +46,10 @@ namespace TechC.MagichesBand.Battle
             var currentUnit = turnOrder[currentTurnIndex];
             var character = currentUnit.GetComponent<ICharacter>();
 
-            if (character != null)
-            {
-                Debug.Log($"[TurnManager] 行動ユニット: {currentUnit.name} AGI: {character.Status.agi}");
-                character.Act();
-            }
+            if (character == null) return;
+            
+            Debug.Log($"[TurnManager] 行動ユニット: {currentUnit.name} AGI: {character.Status.agi}");
+            character.Act();
         }
 
         public void ReplaceEnemy(GameObject newEnemy)

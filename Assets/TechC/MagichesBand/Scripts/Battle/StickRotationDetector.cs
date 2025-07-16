@@ -14,7 +14,7 @@ namespace TechC.MagichesBand.Battle
         [SerializeField] private float directionChangeAngle = 45f;
         [SerializeField] private int rotationThreshold = 8;
 
-        private List<int> directionHistory = new List<int>();
+        private readonly List<int> directionHistory = new List<int>();
         private int lastDirection = -1;
 
         public System.Action OnRotationCompleted;
@@ -25,36 +25,33 @@ namespace TechC.MagichesBand.Battle
         {
             if (!defeatedEnemy) return;
 
-            Vector2 stick = UnityEngine.InputSystem.Gamepad.current?.leftStick.ReadValue() ?? Vector2.zero;
+            var stick = UnityEngine.InputSystem.Gamepad.current?.leftStick.ReadValue() ?? Vector2.zero;
 
             if (stick.magnitude < directionDeadZone) return;
 
-            float angle = Mathf.Atan2(stick.y, stick.x) * Mathf.Rad2Deg;
+            var angle = Mathf.Atan2(stick.y, stick.x) * Mathf.Rad2Deg;
             if (angle < 0) angle += 360;
 
-            int directionIndex = Mathf.FloorToInt(angle / directionChangeAngle) % 8;
+            var directionIndex = Mathf.FloorToInt(angle / directionChangeAngle) % 8;
 
-            if (directionIndex != lastDirection)
+            if (directionIndex == lastDirection) return;
+            directionHistory.Add(directionIndex);
+            lastDirection = directionIndex;
+
+            if (directionHistory.Count < rotationThreshold) return;
+            Debug.Log("スティック1周完了！");
+            
+            if (OnRotationCompleted != null)
             {
-                directionHistory.Add(directionIndex);
-                lastDirection = directionIndex;
-
-                if (directionHistory.Count >= rotationThreshold)
-                {
-                    Debug.Log("スティック1周完了！");
-                    if (OnRotationCompleted != null)
-                    {
-                        Debug.Log("Invoke実行します");
-                        OnRotationCompleted.Invoke();
-                    }
-                    else
-                    {
-                        Debug.LogWarning("Invoke先がnullです！");
-                    }
-                    directionHistory.Clear();
-                    defeatedEnemy = false;
-                }
+                Debug.Log("Invoke実行します");
+                OnRotationCompleted.Invoke();
             }
+            else
+            {
+                Debug.LogWarning("Invoke先がnullです！");
+            }
+            directionHistory.Clear();
+            defeatedEnemy = false;
         }
 
         public void StartDetection()

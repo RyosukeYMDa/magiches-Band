@@ -12,19 +12,15 @@ namespace TechC.MagichesBand.Battle
         private void OnEnable()
         {
             var cancelAction = playerInput.actions["UiCancel"];
-
-            // イベント登録
-            cancelAction.performed += OnAdditionCancel;
+            cancelAction.performed += OnAdditionCancel;  // イベント登録
         }
 
         private void OnDisable()
         {
-            if (playerInput && playerInput.actions)
-            {
-                var cancelAction = playerInput.actions["UiCancel"];
-        
-                cancelAction.performed -= OnAdditionCancel;   
-            }
+            if (!playerInput || !playerInput.actions) return;
+            
+            var cancelAction = playerInput.actions["UiCancel"];
+            cancelAction.performed -= OnAdditionCancel;
         }
     
         private void OnAdditionCancel(InputAction.CallbackContext context)

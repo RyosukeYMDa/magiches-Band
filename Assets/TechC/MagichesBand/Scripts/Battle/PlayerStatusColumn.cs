@@ -12,8 +12,8 @@ namespace TechC.MagichesBand.Battle
 
         private void Update()
         {
-            playerHpText.text = "HP: " + playerStatus.hp;
-            playerMpText.text = "MP: " + playerStatus.mp;
+            playerHpText.text = $"HP: {playerStatus.hp}";
+            playerMpText.text = $"MP: {playerStatus.mp}";
         }
     }
 }

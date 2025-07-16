@@ -1,4 +1,3 @@
-using System;
 using TechC.MagichesBand.Core;
 using TechC.MagichesBand.Enemy;
 using TechC.MagichesBand.Game;
@@ -63,7 +62,7 @@ namespace TechC.MagichesBand.Battle
                 attackCommand.SetActive(false);
         
                 // 敵を取得
-                ICharacter enemy = BattleManager.Instance.CurrentEnemy;
+                var enemy = BattleManager.Instance.CurrentEnemy;
         
                 // ダメージ計算()
                 var damage = Mathf.Max(0, playerStatus.mAtk + atkDoublingValue);
@@ -84,9 +83,9 @@ namespace TechC.MagichesBand.Battle
         
             attackCommand.SetActive(false);
         
-            ICharacter enemy = BattleManager.Instance.CurrentEnemy;
+            var enemy = BattleManager.Instance.CurrentEnemy;
         
-            int damage = Mathf.Max(0,playerStatus.atk + atkDoublingValue);
+            var damage = Mathf.Max(0,playerStatus.atk + atkDoublingValue);
             damage = CriticalCalculation(damage, ICharacter.AttackType.Physical);
         }
 
@@ -151,10 +150,10 @@ namespace TechC.MagichesBand.Battle
         /// <param name="type"></param>
         private int CriticalCalculation(int damage, ICharacter.AttackType type)
         {
-            ICharacter enemy = BattleManager.Instance.CurrentEnemy;
+            var enemy = BattleManager.Instance.CurrentEnemy;
             
             // ランダム値を生成
-            float randomCritical = Random.Range(0.0f, 1.0f);
+            var randomCritical = Random.Range(0.0f, 1.0f);
         
             //ランダム値よりクリティカル確率が上だったら、クリティカルがでる
             if (randomCritical < CriticalRate)
@@ -211,21 +210,20 @@ namespace TechC.MagichesBand.Battle
                     BattleManager.Instance.DamageEffect();
                     Sound.Instance.Play(SoundType.Damage);
                 }
-                MessageWindow.Instance.DisplayMessage("Player Is Hit" + damage);
+                MessageWindow.Instance.DisplayMessage($"Player Is Hit: {damage}");
             }
 
-            if (playerStatus.hp <= 0)
+            if (playerStatus.hp > 0) return;
+            
+            BattleManager.Instance.playerDead = true;
+            ResetStatus();
+            GameManager.Instance.playerPosition = new Vector3(-13f, 0.6f, 6);
+            enemy.ResetStatus();
+            MessageWindow.Instance.DisplayMessage("Player Dead", () =>
             {
-                BattleManager.Instance.playerDead = true;
-                ResetStatus();
-                GameManager.Instance.playerPosition = new Vector3(-13f, 0.6f, 6);
-                enemy.ResetStatus();
-                MessageWindow.Instance.DisplayMessage("Player Dead", () =>
-                {
-                    Sound.Instance.Play(SoundType.Defeated);
-                    SceneManager.LoadScene("Title");
-                });
-            }
+                Sound.Instance.Play(SoundType.Defeated);
+                SceneManager.LoadScene("Title");
+            });
         }
 
         public void NextState()

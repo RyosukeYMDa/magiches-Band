@@ -52,7 +52,7 @@ namespace TechC.MagichesBand.Battle
         /// buttonの受け付けが重複しないようにコルーチンを使う
         /// </summary>
         /// <returns></returns>
-        IEnumerator ShowInventoryPanelNextFrame()
+        private IEnumerator ShowInventoryPanelNextFrame()
         {
             yield return null;
 
