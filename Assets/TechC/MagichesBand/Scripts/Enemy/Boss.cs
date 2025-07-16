@@ -75,7 +75,7 @@ namespace TechC.MagichesBand.Enemy
         private int CriticalCalculation(int damage)
         {
             // ランダム値を生成
-            float randomCritical = Random.Range(0.0f, 1.0f);
+            var randomCritical = Random.Range(0.0f, 1.0f);
         
             //ランダム値よりクリティカル確率が上だったら、クリティカルがでる
             if (randomCritical < CriticalRate)
