@@ -1,4 +1,5 @@
 using System.Linq;
+using TechC.MagichesBand.Game;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -20,6 +21,7 @@ namespace TechC.MagichesBand.Core
 
             if (Gamepad.current.allControls.Any(control => control is ButtonControl { wasPressedThisFrame: true }))
             {
+                GameManager.Instance.DateReset();
                 SceneManager.LoadScene("Title");
             }
         }

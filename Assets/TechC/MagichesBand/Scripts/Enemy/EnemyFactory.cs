@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TechC.MagichesBand.Game;
 using UnityEngine;
 
@@ -17,42 +18,63 @@ namespace TechC.MagichesBand.Enemy
         public GameObject bossPrefab;
         public GameObject bossPhase2Prefab;
 
+        // 通常敵のDictionary
+        private Dictionary<EnemyTypeEnum, GameObject> enemyPrefabDict;
+        
+        private void Awake()
+        {
+            // Enumとプレハブの対応を初期化
+            enemyPrefabDict = new Dictionary<EnemyTypeEnum, GameObject>
+            {
+                { EnemyTypeEnum.Slime, slimePrefab },
+                { EnemyTypeEnum.DRex, dRexPrefab }
+            };
+        }
+        
         /// <summary>
         /// ランダムな敵をUI上に生成（親はCanvas）
         /// </summary>
         public ICharacter CreateEnemy(Vector3 localPosition, Transform parent, bool isPhase2 = false)
         {
             GameObject prefab = null;
-        
-            if (GameManager.Instance.enemyType == GameManager.EnemyType.BossEnemy)
+
+            var enemyType = GameManager.Instance.enemyType;
+
+            if (enemyType == GameManager.EnemyType.BossEnemy)
             {
                 prefab = isPhase2 ? bossPhase2Prefab : bossPrefab;
                 Debug.Log(isPhase2 ? "Boss Phase 2" : "Boss Phase 1");
             }
             else
             {
+                // 通常敵をランダム選出
                 EnemyTypeEnum randomType = (EnemyTypeEnum)Random.Range(0, System.Enum.GetNames(typeof(EnemyTypeEnum)).Length);
-            
-                switch (randomType)
+
+                if (!enemyPrefabDict.TryGetValue(randomType, out prefab))
                 {
-                    case EnemyTypeEnum.Slime:
-                        prefab = slimePrefab;
-                        break;
-                    case EnemyTypeEnum.DRex:
-                        prefab = dRexPrefab;
-                        break;
-                }   
+                    Debug.LogWarning($"未定義のEnemyType: {randomType}");
+                    return null;
+                }
             }
 
-            if (!prefab) return null;
+            if (prefab == null)
+            {
+                Debug.LogError("Enemyのプレハブが未設定です。");
+                return null;
+            }
 
-            // Instantiate UI prefab under the canvas
+            // Canvas内にプレハブを生成
             var enemyObj = Instantiate(prefab, parent);
-        
-            // UI のローカル座標で表示位置を調整
             enemyObj.GetComponent<RectTransform>().anchoredPosition = localPosition;
 
-            return enemyObj.GetComponent<ICharacter>();
+            // ICharacter取得
+            var character = enemyObj.GetComponent<ICharacter>();
+            if (character == null)
+            {
+                Debug.LogError($"プレハブ '{prefab.name}' に ICharacter がアタッチされていません。");
+            }
+
+            return character;
         }
     }
 }
