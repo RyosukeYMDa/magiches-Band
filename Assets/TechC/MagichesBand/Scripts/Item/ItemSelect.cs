@@ -179,12 +179,20 @@ namespace TechC.MagichesBand.Item
             switch (item.itemName)
             {
                 case "Potion":
-                    inventoryUI.inventory.RemoveItem(item.itemName, 1);
+                    RemoveAndSave();
                     playerStatus.hp = Mathf.Min(playerStatus.hp + 7, playerStatus.maxHp);
                     UpdateUI();
                     StartCoroutine(inventoryUI.MessageReception("Recover 7 HP"));
                     inventoryUI.isItem = true;
                     Sound.Instance.Play(SoundType.Potion);
+                    break;
+                case "MpPotion":
+                    RemoveAndSave();
+                    playerStatus.mp = Mathf.Min(playerStatus.mp + 7, playerStatus.maxMp);
+                    UpdateUI();
+                    StartCoroutine(inventoryUI.MessageReception("Recover 7 MP"));
+                    inventoryUI.isItem = true;
+                    Sound.Instance.Play(SoundType.MPotion);
                     break;
                 case "Key" when inventoryUI.isOpen:
                     Debug.Log("ドアを開けた");
@@ -203,14 +211,23 @@ namespace TechC.MagichesBand.Item
                 case "Key":
                     StartCoroutine(inventoryUI.MessageReception("You can't use it here"));
                     break;
-                case "MpPotion":
-                    inventoryUI.inventory.RemoveItem(item.itemName, 1);
-                    playerStatus.mp = Mathf.Min(playerStatus.mp + 7, playerStatus.maxMp);
-                    UpdateUI();
-                    StartCoroutine(inventoryUI.MessageReception("Recover 7 MP"));
-                    inventoryUI.isItem = true;
-                    Sound.Instance.Play(SoundType.MPotion);
-                    break;
+            }
+
+            return;
+
+            void RemoveAndSave()
+            {
+                inventoryUI.inventory.RemoveItem(item.itemName, 1);
+                GameManager.Instance.inventory.RemoveItem(item.itemName, 1);
+
+                bool stillHas = GameManager.Instance.inventory.items.Exists(i => i.itemName == item.itemName);
+                if (!stillHas)
+                {
+                    GameManager.Instance.obtainedItemIds.Remove(item.itemId);
+                }
+
+                SaveManager.SaveInventory(GameManager.Instance.inventory);
+                SaveManager.SaveObtainedItemIds(GameManager.Instance.obtainedItemIds);
             }
         }
     }

@@ -40,5 +40,11 @@ namespace TechC.MagichesBand.Title
             Sound.Instance.Play(SoundType.ButtonSelect);
             GameManager.Instance.DateReset();
         }
+        
+        public void QuitGame()
+        {
+            Debug.Log("アプリケーションを終了します");
+            Application.Quit();
+        }
     }
 }

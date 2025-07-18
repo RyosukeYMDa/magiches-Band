@@ -1,7 +1,7 @@
 using System.Collections;
 using TechC.MagichesBand.Core;
 using TechC.MagichesBand.Item;
-using TechC.MagichesBand.UI;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -93,6 +93,12 @@ namespace TechC.MagichesBand.Field
             CloseMenu();
             inventoryPanel.SetActive(true);
             inventoryUI.SetInventoryState(true);
+        }
+        
+        public void ReturnTitle()
+        {
+            playerController.SavePlayerPosition();
+            SceneManager.LoadScene("Title");
         }
     }
 }

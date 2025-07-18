@@ -75,7 +75,10 @@ namespace TechC.MagichesBand.Game
                 cameraOffset = startCameraOffset;
                 cameraRotation = startCameraRotation;
             }
-        
+        }
+
+        private void Start()
+        {
             // インベントリの読み込み
             var loadedInventory = SaveManager.LoadInventory();
             if (loadedInventory != null)
@@ -132,6 +135,8 @@ namespace TechC.MagichesBand.Game
             playerStatus.hp = playerStatus.maxHp;
             playerStatus.mp = playerStatus.maxMp;
             SaveManager.DeleteAllData();
+            obtainedItemIds = new List<string>();
+            inventory = new Inventory();
             ReloadPlayerData();
             ReloadCameraData();
         }

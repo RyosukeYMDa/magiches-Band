@@ -28,6 +28,14 @@ namespace TechC.MagichesBand.Core
             PlayerPrefs.Save();
             Debug.Log("保存完了" + playerJson + " / " + inventoryJson + " / " + cameraJson);
         }
+        
+        public static void SaveInventory(Inventory inventory)
+        {
+            var json = JsonUtility.ToJson(inventory);
+            PlayerPrefs.SetString(InventoryKey, json);
+            PlayerPrefs.Save();
+            Debug.Log("Inventory saved: " + json);
+        }
     
         public static void SaveObtainedItemIds(List<string> itemIds)
         {

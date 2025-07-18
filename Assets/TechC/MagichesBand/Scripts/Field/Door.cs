@@ -1,11 +1,19 @@
+using System;
+using TechC.MagichesBand.Item;
+using TechC.MagichesBand.UI;
 using UnityEngine;
 
-namespace TechC.MagichesBand.Item
+namespace TechC.MagichesBand.Field
 {
     public class Door : MonoBehaviour
     {
-    
-        [SerializeField] InventoryUI inventoryUI;
+        [SerializeField] private InventoryUI inventoryUI;
+
+        private void OnEnable()
+        {
+            MessageWindow.Instance.DisplayMessage("OnDoor");
+        }
+
         private void OnCollisionEnter(Collision collision)
         {
             inventoryUI.isOpen = true;
