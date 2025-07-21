@@ -73,7 +73,7 @@ namespace TechC.MagichesBand.Battle
             }
             else
             {
-                MessageWindow.Instance.DisplayMessage("Failure", NextState);
+                MessageWindow.Instance.DisplayMessage("技が失敗した", NextState);
             }
         }
 
@@ -98,7 +98,7 @@ namespace TechC.MagichesBand.Battle
             {
                 case MaxAtkBuffValue:
                     attackCommand.SetActive(false);
-                    NextState();
+                    MessageWindow.Instance.DisplayMessage("これ以上攻撃力は上がらない", NextState);
                     return;
                 case 0:
                     atkDoublingValue　= (atkDoublingValue + 1) * 2;
@@ -125,7 +125,7 @@ namespace TechC.MagichesBand.Battle
             {
                 case MaxDefBuffValue:
                     attackCommand.SetActive(false);
-                    NextState();
+                    MessageWindow.Instance.DisplayMessage("これ以上防御力は上がらない", NextState);
                     return;
                 case 0:
                     defDoublingValue　= (defDoublingValue + 1) * 2;
@@ -162,7 +162,7 @@ namespace TechC.MagichesBand.Battle
             if (randomCritical < CriticalRate)
             {
                 damage *= CriticalMultiplier;
-                MessageWindow.Instance.DisplayMessage("Player Is Critical", () =>
+                MessageWindow.Instance.DisplayMessage("クリティカルを出した", () =>
                 {
                     enemy.TakeDamage(damage, type);
                 });
@@ -190,7 +190,7 @@ namespace TechC.MagichesBand.Battle
             if (randomEvasion < EvasionRate)
             {
                 Debug.Log($"回避  残HP: {playerStatus.hp}");
-                MessageWindow.Instance.DisplayMessage("Player Is Avoidance");
+                MessageWindow.Instance.DisplayMessage("回避した");
             }
             else
             {
@@ -213,7 +213,7 @@ namespace TechC.MagichesBand.Battle
                     BattleManager.Instance.DamageEffect();
                     Sound.Instance.Play(SoundType.Damage);
                 }
-                MessageWindow.Instance.DisplayMessage($"Player Is Hit: {damage}");
+                MessageWindow.Instance.DisplayMessage($"{damage}ダメージを受けた");
             }
 
             if (playerStatus.hp > 0) return;
@@ -222,7 +222,7 @@ namespace TechC.MagichesBand.Battle
             ResetStatus();
             GameManager.Instance.playerPosition = new Vector3(-13f, 0.6f, 6);
             enemy.ResetStatus();
-            MessageWindow.Instance.DisplayMessage("Player Dead", () =>
+            MessageWindow.Instance.DisplayMessage("Playerが倒された", () =>
             {
                 Sound.Instance.Play(SoundType.Defeated);
                 SceneManager.LoadScene("Title");

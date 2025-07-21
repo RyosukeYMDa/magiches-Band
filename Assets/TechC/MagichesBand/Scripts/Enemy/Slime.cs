@@ -6,7 +6,7 @@ using TechC.MagichesBand.Core;
 
 namespace TechC.MagichesBand.Enemy
 {
-    public class Slime : CharacterBase
+    public class Slime : EnemyBase
     {
         protected override void Start()
         {
@@ -44,7 +44,7 @@ namespace TechC.MagichesBand.Enemy
                     }
                     else
                     {
-                        MessageWindow.Instance.DisplayMessage("SkillFailed");
+                        MessageWindow.Instance.DisplayMessage("敵の技が失敗");
                     }
                     break;
             }
@@ -57,7 +57,7 @@ namespace TechC.MagichesBand.Enemy
             Debug.Log($"{gameObject.name} を撃破！");
             ResetStatus();
             BattleManager.Instance.SavePlayerInventory();
-            MessageWindow.Instance.DisplayMessage("Slime Dead", () =>
+            MessageWindow.Instance.DisplayMessage("Slimeを倒した", () =>
             {
                 Sound.Instance.Play(SoundType.Defeated);
                 SceneManager.LoadScene("Field");

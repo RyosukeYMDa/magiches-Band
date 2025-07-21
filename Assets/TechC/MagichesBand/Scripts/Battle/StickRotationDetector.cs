@@ -58,7 +58,7 @@ namespace TechC.MagichesBand.Battle
         {
             Debug.Log("StartDetection");
             BattleManager.Instance.enemyDead = true;
-            MessageWindow.Instance.DisplayMessage("Turn The Stick", () =>
+            MessageWindow.Instance.DisplayMessage("左Stickを回せ", () =>
             {
                 directionHistory.Clear();
                 lastDirection = -1;

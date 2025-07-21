@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace TechC.MagichesBand.Battle
 {
-    public abstract class CharacterBase : MonoBehaviour, ICharacter
+    public abstract class EnemyBase : MonoBehaviour, ICharacter
     {
         [SerializeField] private CharacterStatus charaStatus;
         [SerializeField] protected BattlePlayerController battlePlayerController;
@@ -46,7 +46,7 @@ namespace TechC.MagichesBand.Battle
             if (Random.value < EvasionRate)
             {
                 Debug.Log($"回避 残HP: {Status.hp}");
-                MessageWindow.Instance.DisplayMessage("Enemy Is Avoidance", NextState);
+                MessageWindow.Instance.DisplayMessage("回避された", NextState);
                 return;
             }
 
@@ -60,7 +60,7 @@ namespace TechC.MagichesBand.Battle
                 Sound.Instance.Play(SoundType.Damage);
             }
 
-            MessageWindow.Instance.DisplayMessage($"Enemy Add Damage:{damage}", NextState);
+            MessageWindow.Instance.DisplayMessage($"{damage}ダメージを与えた", NextState);
             Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {Status.hp}");
 
             if (Status.hp > 0) return;

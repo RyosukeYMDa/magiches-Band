@@ -6,7 +6,7 @@ using TechC.MagichesBand.Core;
 
 namespace TechC.MagichesBand.Enemy
 {
-    public class BossPhase2 : CharacterBase
+    public class BossPhase2 : EnemyBase
       {
         protected override void Start()
         {
@@ -42,7 +42,7 @@ namespace TechC.MagichesBand.Enemy
                     }
                     else
                     {
-                        MessageWindow.Instance.DisplayMessage("SkillFailed");
+                        MessageWindow.Instance.DisplayMessage("敵の技が失敗");
                     }
                     break;
 
@@ -52,12 +52,12 @@ namespace TechC.MagichesBand.Enemy
                     {
                         Status.mp -= mpCostBuffNegate;
                         Debug.Log("NegationBuff");
-                        MessageWindow.Instance.DisplayMessage("NegationBuff");
+                        MessageWindow.Instance.DisplayMessage("上昇効果が消えた");
                         battlePlayerController.ResetBuff();
                     }
                     else
                     {
-                        MessageWindow.Instance.DisplayMessage("SkillFailed");
+                        MessageWindow.Instance.DisplayMessage("敵の技が失敗");
                     }
                     break;
             }
@@ -70,7 +70,7 @@ namespace TechC.MagichesBand.Enemy
             Debug.Log($"{gameObject.name} を撃破！");
             ResetStatus();
             BattleManager.Instance.SavePlayerInventory();
-            MessageWindow.Instance.DisplayMessage("Boss Dead", () =>
+            MessageWindow.Instance.DisplayMessage("Bossを倒した", () =>
             {
                 Sound.Instance.Play(SoundType.Defeated);
                 SceneManager.LoadScene("End");

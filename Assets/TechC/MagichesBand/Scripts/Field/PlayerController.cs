@@ -234,7 +234,7 @@ namespace TechC.MagichesBand.Field
                     //Playerが今いるAreaのStateによって処理を変える
                     case DissolveController.AreaState.ResidenceArea:
                         cameraController.CamRotation(90f);
-                        Debug.Log("Area移動");
+                        Debug.Log("Areaを移動");
                         transform.position = new Vector3(collision.transform.position.x + PlayerWarpOffset, transform.position.y,
                             transform.position.z);
                         dissolveController.areaState = DissolveController.AreaState.RuinsArea;
@@ -250,7 +250,7 @@ namespace TechC.MagichesBand.Field
                         throw new ArgumentOutOfRangeException();
                 }
                 
-                MessageWindow.Instance.DisplayMessage("Area Movement", () =>
+                MessageWindow.Instance.DisplayMessage("Areaを移動", () =>
                 {
                     Sound.Instance.Play(SoundType.AreaMovement);
                     dissolveController.StopEffect();
@@ -268,7 +268,7 @@ namespace TechC.MagichesBand.Field
 
                 SavePlayerPosition();
                 
-                MessageWindow.Instance.DisplayMessage("Enemy Encount", () =>
+                MessageWindow.Instance.DisplayMessage("敵が出てきた", () =>
                 {
                     Sound.Instance.Play(SoundType.AreaMovement);
                     dissolveController.StopEffect();

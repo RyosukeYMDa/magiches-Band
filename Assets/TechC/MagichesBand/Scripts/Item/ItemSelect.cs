@@ -185,7 +185,7 @@ namespace TechC.MagichesBand.Item
                     RemoveAndSave();
                     playerStatus.hp = Mathf.Min(playerStatus.hp + RecoverHp, playerStatus.maxHp);
                     UpdateUI();
-                    StartCoroutine(inventoryUI.MessageReception("Recover 7 HP"));
+                    StartCoroutine(inventoryUI.MessageReception("HPを7回復した"));
                     inventoryUI.isItem = true;
                     Sound.Instance.Play(SoundType.Potion);
                     break;
@@ -193,7 +193,7 @@ namespace TechC.MagichesBand.Item
                     RemoveAndSave();
                     playerStatus.mp = Mathf.Min(playerStatus.mp + RecoverMp, playerStatus.maxMp);
                     UpdateUI();
-                    StartCoroutine(inventoryUI.MessageReception("Recover 7 MP"));
+                    StartCoroutine(inventoryUI.MessageReception("MPを7回復した"));
                     inventoryUI.isItem = true;
                     Sound.Instance.Play(SoundType.MPotion);
                     break;
@@ -203,7 +203,7 @@ namespace TechC.MagichesBand.Item
                     GameManager.Instance.enemyType = GameManager.EnemyType.BossEnemy;
                     //loading用のShaderを再生
                     dissolveController.PlayEffect();
-                    MessageWindow.Instance.DisplayMessage("Area Movement", () =>
+                    MessageWindow.Instance.DisplayMessage("鍵を開けた", () =>
                     {
                         playerController.SavePlayerPosition();
                         Sound.Instance.Play(SoundType.AreaMovement);
@@ -223,7 +223,7 @@ namespace TechC.MagichesBand.Item
                 inventoryUI.inventory.RemoveItem(item.itemName, 1);
                 GameManager.Instance.inventory.RemoveItem(item.itemName, 1);
 
-                bool stillHas = GameManager.Instance.inventory.items.Exists(i => i.itemName == item.itemName);
+                var stillHas = GameManager.Instance.inventory.items.Exists(i => i.itemName == item.itemName);
                 if (!stillHas)
                 {
                     GameManager.Instance.obtainedItemIds.Remove(item.itemId);

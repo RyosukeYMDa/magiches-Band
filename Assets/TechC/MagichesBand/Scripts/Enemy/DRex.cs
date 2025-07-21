@@ -6,7 +6,7 @@ using TechC.MagichesBand.Core;
 
 namespace TechC.MagichesBand.Enemy
 {
-    public class Dragon : CharacterBase
+    public class DRex : EnemyBase
     {
         protected override void Start()
         {
@@ -44,7 +44,7 @@ namespace TechC.MagichesBand.Enemy
                     }
                     else
                     {
-                        MessageWindow.Instance.DisplayMessage("SkillFailed");
+                        MessageWindow.Instance.DisplayMessage("敵の技が失敗");
                     }
                     break;
             }
@@ -57,7 +57,7 @@ namespace TechC.MagichesBand.Enemy
             Debug.Log($"{gameObject.name} を撃破！");
             ResetStatus();
             BattleManager.Instance.SavePlayerInventory();
-            MessageWindow.Instance.DisplayMessage("Dragon", () =>
+            MessageWindow.Instance.DisplayMessage("DRexを倒した", () =>
             {
                 Sound.Instance.Play(SoundType.Defeated);
                 SceneManager.LoadScene("Field");

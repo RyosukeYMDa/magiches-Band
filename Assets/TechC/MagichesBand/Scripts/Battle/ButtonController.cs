@@ -68,34 +68,34 @@ namespace TechC.MagichesBand.Battle
         public void ShootText()
         {
             messageText.gameObject.SetActive(true);
-            messageText.text = "slash:enemy - 1";
+            messageText.text = "敵に物理攻撃";
         }
 
         public void ExplosionText()
         {
             messageText.gameObject.SetActive(true);
-            messageText.text = "Explosion:enemy - 1";
+            messageText.text = "敵に魔法攻撃";
         }
 
         public void AtkUpText()
         {
             messageText.gameObject.SetActive(true);
-            messageText.text = "AtkUp";
+            messageText.text = "攻撃力を少し上昇";
 
             if (battlePlayerController.atkDoublingValue == MaxAtkBuffValue)
             {
-                messageText.text = "AtkUpperLimit";
+                messageText.text = "これ以上攻撃力は上がらない";
             }
         }
 
         public void DefUpText()
         {
             messageText.gameObject.SetActive(true);
-            messageText.text = "DefUp";
+            messageText.text = "防御力を少し上昇";
 
             if (battlePlayerController.defDoublingValue == MaxDefBuffValue)
             {
-                messageText.text = "DefUpperLimit";
+                messageText.text = "これ以上防御力は上がらない";
             }
         }
     }

@@ -5,7 +5,7 @@ using TechC.MagichesBand.Core;
 
 namespace TechC.MagichesBand.Enemy
 {
-    public class Boss : CharacterBase
+    public class Boss : EnemyBase
     {
         private const int ConsumptionMp = 1;
 
@@ -38,7 +38,7 @@ namespace TechC.MagichesBand.Enemy
             }
             else
             {
-                MessageWindow.Instance.DisplayMessage("SkillFailed");
+                MessageWindow.Instance.DisplayMessage("敵の技が失敗");
             }
 
             NextState();
@@ -49,7 +49,7 @@ namespace TechC.MagichesBand.Enemy
             Debug.Log($"{gameObject.name} を撃破！");
             ResetStatus();
 
-            MessageWindow.Instance.DisplayMessage("Boss", () =>
+            MessageWindow.Instance.DisplayMessage("Bossの様子がおかしい", () =>
             {
                 BattleManager.Instance.SpawnPhase2Boss();
                 Sound.Instance.Play(SoundType.Defeated);
