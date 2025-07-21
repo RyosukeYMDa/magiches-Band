@@ -14,11 +14,11 @@ namespace TechC.MagichesBand.Field
     public class GameMenu : MonoBehaviour
     {
         [Header("パネルの設定")]
-        public RectTransform panel;          // スライドさせるパネル
-        public Vector2 shownPosition;        // 表示時の位置
-        public Vector2 hiddenPosition;       // 非表示時の位置
-        public float slideDuration = 0.3f;   // スライド時間
-    
+        [SerializeField] public RectTransform panel;      // スライドさせるパネル
+        [SerializeField] public Vector2 shownPosition;    // 表示時の位置
+        [SerializeField] public Vector2 hiddenPosition;   // 非表示時の位置
+        private const float SlideDuration = 0.3f;         // スライド時間
+
         private Coroutine slideCoroutine;
 
         [SerializeField] private FieldButtonNavi fieldButtonNavi;
@@ -26,7 +26,7 @@ namespace TechC.MagichesBand.Field
         [SerializeField] private DissolveController dissolveController;
         [FormerlySerializedAs("characterController")] [SerializeField] private PlayerController playerController;
         [SerializeField] private PlayerInput playerInput;
-        public GameObject inventoryPanel;
+        [SerializeField] public GameObject inventoryPanel;
 
         private void OnEnable()
         {
@@ -65,14 +65,14 @@ namespace TechC.MagichesBand.Field
         {
             Sound.Instance.Play(SoundType.MenuSlide);
             
-            Vector2 startPos = panel.anchoredPosition;
-            float elapsed = 0f;
-            bool hiding = targetPosition == hiddenPosition;
+            var startPos = panel.anchoredPosition;
+            var elapsed = 0f;
+            var hiding = targetPosition == hiddenPosition;
 
-            while (elapsed < slideDuration)
+            while (elapsed < SlideDuration)
             {
                 elapsed += Time.unscaledDeltaTime;
-                float t = Mathf.Clamp01(elapsed / slideDuration);
+                var t = Mathf.Clamp01(elapsed / SlideDuration);
                 panel.anchoredPosition = Vector2.Lerp(startPos, targetPosition, t);
                 yield return null;
             }

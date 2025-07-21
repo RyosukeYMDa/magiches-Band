@@ -1,5 +1,5 @@
+using System;
 using System.Collections;
-using TechC.MagichesBand.Core;
 using TechC.MagichesBand.Game;
 using UnityEngine;
 
@@ -11,10 +11,8 @@ namespace TechC.MagichesBand.Field
     public class FieldManager : MonoBehaviour
     {
         [SerializeField] private GameObject enemy1;
-    
-        public Vector3 player;
-
-
+        private const float SpawnEnemyTime = 5f;
+        
         private void Start()
         {
             if (!GameManager.Instance)
@@ -23,20 +21,24 @@ namespace TechC.MagichesBand.Field
                 return;
             }
 
-            if (GameManager.Instance.enemyType == GameManager.EnemyType.NotEncounterEnemy)
+            switch (GameManager.Instance.enemyType)
             {
-                enemy1.SetActive(true);
-            }
-
-            if (GameManager.Instance.enemyType == GameManager.EnemyType.Enemy1)
-            {
-                StartCoroutine(EnableSpawnPoint());
+                case GameManager.EnemyType.NotEncounterEnemy:
+                    enemy1.SetActive(true);
+                    break;
+                case GameManager.EnemyType.Enemy1:
+                    StartCoroutine(EnableSpawnPoint());
+                    break;
+                case GameManager.EnemyType.BossEnemy:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
         private IEnumerator EnableSpawnPoint()
         {
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(SpawnEnemyTime);
             enemy1.SetActive(true);
         }
     }

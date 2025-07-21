@@ -17,21 +17,19 @@ namespace TechC.MagichesBand.Item
         //messageを表示させる
         [SerializeField] private TextMeshProUGUI messageText;
 
+        private const float TextFadeOutTime = 1f;
+
         private void Start()
         {
             // Inventoryを初期化 or 既存のものを取得
-            inventory = SaveManager.LoadInventory();
-            if (inventory == null)
-            {
-                inventory = new Inventory();
-            }
+            inventory = SaveManager.LoadInventory() ?? new Inventory();
         }
     
         public void GetItem(string itemName)
         {
             Sound.Instance.Play(SoundType.ItemGet);
             
-            StartCoroutine(MessageReception(itemName + ":get"));
+            StartCoroutine(MessageReception($"{itemName}:get"));
         }
     
         public IEnumerator MessageReception(string msg)
@@ -40,7 +38,7 @@ namespace TechC.MagichesBand.Item
             messageText.gameObject.SetActive(true);
             messageText.text = msg;
             Debug.Log("到達前");
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(TextFadeOutTime);
             Debug.Log("到達");
             messageText.gameObject.SetActive(false);
         }

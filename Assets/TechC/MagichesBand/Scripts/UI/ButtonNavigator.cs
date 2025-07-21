@@ -1,5 +1,4 @@
 using TechC.MagichesBand.Core;
-using TechC.MagichesBand.Item;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -12,7 +11,9 @@ namespace TechC.MagichesBand.UI
     
         //ボタンを格納
         public Button[] buttons;
-        private int currentIndex = 0;
+        private int currentIndex;
+        
+        private const float StickThreshold = 0.5f;
         
         private void Start()
         {
@@ -22,14 +23,14 @@ namespace TechC.MagichesBand.UI
 
         private void Update()
         {
-            bool upPressed = false;
-            bool downPressed = false;
+            var upPressed = false;
+            var downPressed = false;
 
             // Gamepad入力（D-Pad & 左スティックY軸）
             if (Gamepad.current != null)
             {
-                if (Gamepad.current.dpad.up.wasPressedThisFrame || Gamepad.current.leftStick.ReadValue().y > 0.5f) upPressed = true;
-                if (Gamepad.current.dpad.down.wasPressedThisFrame || Gamepad.current.leftStick.ReadValue().y < -0.5f) downPressed = true;
+                if (Gamepad.current.dpad.up.wasPressedThisFrame || Gamepad.current.leftStick.ReadValue().y > StickThreshold) upPressed = true;
+                if (Gamepad.current.dpad.down.wasPressedThisFrame || Gamepad.current.leftStick.ReadValue().y < -StickThreshold) downPressed = true;
             }
 
             if (upPressed)

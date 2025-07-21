@@ -9,7 +9,7 @@ namespace TechC.MagichesBand.Item
 
         public void AddItem(string id, string itemName, int amount)
         {
-            InventoryItem item = items.Find(i => i.itemName == itemName);
+            var item = items.Find(i => i.itemName == itemName);
             if (item != null)
             {
                 item.quantity += amount;
@@ -22,15 +22,14 @@ namespace TechC.MagichesBand.Item
 
         public void RemoveItem(string itemName, int amount)
         {
-            InventoryItem item = items.Find(i => i.itemName == itemName);
+            var item = items.Find(i => i.itemName == itemName);
 
-            if (item != null)
+            if (item == null) return;
+            
+            item.quantity -= amount;
+            if (item.quantity <= 0)
             {
-                item.quantity -= amount;
-                if (item.quantity <= 0)
-                {
-                    items.Remove(item);
-                }
+                items.Remove(item);
             }
         }
     }

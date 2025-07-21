@@ -18,14 +18,13 @@ namespace TechC.MagichesBand.Field
             cancelAction.performed += OnAddMainCancel;
         }
 
-        public void OnDisable()
+        private void OnDisable()
         {
-            if (playerInput && playerInput.actions)
-            {
-                var cancelAction = playerInput.actions["UiCancel"];
+            if (!playerInput || !playerInput.actions) return;
+            
+            var cancelAction = playerInput.actions["UiCancel"];
         
-                cancelAction.performed -= OnAddMainCancel;   
-            }
+            cancelAction.performed -= OnAddMainCancel;
         }
 
         private void OnAddMainCancel(InputAction.CallbackContext context)

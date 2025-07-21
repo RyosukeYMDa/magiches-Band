@@ -7,7 +7,7 @@ using UnityEngine;
 namespace TechC.MagichesBand.Battle
 {
     /// <summary>
-    ///     バトル時のターン管理
+    /// バトル時のターン管理
     /// </summary>
     public class ButtleTurnManager : SingletonMonoBehaviour<ButtleTurnManager>
     {

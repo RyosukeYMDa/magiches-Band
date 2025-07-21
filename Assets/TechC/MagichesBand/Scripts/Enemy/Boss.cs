@@ -1,17 +1,13 @@
 using TechC.MagichesBand.Battle;
-using TechC.MagichesBand.Game;
 using TechC.MagichesBand.UI;
 using UnityEngine;
-using Spine.Unity;
-using System.Collections;
 using TechC.MagichesBand.Core;
-using UnityEngine.TextCore.Text;
 
 namespace TechC.MagichesBand.Enemy
 {
     public class Boss : CharacterBase
     {
-        private int consumptionMp = 1;
+        private const int ConsumptionMp = 1;
 
         protected override void Start()
         {
@@ -23,7 +19,7 @@ namespace TechC.MagichesBand.Enemy
         public override void Act()
         {
             var damage = 0;
-            int choice = Random.Range(0, 2);
+            var choice = Random.Range(0, 2);
 
             if (choice == 0)
             {
@@ -32,10 +28,10 @@ namespace TechC.MagichesBand.Enemy
                 battlePlayerController.TakeDamage(damage, ICharacter.AttackType.Physical);
                 Sound.Instance.Play(SoundType.Rain);
             }
-            else if (Status.mp >= consumptionMp)
+            else if (Status.mp >= ConsumptionMp)
             {
                 Debug.Log("Electricity");
-                Status.mp -= consumptionMp;
+                Status.mp -= ConsumptionMp;
                 damage = CriticalCalculation(Mathf.Max(0, Status.mAtk - battlePlayerController.Status.mDef));
                 battlePlayerController.TakeDamage(damage, ICharacter.AttackType.Magical);
                 Sound.Instance.Play(SoundType.Electricity);

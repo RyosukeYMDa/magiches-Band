@@ -1,4 +1,3 @@
-using System.Collections;
 using TechC.MagichesBand.Game;
 using UnityEngine;
 using UnityEngine.UI;

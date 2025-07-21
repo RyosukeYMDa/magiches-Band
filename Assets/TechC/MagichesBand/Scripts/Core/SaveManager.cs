@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using TechC.MagichesBand.Field;
 using TechC.MagichesBand.Item;
 using UnityEngine;
 
@@ -24,9 +23,9 @@ namespace TechC.MagichesBand.Core
             PlayerPrefs.SetString(PlayerKey, playerJson);
             PlayerPrefs.SetString(CameraKey, cameraJson);
             PlayerPrefs.SetString(InventoryKey, inventoryJson);
-            Debug.Log("Inventory Save JSON: " + inventoryJson);
+            Debug.Log($"Inventory Save JSON: {inventoryJson}");
             PlayerPrefs.Save();
-            Debug.Log("保存完了" + playerJson + " / " + inventoryJson + " / " + cameraJson);
+            Debug.Log($"保存完了:{playerJson} / {inventoryJson} / {cameraJson}");
         }
         
         public static void SaveInventory(Inventory inventory)
@@ -34,7 +33,7 @@ namespace TechC.MagichesBand.Core
             var json = JsonUtility.ToJson(inventory);
             PlayerPrefs.SetString(InventoryKey, json);
             PlayerPrefs.Save();
-            Debug.Log("Inventory saved: " + json);
+            Debug.Log($"Inventory saved: {json}");
         }
     
         public static void SaveObtainedItemIds(List<string> itemIds)
@@ -43,7 +42,7 @@ namespace TechC.MagichesBand.Core
             var json = JsonUtility.ToJson(wrapper);
             PlayerPrefs.SetString(ObtainedItemsKey, json);
             PlayerPrefs.Save();
-            Debug.Log("取得済みアイテムIDを保存: " + json);
+            Debug.Log($"取得済みアイテムIDを保存: {json}");
         }
     
         public static List<string> LoadObtainedItemIds()
@@ -56,7 +55,7 @@ namespace TechC.MagichesBand.Core
 
             var json = PlayerPrefs.GetString(ObtainedItemsKey);
             var wrapper = JsonUtility.FromJson<StringListWrapper>(json);
-            Debug.Log("取得済みアイテムロード: " + json);
+            Debug.Log($"取得済みアイテムロード: {json}");
             return wrapper.idList;
         }
 
@@ -69,7 +68,7 @@ namespace TechC.MagichesBand.Core
             }
 
             var json = PlayerPrefs.GetString(InventoryKey);
-            Debug.Log("Inventory Load JSON: " + json);
+            Debug.Log($"Inventory Load JSON: {json}");
         
             var inventory = JsonUtility.FromJson<Inventory>(json);
             return inventory;

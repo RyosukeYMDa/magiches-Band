@@ -16,9 +16,12 @@ namespace TechC.MagichesBand.Item
     {
         private readonly List<GameObject> itemUiObjects = new();
     
-        private int selectedIndex = 0;
-    
-        public Transform contentParent;   // アイテムを並べる親（Vertical Layout Group）
+        private int selectedIndex;
+        private const int RecoverMp = 7;
+        private const int RecoverHp = 7;
+        private const float StickThreshold = 0.5f;
+        
+        [SerializeField] public Transform contentParent;   // アイテムを並べる親（Vertical Layout Group）
     
         [SerializeField] private CharacterStatus playerStatus;
         
@@ -33,7 +36,7 @@ namespace TechC.MagichesBand.Item
         private void OnEnable()
         {
             // PlayerInputが設定されていなければ警告だけ出す
-            if (playerInput == null)
+            if (!playerInput)
             {
                 Debug.LogWarning("PlayerInputが設定されていません！");
                 return;
@@ -53,17 +56,16 @@ namespace TechC.MagichesBand.Item
 
         private void OnDisable()
         {
-            if (playerInput && playerInput.actions)
-            {
-                var navigateAction = playerInput.actions["Choice"];
-                var submitAction = playerInput.actions["UiSubmit"];
-                var cancelAction = playerInput.actions["UiCancel"];
+            if (!playerInput || !playerInput.actions) return;
+            
+            var navigateAction = playerInput.actions["Choice"];
+            var submitAction = playerInput.actions["UiSubmit"];
+            var cancelAction = playerInput.actions["UiCancel"];
 
-                // イベント登録
-                navigateAction.performed -= OnNavigate;
-                submitAction.performed -= OnSubmit;
-                cancelAction.performed -= OnCancel;   
-            }
+            // イベント登録
+            navigateAction.performed -= OnNavigate;
+            submitAction.performed -= OnSubmit;
+            cancelAction.performed -= OnCancel;
         }
     
         private void OpenInventory()
@@ -77,33 +79,34 @@ namespace TechC.MagichesBand.Item
             UpdateHighlight();
         }
     
-        public void OnNavigate(InputAction.CallbackContext context)
+        private void OnNavigate(InputAction.CallbackContext context)
         {
             Debug.Log("OnNavigate called!");
         
             if (!inventoryUI.isInventory || itemUiObjects.Count <= 0) return;
             
-            Vector2 input = context.ReadValue<Vector2>();
+            var input = context.ReadValue<Vector2>();
 
-            if (input.y < -0.5f)
+            switch (input.y)
             {
-                // 下に移動
-                Sound.Instance.Play(SoundType.ButtonNavi);
-                selectedIndex = (selectedIndex + 1) % itemUiObjects.Count;
-                UpdateHighlight();
-                Debug.Log("Navigate Down");
-            }
-            else if (input.y > 0.5f)
-            {
-                // 上に移動
-                Sound.Instance.Play(SoundType.ButtonNavi);
-                selectedIndex = (selectedIndex - 1 + itemUiObjects.Count) % itemUiObjects.Count;
-                UpdateHighlight();
-                Debug.Log("Navigate Up");
+                case < -StickThreshold:
+                    // 下に移動
+                    Sound.Instance.Play(SoundType.ButtonNavi);
+                    selectedIndex = (selectedIndex + 1) % itemUiObjects.Count;
+                    UpdateHighlight();
+                    Debug.Log("Navigate Down");
+                    break;
+                case > StickThreshold:
+                    // 上に移動
+                    Sound.Instance.Play(SoundType.ButtonNavi);
+                    selectedIndex = (selectedIndex - 1 + itemUiObjects.Count) % itemUiObjects.Count;
+                    UpdateHighlight();
+                    Debug.Log("Navigate Up");
+                    break;
             }
         }
     
-        public void OnSubmit(InputAction.CallbackContext context)
+        private void OnSubmit(InputAction.CallbackContext context)
         {
             Debug.Log("OnNavigate called!");
         
@@ -113,7 +116,7 @@ namespace TechC.MagichesBand.Item
             Debug.Log("Submit");
         }
     
-        public void OnCancel(InputAction.CallbackContext context)
+        private void OnCancel(InputAction.CallbackContext context)
         {
             CloseInventory();
         }
@@ -143,13 +146,13 @@ namespace TechC.MagichesBand.Item
 
             itemUiObjects.Clear();
 
-            foreach (InventoryItem item in inventoryUI.inventory.items)
+            foreach (var item in inventoryUI.inventory.items)
             {
-                GameObject newItem = Instantiate(itemTextPrefab, contentParent);
                 //newItem.transform.SetAsLastSibling(); // 新しいのを一番下に
+                var newItem = Instantiate(itemTextPrefab, contentParent);
             
-                TextMeshProUGUI tmp = newItem.GetComponentInChildren<TextMeshProUGUI>();
-                if (tmp != null)
+                var tmp = newItem.GetComponentInChildren<TextMeshProUGUI>();
+                if (tmp)
                     tmp.text = $"{item.itemName} x{item.quantity}";
 
                 itemUiObjects.Add(newItem);
@@ -161,10 +164,10 @@ namespace TechC.MagichesBand.Item
 
         private void UpdateHighlight()
         {
-            for (int i = 0; i < itemUiObjects.Count; i++)
+            for (var i = 0; i < itemUiObjects.Count; i++)
             {
                 var text = itemUiObjects[i].GetComponentInChildren<TextMeshProUGUI>();
-                if (text != null)
+                if (text)
                     text.color = (i == selectedIndex) ? Color.yellow : Color.white;
             }
         }
@@ -173,14 +176,14 @@ namespace TechC.MagichesBand.Item
         {
             if(index < 0 || index >= inventoryUI.inventory.items.Count) return;
         
-            InventoryItem item = inventoryUI.inventory.items[index];
+            var item = inventoryUI.inventory.items[index];
             Debug.Log($"Use Item {item.itemName}");
 
             switch (item.itemName)
             {
                 case "Potion":
                     RemoveAndSave();
-                    playerStatus.hp = Mathf.Min(playerStatus.hp + 7, playerStatus.maxHp);
+                    playerStatus.hp = Mathf.Min(playerStatus.hp + RecoverHp, playerStatus.maxHp);
                     UpdateUI();
                     StartCoroutine(inventoryUI.MessageReception("Recover 7 HP"));
                     inventoryUI.isItem = true;
@@ -188,7 +191,7 @@ namespace TechC.MagichesBand.Item
                     break;
                 case "MpPotion":
                     RemoveAndSave();
-                    playerStatus.mp = Mathf.Min(playerStatus.mp + 7, playerStatus.maxMp);
+                    playerStatus.mp = Mathf.Min(playerStatus.mp + RecoverMp, playerStatus.maxMp);
                     UpdateUI();
                     StartCoroutine(inventoryUI.MessageReception("Recover 7 MP"));
                     inventoryUI.isItem = true;

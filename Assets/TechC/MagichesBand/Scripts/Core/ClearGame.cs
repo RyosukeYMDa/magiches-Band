@@ -19,11 +19,13 @@ namespace TechC.MagichesBand.Core
             if(Gamepad.current == null)
                 return;
 
-            if (Gamepad.current.allControls.Any(control => control is ButtonControl { wasPressedThisFrame: true }))
-            {
-                GameManager.Instance.DateReset();
-                SceneManager.LoadScene("Title");
-            }
+            if (!Gamepad.current.allControls.Any(control => control is ButtonControl
+                {
+                    wasPressedThisFrame: true
+                })) return;
+            
+            GameManager.Instance.DateReset();
+            SceneManager.LoadScene("Title");
         }
     }
 }

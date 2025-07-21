@@ -15,11 +15,15 @@ namespace TechC.MagichesBand.Battle
         [SerializeField] private BattlePlayerController battlePlayerController;
         [SerializeField] private InventoryUI inventoryUI;
         [SerializeField] private ItemSelect itemSelect;
-    
+        [SerializeField] private GameObject inventoryPanel;
+        
         //messageを表示させる
         [SerializeField] private TextMeshProUGUI messageText;
     
-        public GameObject inventoryPanel;
+        private const int MaxAtkBuffValue = 16; //攻撃力バフの上限
+        private const int MaxDefBuffValue = 16;
+        
+        
     
         public void EnableAct()
         {
@@ -78,7 +82,7 @@ namespace TechC.MagichesBand.Battle
             messageText.gameObject.SetActive(true);
             messageText.text = "AtkUp";
 
-            if (battlePlayerController.atkDoublingValue == 16)
+            if (battlePlayerController.atkDoublingValue == MaxAtkBuffValue)
             {
                 messageText.text = "AtkUpperLimit";
             }
@@ -89,7 +93,7 @@ namespace TechC.MagichesBand.Battle
             messageText.gameObject.SetActive(true);
             messageText.text = "DefUp";
 
-            if (battlePlayerController.defDoublingValue == 16)
+            if (battlePlayerController.defDoublingValue == MaxDefBuffValue)
             {
                 messageText.text = "DefUpperLimit";
             }

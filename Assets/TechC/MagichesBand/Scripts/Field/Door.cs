@@ -1,4 +1,3 @@
-using System;
 using TechC.MagichesBand.Item;
 using TechC.MagichesBand.UI;
 using UnityEngine;
@@ -16,12 +15,18 @@ namespace TechC.MagichesBand.Field
 
         private void OnCollisionEnter(Collision collision)
         {
-            inventoryUI.isOpen = true;
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                inventoryUI.isOpen = true;
+            }
         }
 
         private void OnCollisionExit(Collision collision)
         {
-            inventoryUI.isOpen = false;
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                inventoryUI.isOpen = false;   
+            }
         }
     }
 }

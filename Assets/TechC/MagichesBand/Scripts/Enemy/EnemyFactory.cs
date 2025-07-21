@@ -13,10 +13,10 @@ namespace TechC.MagichesBand.Enemy
     public class EnemyFactory : MonoBehaviour
     {
         [Header("UI Enemy Prefabs")]
-        public GameObject slimePrefab;
-        public GameObject dRexPrefab;
-        public GameObject bossPrefab;
-        public GameObject bossPhase2Prefab;
+        [SerializeField] public GameObject slimePrefab;
+        [SerializeField] public GameObject dRexPrefab;
+        [SerializeField] public GameObject bossPrefab;
+        [SerializeField] public GameObject bossPhase2Prefab;
 
         // 通常敵のDictionary
         private Dictionary<EnemyTypeEnum, GameObject> enemyPrefabDict;
@@ -48,7 +48,7 @@ namespace TechC.MagichesBand.Enemy
             else
             {
                 // 通常敵をランダム選出
-                EnemyTypeEnum randomType = (EnemyTypeEnum)Random.Range(0, System.Enum.GetNames(typeof(EnemyTypeEnum)).Length);
+                var randomType = (EnemyTypeEnum)Random.Range(0, System.Enum.GetNames(typeof(EnemyTypeEnum)).Length);
 
                 if (!enemyPrefabDict.TryGetValue(randomType, out prefab))
                 {
@@ -57,7 +57,7 @@ namespace TechC.MagichesBand.Enemy
                 }
             }
 
-            if (prefab == null)
+            if (!prefab)
             {
                 Debug.LogError("Enemyのプレハブが未設定です。");
                 return null;

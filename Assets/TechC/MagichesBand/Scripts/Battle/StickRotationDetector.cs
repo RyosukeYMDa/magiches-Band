@@ -6,7 +6,7 @@ using UnityEngine;
 namespace TechC.MagichesBand.Battle
 {
     /// <summary>
-    ///     バトルにおけるスティック回転入力の判定オブジェクト
+    /// バトルにおけるスティック回転入力の判定オブジェクト
     /// </summary>
     public class StickRotationDetector : SingletonMonoBehaviour<StickRotationDetector>
     {

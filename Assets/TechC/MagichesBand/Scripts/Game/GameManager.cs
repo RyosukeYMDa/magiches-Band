@@ -103,14 +103,14 @@ namespace TechC.MagichesBand.Game
             {
                 playerPosition = data.GetPosition();
                 playerRotation = data.GetRotation();
-                Debug.Log("再読み込み成功: " + playerPosition);
+                Debug.Log($"再読み込み成功: {playerPosition}");
             }
             else
             {
                 obtainedItemIds = new List<string>();
                 playerPosition = startPlayerPosition;
                 playerRotation = startPlayerRotation;
-                Debug.Log("データなし → 初期位置にリセット: " + playerPosition);
+                Debug.Log($"データなし → 初期位置にリセット: {playerPosition}");
             }
         }
 

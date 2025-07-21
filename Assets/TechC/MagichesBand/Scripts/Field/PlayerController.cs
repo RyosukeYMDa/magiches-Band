@@ -35,8 +35,9 @@ namespace TechC.MagichesBand.Field
         private const float RotationSpeed = 10f;
         private Vector3 moveDirection; // 移動方向
         private Vector3 playerDirection; // プレイヤーの向いている方向
-        private PlayerInput playerInput; 
-    
+        private PlayerInput playerInput;
+        private const float PlayerWarpOffset = 4f;
+
         //spineAnimation関連
         private SkeletonAnimation skeletonAnimation;
         private Spine.AnimationState spAnimationState;
@@ -83,15 +84,14 @@ namespace TechC.MagichesBand.Field
     
         private void OnDisable()
         {
-            if (playerInput && playerInput.actions)
-            {
-                var moveAction = playerInput.actions["Move"];
-                var menuAction = playerInput.actions["Menu"];
+            if (!playerInput || !playerInput.actions) return;
+            
+            var moveAction = playerInput.actions["Move"];
+            var menuAction = playerInput.actions["Menu"];
                 
-                moveAction.performed -= OnMovePerformed;
-                moveAction.canceled -= OnMoveCanceled;
-                menuAction.performed -= Menu;
-            }
+            moveAction.performed -= OnMovePerformed;
+            moveAction.canceled -= OnMoveCanceled;
+            menuAction.performed -= Menu;
         }
 
         private void Update()
@@ -138,10 +138,12 @@ namespace TechC.MagichesBand.Field
                 camForward.y = 0;
                 camForward.Normalize();
 
-                if (moveInput.x > 0)
-                    targetRotation = Quaternion.LookRotation(camForward);
-                else if (moveInput.x < 0)
-                    targetRotation = Quaternion.LookRotation(-camForward);
+                targetRotation = moveInput.x switch
+                {
+                    > 0 => Quaternion.LookRotation(camForward),
+                    < 0 => Quaternion.LookRotation(-camForward),
+                    _ => targetRotation
+                };
             }
             else
             {
@@ -160,7 +162,7 @@ namespace TechC.MagichesBand.Field
         {
             if (isShown || inventoryUI.isInventory || dissolveController.nowLoading) return;
 
-            Vector2 input = context.ReadValue<Vector2>();
+            var input = context.ReadValue<Vector2>();
             moveInput = new Vector3(input.x, 0f, input.y);
         }
 
@@ -233,14 +235,14 @@ namespace TechC.MagichesBand.Field
                     case DissolveController.AreaState.ResidenceArea:
                         cameraController.CamRotation(90f);
                         Debug.Log("Area移動");
-                        transform.position = new Vector3(collision.transform.position.x + 3f, transform.position.y,
+                        transform.position = new Vector3(collision.transform.position.x + PlayerWarpOffset, transform.position.y,
                             transform.position.z);
                         dissolveController.areaState = DissolveController.AreaState.RuinsArea;
                         break;
                     case DissolveController.AreaState.RuinsArea:
                         cameraController.CamRotation(-90f);
                         Debug.Log("RuinsArea");
-                        transform.position = new Vector3(collision.transform.position.x - 4f, transform.position.y,
+                        transform.position = new Vector3(collision.transform.position.x - PlayerWarpOffset, transform.position.y,
                             transform.position.z);
                         dissolveController.areaState = DissolveController.AreaState.ResidenceArea;
                         break;
@@ -277,11 +279,6 @@ namespace TechC.MagichesBand.Field
             {
                 Debug.Log("壁");
             }
-        }
-
-        public void LogMessage()
-        {
-            Debug.Log("walk");
         }
         
         /// <summary>

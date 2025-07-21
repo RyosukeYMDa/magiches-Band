@@ -23,7 +23,10 @@ namespace TechC.MagichesBand.Battle
         private const float CriticalRate = 0.25f; //クリティカルの確率（今は25％）
         private const int CriticalMultiplier = 2; // クリティカル倍率
         private const float EvasionRate = 0.1f; //回避の確率（今は10％）
-    
+        private const int MaxAtkBuffValue = 16; //攻撃力バフの上限
+        private const int MaxDefBuffValue = 16; //防御力バフの上限
+        
+        
         private int consumptionMp; //消費Mp
 
         public int atkDoublingValue; //攻撃上昇補正
@@ -93,7 +96,7 @@ namespace TechC.MagichesBand.Battle
         {
             switch (atkDoublingValue)
             {
-                case 16:
+                case MaxAtkBuffValue:
                     attackCommand.SetActive(false);
                     NextState();
                     return;
@@ -120,7 +123,7 @@ namespace TechC.MagichesBand.Battle
         {
             switch (defDoublingValue)
             {
-                case 16:
+                case MaxDefBuffValue:
                     attackCommand.SetActive(false);
                     NextState();
                     return;

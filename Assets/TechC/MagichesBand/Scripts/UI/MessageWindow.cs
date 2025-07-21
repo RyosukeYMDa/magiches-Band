@@ -10,7 +10,9 @@ namespace TechC.MagichesBand.UI
     public class MessageWindow : SingletonMonoBehaviour<MessageWindow>
     {
         [SerializeField] private TextMeshProUGUI messageText;
-        
+
+        private const float MessageFadeOutTime = 0.1f;
+
         public void DisplayMessage(string message, Action callback = null)
         {
             messageText.gameObject.SetActive(true);
@@ -23,9 +25,9 @@ namespace TechC.MagichesBand.UI
             
             messageText.text = message;
         
-            bool buttonPressed = false;
+            var buttonPressed = false;
             
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(MessageFadeOutTime);
 
             while (!buttonPressed)
             {

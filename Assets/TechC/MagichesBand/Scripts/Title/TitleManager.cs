@@ -9,8 +9,8 @@ namespace TechC.MagichesBand.Title
     {
         private void Start()
         {
-            PlayerData data = SaveManager.LoadPlayerData();
-            CameraData cameraData = SaveManager.LoadCameraData();
+            var data = SaveManager.LoadPlayerData();
+            var cameraData = SaveManager.LoadCameraData();
             if (data != null)
             {
                 GameManager.Instance.playerPosition = data.GetPosition();

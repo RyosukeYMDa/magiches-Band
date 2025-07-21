@@ -19,11 +19,10 @@ namespace TechC.MagichesBand.EndRoll
         {
             rectTransform.position += new Vector3(0, 0.1f, 0);
 
-            if (rectTransform.anchoredPosition.y > endPosition)
-            {
-                gameObject.SetActive(false);
-                thankText.SetActive(true);
-            }
+            if (!(rectTransform.anchoredPosition.y > endPosition)) return;
+            
+            gameObject.SetActive(false);
+            thankText.SetActive(true);
         }
     }
 }

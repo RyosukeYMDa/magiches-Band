@@ -15,9 +15,9 @@ namespace TechC.MagichesBand.Battle
         [SerializeField] private SkeletonGraphic skeletonGraphic;
         [SerializeField] protected bool useStickToDie = true;
         
+        private const float EvasionRate = 0.1f; //回避率
         private const float CriticalRate = 0.25f; //クリティカルの確率（今は25％）
         private const int CriticalMultiplier = 2; // クリティカル倍率
-        private const float EvasionRate = 0.1f; //回避の確率（今は10％）
         private Color originalColor;
         
         public CharacterStatus Status => charaStatus;
@@ -43,7 +43,7 @@ namespace TechC.MagichesBand.Battle
         
         public virtual void TakeDamage(int damage, ICharacter.AttackType type)
         {
-            if (Random.value < 0.1f)
+            if (Random.value < EvasionRate)
             {
                 Debug.Log($"回避 残HP: {Status.hp}");
                 MessageWindow.Instance.DisplayMessage("Enemy Is Avoidance", NextState);
@@ -60,24 +60,23 @@ namespace TechC.MagichesBand.Battle
                 Sound.Instance.Play(SoundType.Damage);
             }
 
-            MessageWindow.Instance.DisplayMessage("Enemy Add Damage" + damage, NextState);
+            MessageWindow.Instance.DisplayMessage($"Enemy Add Damage:{damage}", NextState);
             Debug.Log($"{gameObject.name} は {damage} ダメージを受けた！ 残HP: {Status.hp}");
 
-            if (Status.hp <= 0)
+            if (Status.hp > 0) return;
+            
+            if (useStickToDie)
             {
-                if (useStickToDie)
-                {
-                    StickRotationDetector.Instance.OnRotationCompleted += OnVictoryStickRotate;
-                    StickRotationDetector.Instance.StartDetection();
-                }
-                else
-                {
-                    OnVictoryStickRotate();
-                }
+                StickRotationDetector.Instance.OnRotationCompleted += OnVictoryStickRotate;
+                StickRotationDetector.Instance.StartDetection();
+            }
+            else
+            {
+                OnVictoryStickRotate();
             }
         }
 
-        protected void Flash(Color color, float duration)
+        private void Flash(Color color, float duration)
         {
             StartCoroutine(FlashCoroutine(color, duration));
         }
