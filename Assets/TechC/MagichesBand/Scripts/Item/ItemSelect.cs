@@ -12,25 +12,25 @@ using UnityEngine.Serialization;
 
 namespace TechC.MagichesBand.Item
 {
+    /// <summary>
+    /// アイテム選択と使用を管理するクラス
+    /// </summary>
     public class ItemSelect : MonoBehaviour
     {
+        // アイテムUIオブジェクト一覧
         private readonly List<GameObject> itemUiObjects = new();
     
-        private int selectedIndex;
-        private const int RecoverMp = 7;
-        private const int RecoverHp = 7;
-        private const float StickThreshold = 0.5f;
+        private int selectedIndex; // 選択中のインデックス
+        private const int RecoverMp = 7; // 回復MP量
+        private const int RecoverHp = 7; // 回復HP量
+        private const float StickThreshold = 0.5f; // スティック感度閾値
         
+        [FormerlySerializedAs("disolveController")] [FormerlySerializedAs("loadingShaderController")] [SerializeField] private DissolveController dissolveController;
         [SerializeField] public Transform contentParent;   // アイテムを並べる親（Vertical Layout Group）
-    
         [SerializeField] private CharacterStatus playerStatus;
-        
         [SerializeField] private PlayerController playerController;
         [SerializeField] private InventoryUI inventoryUI;
-        [FormerlySerializedAs("disolveController")] [FormerlySerializedAs("loadingShaderController")] [SerializeField] private DissolveController dissolveController;
-        
         [SerializeField] private GameObject itemTextPrefab; // TextMeshProを含むプレハブ
-    
         [SerializeField] private PlayerInput playerInput;
     
         private void OnEnable()
@@ -68,6 +68,9 @@ namespace TechC.MagichesBand.Item
             cancelAction.performed -= OnCancel;
         }
     
+        /// <summary>
+        /// インベントリを開く
+        /// </summary>
         private void OpenInventory()
         {   
             UpdateUI(); // 忘れずに最新のUIを生成
@@ -79,6 +82,10 @@ namespace TechC.MagichesBand.Item
             UpdateHighlight();
         }
     
+        /// <summary>
+        /// ナビゲーション入力処理
+        /// </summary>
+        /// <param name="context"></param>
         private void OnNavigate(InputAction.CallbackContext context)
         {
             Debug.Log("OnNavigate called!");
@@ -106,6 +113,10 @@ namespace TechC.MagichesBand.Item
             }
         }
     
+        /// <summary>
+        /// 決定入力処理：選択中のアイテムを使用
+        /// </summary>
+        /// <param name="context"></param>
         private void OnSubmit(InputAction.CallbackContext context)
         {
             Debug.Log("OnNavigate called!");
@@ -116,11 +127,18 @@ namespace TechC.MagichesBand.Item
             Debug.Log("Submit");
         }
     
+        /// <summary>
+        /// キャンセル入力処理
+        /// </summary>
+        /// <param name="context"></param>
         private void OnCancel(InputAction.CallbackContext context)
         {
             CloseInventory();
         }
 
+        /// <summary>
+        /// インベントリを閉じる
+        /// </summary>
         private void CloseInventory()
         {
             Debug.Log("closeInventory"); 
@@ -162,6 +180,9 @@ namespace TechC.MagichesBand.Item
             UpdateHighlight();
         }
 
+        /// <summary>
+        /// 選択中のアイテムの文字色を変更
+        /// </summary>
         private void UpdateHighlight()
         {
             for (var i = 0; i < itemUiObjects.Count; i++)
@@ -172,6 +193,10 @@ namespace TechC.MagichesBand.Item
             }
         }
     
+        /// <summary>
+        /// アイテム使用処理
+        /// </summary>
+        /// <param name="index"></param>
         private void UseItem(int index)
         {
             if(index < 0 || index >= inventoryUI.inventory.items.Count) return;
@@ -218,6 +243,7 @@ namespace TechC.MagichesBand.Item
 
             return;
 
+            //アイテム削除とセーブ処理
             void RemoveAndSave()
             {
                 inventoryUI.inventory.RemoveItem(item.itemName, 1);

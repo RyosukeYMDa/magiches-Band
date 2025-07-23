@@ -7,6 +7,10 @@ using UnityEngine.SceneManagement;
 
 namespace TechC.MagichesBand.Core
 {
+    /// <summary>
+    /// ゲームクリア後の処理を担当するクラス
+    /// エンディングBGMの再生と入力によるタイトル画面への遷移を行う
+    /// </summary>
     public class ClearGame : MonoBehaviour
     {
         private void Start()

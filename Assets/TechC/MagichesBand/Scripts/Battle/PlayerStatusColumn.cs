@@ -4,11 +4,14 @@ using UnityEngine;
 
 namespace TechC.MagichesBand.Battle
 {
+    /// <summary>
+    /// プレイヤーのHP・MPステータスをUIに表示するためのクラス
+    /// </summary>
     public class PlayerStatusColumn : MonoBehaviour
     {
-        [SerializeField] private CharacterStatus playerStatus;
-        [SerializeField] private TextMeshProUGUI playerHpText;
-        [SerializeField] private TextMeshProUGUI playerMpText;
+        [SerializeField] private CharacterStatus playerStatus; // プレイヤーのステータス
+        [SerializeField] private TextMeshProUGUI playerHpText; // HP表示用のText
+        [SerializeField] private TextMeshProUGUI playerMpText; // MP表示用のText
 
         private void Update()
         {

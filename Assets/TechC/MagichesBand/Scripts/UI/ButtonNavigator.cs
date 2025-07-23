@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 namespace TechC.MagichesBand.UI
 {
+    /// <summary>
+    /// 複数ボタンをGamepad操作でナビゲートするクラス
+    /// </summary>
     public class ButtonNavigator : MonoBehaviour
     {
     
@@ -13,11 +16,14 @@ namespace TechC.MagichesBand.UI
         public Button[] buttons;
         private int currentIndex;
         
+        // 左スティックによる操作を有効とみなす閾値
         private const float StickThreshold = 0.5f;
         
         private void Start()
         {
             currentIndex = 0;
+            
+            // 最初のボタンを選択状態にする
             SelectButton(currentIndex,playSound:false);
         }
 
@@ -45,6 +51,11 @@ namespace TechC.MagichesBand.UI
             }
         }
     
+        /// <summary>
+        /// 指定したインデックスのボタンを選択状態にする
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="playSound"></param>
         private void SelectButton(int index, bool playSound)
         {
             Sound.Instance.Play(SoundType.ButtonNavi);

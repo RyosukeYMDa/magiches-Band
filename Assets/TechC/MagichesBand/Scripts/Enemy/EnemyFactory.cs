@@ -10,6 +10,9 @@ namespace TechC.MagichesBand.Enemy
         DRex
     }
 
+    /// <summary>
+    /// 敵のプレハブを生成するファクトリークラス
+    /// </summary>
     public class EnemyFactory : MonoBehaviour
     {
         [Header("UI Enemy Prefabs")]
@@ -32,8 +35,12 @@ namespace TechC.MagichesBand.Enemy
         }
         
         /// <summary>
-        /// ランダムな敵をUI上に生成（親はCanvas）
+        /// ランダムな敵またはボスを生成して返す
         /// </summary>
+        /// <param name="localPosition">生成後の敵のローカル座標（Canvas内）</param>
+        /// <param name="parent">親Transform（通常はCanvas）</param>
+        /// <param name="isPhase2">ボスフェーズ2かどうかを判定するフラグ（通常敵には影響しない）</param>
+        /// <returns>ICharacterを実装した敵キャラオブジェクト</returns>
         public ICharacter CreateEnemy(Vector3 localPosition, Transform parent, bool isPhase2 = false)
         {
             GameObject prefab = null;

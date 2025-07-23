@@ -2,6 +2,10 @@ using UnityEngine;
 
 namespace TechC.MagichesBand.Core
 {
+    /// <summary>
+    /// カメラの位置オフセットと回転情報を保存および復元するためのデータクラス
+    /// セーブやロードなどに使用できるよう [System.Serializable] 属性が付けられている
+    /// </summary>
     [System.Serializable]
     public class CameraData
     {
@@ -14,6 +18,11 @@ namespace TechC.MagichesBand.Core
         public float rotZ;
         public float rotW;
 
+        /// <summary>
+        /// CameraのpositionとRotation
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="rotation"></param>
         public CameraData(Vector3 position ,Quaternion rotation)
         {
             this.offsetX = position.x;
@@ -26,11 +35,19 @@ namespace TechC.MagichesBand.Core
             this.rotW = rotation.w;
         }
 
+        /// <summary>
+        /// 保存されたfloat値からQuaternionを復元して返す
+        /// </summary>
+        /// <returns></returns>
         public Quaternion GetRotation()
         {
             return new Quaternion(rotX, rotY, rotZ, rotW);
         }
         
+        /// <summary>
+        /// 保存されたfloat値からVector3を復元して返す
+        /// </summary>
+        /// <returns></returns>
         public Vector3 GetOffset()
         {
             return new Vector3(offsetX, offsetY, offsetZ);

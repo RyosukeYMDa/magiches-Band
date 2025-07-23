@@ -3,6 +3,9 @@ using UnityEngine.Serialization;
 
 namespace TechC.MagichesBand.Game
 {
+    /// <summary>
+    /// CharacterのStatusを管理するClass
+    /// </summary>
     [CreateAssetMenu(menuName = "Date/Character Status")]
     public class CharacterStatus : ScriptableObject
     {

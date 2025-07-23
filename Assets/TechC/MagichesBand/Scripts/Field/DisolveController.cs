@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace TechC.MagichesBand.Field
 {
     /// <summary>
-    ///     画面遷移のコントローラー
+    /// シェーダーによるディゾルブ演出を制御して画面遷移時のエフェクトを管理するクラス
     /// </summary>
     public class DissolveController : MonoBehaviour
     {
@@ -13,12 +13,12 @@ namespace TechC.MagichesBand.Field
 
         [SerializeField] private Image loadingImage;
         [SerializeField] private Material material;
-        private float progress;
-        private bool isPlaying;
-        private Quaternion cameraResidenceAreaRotation;
-        public bool nowLoading;
+        private float progress; // エフェクト進行度合い
+        private bool isPlaying; // エフェクト再生中か
+        private Quaternion cameraResidenceAreaRotation; // レジデンスエリアのカメラ回転
+        public bool nowLoading; // ローディング中フラグ
 
-        private const float Speed = 1f;
+        private const float Speed = 1f; // エフェクト速度
 
         //ループの周期
         private const float LoopDuration = 1f;
@@ -59,7 +59,7 @@ namespace TechC.MagichesBand.Field
         }
 
         /// <summary>
-        ///     effectを発生させ、数秒後にstopEffectを実行
+        /// effectを発生させ、数秒後にstopEffectを実行
         /// </summary>
         /// <returns></returns>
         public void PlayEffect()
@@ -69,6 +69,9 @@ namespace TechC.MagichesBand.Field
             nowLoading = true;
         }
 
+        /// <summary>
+        /// effect停止
+        /// </summary>
         public void StopEffect()
         {
             isPlaying = false;

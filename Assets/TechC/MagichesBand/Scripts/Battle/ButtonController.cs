@@ -6,6 +6,10 @@ using UnityEngine;
 
 namespace TechC.MagichesBand.Battle
 {
+    /// <summary>
+    /// バトル中のボタン操作を制御するクラス
+    /// 攻撃・アイテム選択・バフ表示など、各種UIボタンの表示/非表示やテキスト表示
+    /// </summary>
     public class ButtonController : MonoBehaviour
     {
         //Attackする為のbuttonの参照
@@ -21,10 +25,12 @@ namespace TechC.MagichesBand.Battle
         [SerializeField] private TextMeshProUGUI messageText;
     
         private const int MaxAtkBuffValue = 16; //攻撃力バフの上限
-        private const int MaxDefBuffValue = 16;
+        private const int MaxDefBuffValue = 16; //防御力バフの上限
         
-        
-    
+        /// <summary>
+        /// 行動ボタンを押したときに、行動コマンドUIを表示する
+        /// インベントリ中は無効
+        /// </summary>
         public void EnableAct()
         {
             if (inventoryUI.isInventory) return;
@@ -35,6 +41,9 @@ namespace TechC.MagichesBand.Battle
             actButton.SetActive(false);
         }
 
+        /// <summary>
+        /// 攻撃コマンドを表示する（行動コマンドは閉じる）
+        /// </summary>
         public void EnableAttack()
         {
             if (inventoryUI.isInventory) return;
@@ -43,6 +52,9 @@ namespace TechC.MagichesBand.Battle
             actCommand.SetActive(false);
         }
     
+        /// <summary>
+        /// インベントリを開く処理
+        /// </summary>
         public void InventoryDisplay()
         {
             Debug.Log($"InventoryDisplay called at frame {Time.frameCount}");
@@ -53,7 +65,7 @@ namespace TechC.MagichesBand.Battle
         }
 
         /// <summary>
-        /// buttonの受け付けが重複しないようにコルーチンを使う
+        /// ボタンの受け付けが重複しないようにコルーチンを使う
         /// </summary>
         /// <returns></returns>
         private IEnumerator ShowInventoryPanelNextFrame()
@@ -65,18 +77,27 @@ namespace TechC.MagichesBand.Battle
             inventoryUI.SetInventoryState(true);
         }
 
+        /// <summary>
+        /// 物理攻撃を選んだときの説明テキスト
+        /// </summary>
         public void ShootText()
         {
             messageText.gameObject.SetActive(true);
             messageText.text = "敵に物理攻撃";
         }
 
+        /// <summary>
+        /// 魔法攻撃を選んだときの説明テキスト
+        /// </summary>
         public void ExplosionText()
         {
             messageText.gameObject.SetActive(true);
             messageText.text = "敵に魔法攻撃";
         }
 
+        /// <summary>
+        /// 攻撃力アップを選んだときの説明テキストと上限チェック
+        /// </summary>
         public void AtkUpText()
         {
             messageText.gameObject.SetActive(true);
@@ -88,6 +109,9 @@ namespace TechC.MagichesBand.Battle
             }
         }
 
+        /// <summary>
+        /// 防御力アップを選んだときの説明テキストと上限チェック
+        /// </summary>
         public void DefUpText()
         {
             messageText.gameObject.SetActive(true);

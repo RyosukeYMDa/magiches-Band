@@ -6,6 +6,9 @@ using TechC.MagichesBand.Core;
 
 namespace TechC.MagichesBand.Enemy
 {
+    /// <summary>
+    /// BossPhase2のパラメーターや行動を管理するclass
+    /// </summary>
     public class BossPhase2 : EnemyBase
       {
         protected override void Start()
@@ -14,6 +17,10 @@ namespace TechC.MagichesBand.Enemy
             Sound.Instance.Play(SoundType.Boss2BGM, true);
         }
 
+        /// <summary>
+        /// BossPhase2の行動処理
+        /// ランダムで攻撃方法を選びプレイヤーにダメージを与える
+        /// </summary>
         public override void Act()
         {
             if (BattleManager.Instance.enemyDead) return;
@@ -65,6 +72,10 @@ namespace TechC.MagichesBand.Enemy
             NextState();
         }
 
+        /// <summary>
+        /// 敵撃破後の処理
+        /// スティック回転による勝利演出後にシーンを移動する
+        /// </summary>
         protected override void OnVictoryStickRotate()
         {
             Debug.Log($"{gameObject.name} を撃破！");

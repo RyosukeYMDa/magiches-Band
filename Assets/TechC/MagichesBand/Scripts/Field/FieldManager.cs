@@ -6,7 +6,7 @@ using UnityEngine;
 namespace TechC.MagichesBand.Field
 {
     /// <summary>
-    /// ゲームフィールドのマネージャー
+    /// フィールド内の敵出現などを制御するマネージャークラス
     /// </summary>
     public class FieldManager : MonoBehaviour
     {
@@ -36,6 +36,10 @@ namespace TechC.MagichesBand.Field
             }
         }
 
+        /// <summary>
+        /// 一定時間後に敵を出現させる処理
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator EnableSpawnPoint()
         {
             yield return new WaitForSeconds(SpawnEnemyTime);

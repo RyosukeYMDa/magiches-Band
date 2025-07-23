@@ -6,6 +6,9 @@ using TechC.MagichesBand.Core;
 
 namespace TechC.MagichesBand.Enemy
 {
+    /// <summary>
+    /// Slimeのパラメーターや行動を管理するclass
+    /// </summary>
     public class Slime : EnemyBase
     {
         protected override void Start()
@@ -14,6 +17,10 @@ namespace TechC.MagichesBand.Enemy
             Sound.Instance.Play(SoundType.SlimeBGM, true);
         }
 
+        /// <summary>
+        /// スライムの行動処理
+        /// ランダムで攻撃方法を選びプレイヤーにダメージを与える
+        /// </summary>
         public override void Act()
         {
             Debug.Log("EnemyAct");
@@ -52,6 +59,10 @@ namespace TechC.MagichesBand.Enemy
             NextState();
         }
 
+        /// <summary>
+        /// 敵撃破後の処理
+        /// スティック回転による勝利演出後にシーンを移動する
+        /// </summary>
         protected override void OnVictoryStickRotate()
         {
             Debug.Log($"{gameObject.name} を撃破！");

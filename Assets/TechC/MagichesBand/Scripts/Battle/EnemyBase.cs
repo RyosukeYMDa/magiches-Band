@@ -8,18 +8,23 @@ using System.Collections;
 
 namespace TechC.MagichesBand.Battle
 {
+    /// <summary>
+    /// 敵キャラクターの共通ベースクラス
+    /// 被ダメージ処理、回避、クリティカル判定、死亡演出（スティック回転 or 即死）
+    /// </summary>
     public abstract class EnemyBase : MonoBehaviour, ICharacter
     {
-        [SerializeField] private CharacterStatus charaStatus;
-        [SerializeField] protected BattlePlayerController battlePlayerController;
-        [SerializeField] private SkeletonGraphic skeletonGraphic;
-        [SerializeField] protected bool useStickToDie = true;
+        [SerializeField] private CharacterStatus charaStatus; // ステータス情報
+        [SerializeField] protected BattlePlayerController battlePlayerController; // プレイヤー操作スクリプトの参照
+        [SerializeField] private SkeletonGraphic skeletonGraphic;  // Spineアニメーションの表示用コンポーネント
+        [SerializeField] protected bool useStickToDie = true;  // スティック回転を使うかどうか
         
         private const float EvasionRate = 0.1f; //回避率
         private const float CriticalRate = 0.25f; //クリティカルの確率（今は25％）
         private const int CriticalMultiplier = 2; // クリティカル倍率
-        private Color originalColor;
+        private Color originalColor; // 元の色を保持
         
+        // ICharacter インターフェース経由でステータス参照用プロパティ
         public CharacterStatus Status => charaStatus;
         
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -31,7 +36,8 @@ namespace TechC.MagichesBand.Battle
         /// <summary>
         /// criticalの処理
         /// </summary>
-        /// <param name="damage"></param>
+        /// <param name="damage">>通常のダメージ</param>
+        /// <returns>クリティカル補正後のダメージ</returns>
         protected int CriticalCalculation(int damage)
         {
             if (!(Random.value < CriticalRate)) return damage;
@@ -41,8 +47,12 @@ namespace TechC.MagichesBand.Battle
             return damage;
         }
         
+        /// <summary>
+        /// ダメージを受けたときの処理
+        /// </summary>
         public virtual void TakeDamage(int damage, ICharacter.AttackType type)
         {
+            // 回避判定（確率で成功）
             if (Random.value < EvasionRate)
             {
                 Debug.Log($"回避 残HP: {Status.hp}");
@@ -50,10 +60,12 @@ namespace TechC.MagichesBand.Battle
                 return;
             }
 
+            // 魔法 or 物理によって防御力を適用してダメージ軽減
             damage -= (type == ICharacter.AttackType.Magical) ? Status.mDef : Status.def;
-            damage = Mathf.Max(0, damage);
+            damage = Mathf.Max(0, damage); // マイナスにはならないよう制限
             Status.hp -= damage;
 
+            // マイナスにはならないよう制限
             if (damage > 0)
             {
                 Flash(Color.red, 1f);
@@ -65,6 +77,7 @@ namespace TechC.MagichesBand.Battle
 
             if (Status.hp > 0) return;
             
+            // 撃破時の処理
             if (useStickToDie)
             {
                 StickRotationDetector.Instance.OnRotationCompleted += OnVictoryStickRotate;
@@ -76,11 +89,17 @@ namespace TechC.MagichesBand.Battle
             }
         }
 
+        /// <summary>
+        /// フラッシュ演出を開始
+        /// </summary>
         private void Flash(Color color, float duration)
         {
             StartCoroutine(FlashCoroutine(color, duration));
         }
 
+        /// <summary>
+        /// 指定色にしてから元の色に戻す演出
+        /// </summary>
         private IEnumerator FlashCoroutine(Color color, float duration)
         {
             skeletonGraphic.color = color;
@@ -88,19 +107,32 @@ namespace TechC.MagichesBand.Battle
             skeletonGraphic.color = originalColor;
         }
 
+        /// <summary>
+        /// ステータスを最大値にリセット
+        /// </summary>
         public virtual void ResetStatus()
         {
             Status.hp = Status.maxHp;
             Status.mp = Status.maxMp;
         }
 
+        /// <summary>
+        /// 状態遷移処理
+        /// </summary>
         public virtual void NextState()
         {
             if (!BattleManager.Instance.playerDead)
                 ButtleTurnManager.Instance.ProceedTurn();
         }
 
+        /// <summary>
+        /// 撃破時のスティック回転完了後に呼ばれる抽象メソッド
+        /// </summary>
         protected abstract void OnVictoryStickRotate();
+        
+        /// <summary>
+        /// 敵の行動処理
+        /// </summary>
         public abstract void Act();
     }
 }

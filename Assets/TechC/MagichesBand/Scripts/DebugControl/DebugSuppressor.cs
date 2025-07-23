@@ -1,3 +1,4 @@
+//定義されているシンボルが DEBUG でないときにコンパイルされる
 #if !DEBUG
 public static class DebugSuppressor
 {

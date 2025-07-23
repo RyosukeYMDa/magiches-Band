@@ -5,6 +5,9 @@ using TechC.MagichesBand.Core;
 
 namespace TechC.MagichesBand.Enemy
 {
+    /// <summary>
+    /// Bossのパラメーターや行動を管理するclass
+    /// </summary>
     public class Boss : EnemyBase
     {
         private const int ConsumptionMp = 1;
@@ -16,6 +19,10 @@ namespace TechC.MagichesBand.Enemy
             Sound.Instance.Play(SoundType.BossBGM, true);
         }
 
+        /// <summary>
+        /// Bossの行動処理
+        /// ランダムで攻撃方法を選びプレイヤーにダメージを与える
+        /// </summary>
         public override void Act()
         {
             var damage = 0;
@@ -44,6 +51,9 @@ namespace TechC.MagichesBand.Enemy
             NextState();
         }
 
+        /// <summary>
+        /// 敵撃破後の処理
+        /// </summary>
         protected override void OnVictoryStickRotate()
         {
             Debug.Log($"{gameObject.name} を撃破！");

@@ -9,7 +9,7 @@ using UnityEngine.Serialization;
 namespace TechC.MagichesBand.Field
 {
     /// <summary>
-    ///     セーブ等のメニューを管理するクラス
+    /// フィールド中のセーブやインベントリ表示などメニュー操作全般を管理するクラス
     /// </summary>
     public class GameMenu : MonoBehaviour
     {
@@ -50,6 +50,9 @@ namespace TechC.MagichesBand.Field
             playerController.isShown = true;
         }
 
+        /// <summary>
+        /// // メニューを閉じる処理
+        /// </summary>
         public void CloseMenu()
         {
             // 二重起動防止
@@ -61,6 +64,11 @@ namespace TechC.MagichesBand.Field
             gameObject.SetActive(false);
         }
 
+        /// <summary>
+        /// // パネルを一定時間かけて指定位置へスライドさせるコルーチン処理
+        /// </summary>
+        /// <param name="targetPosition"></param>
+        /// <returns></returns>
         private IEnumerator SlidePanel(Vector2 targetPosition)
         {
             Sound.Instance.Play(SoundType.MenuSlide);
@@ -86,6 +94,9 @@ namespace TechC.MagichesBand.Field
             }
         }
 
+        /// <summary>
+        /// // インベントリ画面を開く処理
+        /// </summary>
         public void InventoryDisplay()
         {
             Debug.Log("InventoryDisplay");
@@ -95,6 +106,9 @@ namespace TechC.MagichesBand.Field
             inventoryUI.SetInventoryState(true);
         }
         
+        /// <summary>
+        /// タイトル画面に遷移する
+        /// </summary>
         public void ReturnTitle()
         {
             playerController.SavePlayerPosition();

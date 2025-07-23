@@ -10,6 +10,10 @@ using Random = UnityEngine.Random;
 
 namespace TechC.MagichesBand.Battle
 {
+    /// <summary>
+    /// バトル中のプレイヤー操作を担当するクラス
+    /// コマンド選択や攻撃処理 ダメージ処理などを制御する
+    /// </summary>
     public class BattlePlayerController : MonoBehaviour,ICharacter
     {
         [SerializeField] private CharacterStatus playerStatus;
@@ -20,6 +24,7 @@ namespace TechC.MagichesBand.Battle
         [SerializeField] private ItemSelect itemSelect;
         [SerializeField] private GameObject actButton;
         
+        // クリティカルや回避 バフの設定値
         private const float CriticalRate = 0.25f; //クリティカルの確率（今は25％）
         private const int CriticalMultiplier = 2; // クリティカル倍率
         private const float EvasionRate = 0.1f; //回避の確率（今は10％）
@@ -34,6 +39,7 @@ namespace TechC.MagichesBand.Battle
 
         private void Update()
         {
+            // アイテム選択が完了したかを監視し 状態をリセットしてターンを進める
             if (!inventoryUI.isInventory || !inventoryUI.isItem) return;
         
             inventoryUI.isItem = false;
@@ -42,6 +48,9 @@ namespace TechC.MagichesBand.Battle
             NextState();
         }   
     
+        /// <summary>
+        /// プレイヤーの行動開始処理 ボタンを有効化する
+        /// </summary>
         public void Act()
         {
             Debug.Log("NotButtonAct");
@@ -52,6 +61,9 @@ namespace TechC.MagichesBand.Battle
             BattleManager.Instance.EnableActButton();
         }
     
+        /// <summary>
+        /// 魔法攻撃のコマンド MPを消費し敵にダメージを与える
+        /// </summary>
         public void Explosion()
         {
             consumptionMp = 4;
@@ -67,7 +79,7 @@ namespace TechC.MagichesBand.Battle
                 // 敵を取得
                 var enemy = BattleManager.Instance.CurrentEnemy;
         
-                // ダメージ計算()
+                // ダメージ計算
                 var damage = Mathf.Max(0, playerStatus.mAtk + atkDoublingValue);
                 damage = CriticalCalculation(damage, ICharacter.AttackType.Magical);
             }
@@ -77,6 +89,9 @@ namespace TechC.MagichesBand.Battle
             }
         }
 
+        /// <summary>
+        /// 物理攻撃のコマンド 敵にダメージを与える
+        /// </summary>
         public void Shoot()
         {
             Debug.Log("Slash");
@@ -86,12 +101,17 @@ namespace TechC.MagichesBand.Battle
         
             attackCommand.SetActive(false);
         
+            // 敵を取得
             var enemy = BattleManager.Instance.CurrentEnemy;
         
+            // ダメージ計算
             var damage = Mathf.Max(0,playerStatus.atk + atkDoublingValue);
             damage = CriticalCalculation(damage, ICharacter.AttackType.Physical);
         }
 
+        /// <summary>
+        /// 攻撃力を上昇させる バフの上限を超えないように制御
+        /// </summary>
         public void AtkUp()
         {
             switch (atkDoublingValue)
@@ -119,6 +139,9 @@ namespace TechC.MagichesBand.Battle
             MessageWindow.Instance.DisplayMessage("攻撃力が少し上がった", NextState);
         }
 
+        /// <summary>
+        /// 防御力を上昇させる バフの上限を超えないように制御
+        /// </summary>
         public void DefUp()
         {
             switch (defDoublingValue)
@@ -218,6 +241,7 @@ namespace TechC.MagichesBand.Battle
 
             if (playerStatus.hp > 0) return;
             
+            // プレイヤー撃破時の処理
             BattleManager.Instance.playerDead = true;
             ResetStatus();
             GameManager.Instance.playerPosition = new Vector3(-13f, 0.6f, 6);
@@ -229,6 +253,9 @@ namespace TechC.MagichesBand.Battle
             });
         }
 
+        /// <summary>
+        /// 次のターンへ進む
+        /// </summary>
         public void NextState()
         {
             if (BattleManager.Instance.playerDead)
@@ -241,18 +268,25 @@ namespace TechC.MagichesBand.Battle
             ButtleTurnManager.Instance.ProceedTurn();
         }
     
+        /// <summary>
+        /// プレイヤーのHPとMPを最大値にリセットする
+        /// </summary>
         public void ResetStatus()
         {
             playerStatus.hp = playerStatus.maxHp;
             playerStatus.mp = playerStatus.maxMp;
         }
 
+        /// <summary>
+        /// 攻撃と防御のバフをリセットする
+        /// </summary>
         public void ResetBuff()
         {
             atkDoublingValue = 0;
             defDoublingValue = 0;
         }
     
+        // ICharacterのStatusプロパティ
         public CharacterStatus Status => playerStatus;
     }
 }

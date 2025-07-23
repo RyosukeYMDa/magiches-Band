@@ -25,7 +25,7 @@ namespace TechC.MagichesBand.Game
         private Vector3 startCameraOffset;
         private Quaternion startCameraRotation;
 
-        public EnemyType enemyType;
+        public EnemyType enemyType; // 現在の敵タイプ
 
         //enemyの発生する場所のtype
         public enum EnemyType
@@ -38,8 +38,12 @@ namespace TechC.MagichesBand.Game
         //インベントリ
         public Inventory inventory;
 
+        // シーン切り替えで破棄しない
         protected override bool dontDestroyOnLoad => true;
 
+        /// <summary>
+        /// 初期化：セーブデータからプレイヤー・カメラ情報を読み込む
+        /// </summary>
         protected override void Awake()
         {
             base.Awake();
@@ -77,6 +81,9 @@ namespace TechC.MagichesBand.Game
             }
         }
 
+        /// <summary>
+        /// スタート時にインベントリと取得済みアイテムIDを読み込み
+        /// </summary>
         private void Start()
         {
             // インベントリの読み込み
@@ -96,6 +103,9 @@ namespace TechC.MagichesBand.Game
             obtainedItemIds = SaveManager.LoadObtainedItemIds() ?? new List<string>();
         }
 
+        /// <summary>
+        /// プレイヤーデータを再読み込み（セーブデータから）
+        /// </summary>
         private void ReloadPlayerData()
         {
             var data = SaveManager.LoadPlayerData();
@@ -114,6 +124,9 @@ namespace TechC.MagichesBand.Game
             }
         }
 
+        /// <summary>
+        /// カメラデータを再読み込み（セーブデータから）
+        /// </summary>
         private void ReloadCameraData()
         {
             var data = SaveManager.LoadCameraData();
@@ -129,6 +142,9 @@ namespace TechC.MagichesBand.Game
             }
         }
     
+        /// <summary>
+        /// ゲームデータを初期化（HP/MP回復、インベントリリセットなど）
+        /// </summary>
         public void DateReset()
         {
             Debug.Log("DateReset");

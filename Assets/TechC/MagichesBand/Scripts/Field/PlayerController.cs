@@ -12,7 +12,7 @@ using UnityEngine.Serialization;
 namespace TechC.MagichesBand.Field
 {
     /// <summary>
-    ///     プレイヤーキャラクターのコントローラー
+    /// プレイヤーキャラクターのコントローラー
     /// </summary>
     [RequireComponent(typeof(SkeletonAnimation))]
     [RequireComponent(typeof(Rigidbody))]
@@ -28,15 +28,16 @@ namespace TechC.MagichesBand.Field
         private State state = State.Idle;
     
         //playerの動き関連
-        private const float MoveSpeed = 10f;
-        private Vector3 moveInput;
         [SerializeField] private string testAnimationName = "walk";
-        private Quaternion targetRotation;
-        private const float RotationSpeed = 10f;
+        private const float MoveSpeed = 10f; // プレイヤーの移動速度
+        private Vector3 moveInput; // 入力された移動方向
+        private Quaternion targetRotation; // 回転先
+        private const float RotationSpeed = 10f; // 回転速度
         private Vector3 moveDirection; // 移動方向
         private Vector3 playerDirection; // プレイヤーの向いている方向
+        
         private PlayerInput playerInput;
-        private const float PlayerWarpOffset = 4f;
+        private const float PlayerWarpOffset = 4f; // エリア移動時のプレイヤー移動量
 
         //spineAnimation関連
         private SkeletonAnimation skeletonAnimation;
@@ -44,7 +45,6 @@ namespace TechC.MagichesBand.Field
 
         //カメラの位置
         [SerializeField] private Transform cameraTransform;
-
         [FormerlySerializedAs("disolveController")] [FormerlySerializedAs("loadingShaderController")] [SerializeField] private DissolveController dissolveController;
         [SerializeField] private CameraController cameraController;
         [SerializeField] private InventoryUI inventoryUI;
@@ -55,6 +55,7 @@ namespace TechC.MagichesBand.Field
     
         public bool isShown; //menubarが出ているかどうか
         
+        // 足音関連
         private float footstepTimer = 0f;
         private const float FootstepInterval = 0.4f; // 秒ごとに足音
 
@@ -66,6 +67,8 @@ namespace TechC.MagichesBand.Field
             rb =  GetComponent<Rigidbody>();
             //空気抵抗
             rb.linearDamping = 10f;
+            
+            // 前回セーブされた位置・角度に復元
             gameObject.transform.position = GameManager.Instance.playerPosition;
             gameObject.transform.rotation = GameManager.Instance.playerRotation;
             
@@ -73,6 +76,7 @@ namespace TechC.MagichesBand.Field
             skeletonAnimation = GetComponent<SkeletonAnimation>();
             spAnimationState = skeletonAnimation.AnimationState;
         
+            // Inputの設定
             playerInput = GetComponent<PlayerInput>();
             var moveAction = playerInput.actions["Move"];
             var menuAction = playerInput.actions["Menu"];
@@ -86,6 +90,7 @@ namespace TechC.MagichesBand.Field
         {
             if (!playerInput || !playerInput.actions) return;
             
+            // Inputイベント解除
             var moveAction = playerInput.actions["Move"];
             var menuAction = playerInput.actions["Menu"];
                 
@@ -122,10 +127,12 @@ namespace TechC.MagichesBand.Field
                     throw new ArgumentOutOfRangeException();
             }
         
-            UpdateDirection();
+            UpdateDirection(); // 向きの更新
         }
 
-        // 向き（回転）の更新
+        /// <summary>
+        /// 入力に応じてプレイヤーの向きを変える処理
+        /// </summary>
         private void UpdateDirection()
         {
             // 入力があった時だけ向きを更新
@@ -150,14 +157,24 @@ namespace TechC.MagichesBand.Field
                 moveDirection = Vector3.zero;
             }
 
+            // プレイヤーの回転補間
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed * Time.deltaTime);
         }
         
+        /// <summary>
+        /// RigidbodyのlinearVelocityを使ってプレイヤーを移動させる処理
+        /// FixedUpdateで実行し物理演算に対応させる
+        /// moveDirectionベクトルと移動速度を乗算して移動量とする
+        /// </summary>
         private void FixedUpdate()
         {
             rb.linearVelocity = moveDirection * MoveSpeed;
         }
     
+        /// <summary>
+        /// 移動入力が行われたときに呼ばれる処理
+        /// 入力ベクトルを取得しY軸を除外したXZ平面の移動ベクトルとして保存する
+        /// </summary>
         private void OnMovePerformed(InputAction.CallbackContext context)
         {
             if (isShown || inventoryUI.isInventory || dissolveController.nowLoading) return;
@@ -166,11 +183,18 @@ namespace TechC.MagichesBand.Field
             moveInput = new Vector3(input.x, 0f, input.y);
         }
 
+        /// <summary>
+        /// 移動入力がキャンセルされたときに呼ばれる処理
+        /// 移動ベクトルをゼロに設定し停止状態にする
+        /// </summary>
         private void OnMoveCanceled(InputAction.CallbackContext context)
         {
             moveInput = Vector3.zero;
         }
         
+        /// <summary>
+        /// メニューを開閉する処理
+        /// </summary>
         public void Menu(InputAction.CallbackContext context)
         {
             if(inventoryUI.isInventory)return;
@@ -187,6 +211,10 @@ namespace TechC.MagichesBand.Field
             }
         }
 
+        /// <summary>
+        /// プレイヤーの足音を再生する処理
+        /// SoundManagerを通してFootstepサウンドを再生する
+        /// </summary>
         private void PlayFootstepSound()
         {
             Sound.Instance.Play(SoundType.PlayerFootstep);

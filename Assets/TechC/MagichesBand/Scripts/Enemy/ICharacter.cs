@@ -1,5 +1,8 @@
 namespace TechC.MagichesBand.Enemy
 {
+    /// <summary>
+    /// バトルで共通に使われるキャラクターのインターフェース
+    /// </summary>
     public interface ICharacter
     {
         public enum AttackType
@@ -14,6 +17,6 @@ namespace TechC.MagichesBand.Enemy
         void NextState();
 
         void ResetStatus();
-        Game.CharacterStatus Status { get; }
+        Game.CharacterStatus Status { get; } // キャラクターのステータス情報
     }
 }

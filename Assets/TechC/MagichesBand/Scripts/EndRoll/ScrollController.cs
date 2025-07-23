@@ -3,6 +3,10 @@ using UnityEngine;
 
 namespace TechC.MagichesBand.EndRoll
 {
+    /// <summary>
+    /// エンドロールのスクロール演出を制御するためのクラス
+    /// RectTransform を徐々に上へ移動させて規定位置に到達したら感謝テキストを表示する
+    /// </summary>
     public class ScrollController : MonoBehaviour
     {
         [SerializeField] private RectTransform rectTransform;

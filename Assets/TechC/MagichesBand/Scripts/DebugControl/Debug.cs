@@ -1,3 +1,4 @@
+// 主にリリースビルド用にログ出力を完全に無効化するためのコード
 #if RELEASE
 public static class Debug
 {

@@ -1,5 +1,8 @@
 namespace TechC.MagichesBand.Item
 {
+    /// <summary>
+    /// インベントリ内の1つのアイテム情報を表すクラス
+    /// </summary>
     [System.Serializable]
     public class InventoryItem
     {

@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace TechC.MagichesBand.Field
 {
+    /// <summary>
+    /// Keyを所持しているのみDoorを出現させるClass
+    /// </summary>
     public class KeyDoorActivator : MonoBehaviour
     {
         [SerializeField] private GameObject door;

@@ -6,6 +6,9 @@ using TechC.MagichesBand.Core;
 
 namespace TechC.MagichesBand.Enemy
 {
+    /// <summary>
+    /// DRexのパラメーターや行動を管理するclass
+    /// </summary>
     public class DRex : EnemyBase
     {
         protected override void Start()
@@ -14,6 +17,10 @@ namespace TechC.MagichesBand.Enemy
             Sound.Instance.Play(SoundType.DragonBGM, true);
         }
 
+        /// <summary>
+        /// DRexの行動処理
+        /// ランダムで攻撃方法を選びプレイヤーにダメージを与える
+        /// </summary>
         public override void Act()
         {
             Debug.Log("EnemyAct");
@@ -52,6 +59,10 @@ namespace TechC.MagichesBand.Enemy
             NextState();
         }
 
+        /// <summary>
+        /// 敵撃破後の処理
+        /// スティック回転による勝利演出後にシーンを移動する
+        /// </summary>
         protected override void OnVictoryStickRotate()
         {
             Debug.Log($"{gameObject.name} を撃破！");

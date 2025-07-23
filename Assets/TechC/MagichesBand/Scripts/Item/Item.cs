@@ -4,11 +4,14 @@ using UnityEngine;
 
 namespace TechC.MagichesBand.Item
 {
+    /// <summary>
+    /// フィールド上に存在する取得可能なアイテムを制御するクラス
+    /// </summary>
     [System.Serializable]
     public class Item : MonoBehaviour
     {
         [Header("アイテム情報")]
-        [SerializeField] public string itemId;
+        [SerializeField] public string itemId; // 識別用ID
         [SerializeField] public string itemName;   // item名
         [SerializeField] public int amount = 1;    // 取得できる個数
 

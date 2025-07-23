@@ -4,10 +4,12 @@ using UnityEngine.InputSystem;
 
 namespace TechC.MagichesBand.Field
 {
+    /// <summary>
+    /// インベントリ追加画面でキャンセル操作を検出してサウンドを再生するクラス
+    /// </summary>
     public class InventoryAddCancel : MonoBehaviour
     {
         [SerializeField] private PlayerInput playerInput;
-    
         [SerializeField] private GameObject slidePanel;
     
         private void OnEnable()
@@ -27,6 +29,7 @@ namespace TechC.MagichesBand.Field
             cancelAction.performed -= OnAddMainCancel;
         }
 
+        // キャンセル操作が実行された際の処理
         private void OnAddMainCancel(InputAction.CallbackContext context)
         {
             Sound.Instance.Play(SoundType.ButtonCancel);

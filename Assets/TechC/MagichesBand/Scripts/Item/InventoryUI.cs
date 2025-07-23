@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace TechC.MagichesBand.Item
 {
+    /// <summary>
+    /// インベントリUIとアイテム取得メッセージ処理を管理するクラス
+    /// </summary>
     public class InventoryUI : MonoBehaviour
     {
         public Inventory inventory;
@@ -19,12 +22,19 @@ namespace TechC.MagichesBand.Item
 
         private const float TextFadeOutTime = 1f;
 
+        /// <summary>
+        /// セーブデータからインベントリを読み込む
+        /// </summary>
         private void Start()
         {
             // Inventoryを初期化 or 既存のものを取得
             inventory = SaveManager.LoadInventory() ?? new Inventory();
         }
     
+        /// <summary>
+        /// アイテム取得音とメッセージ表示を行う
+        /// </summary>
+        /// <param name="itemName"></param>
         public void GetItem(string itemName)
         {
             Sound.Instance.Play(SoundType.ItemGet);
@@ -32,6 +42,11 @@ namespace TechC.MagichesBand.Item
             StartCoroutine(MessageReception($"{itemName}:get"));
         }
     
+        /// <summary>
+        /// 一定時間メッセージを表示するコルーチン
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <returns></returns>
         public IEnumerator MessageReception(string msg)
         {
             Debug.Log("Message reception");
@@ -53,6 +68,10 @@ namespace TechC.MagichesBand.Item
             GameManager.Instance.inventory.AddItem(itemId, itemName, quantity);
         }
         
+        /// <summary>
+        /// インベントリ表示状態の変更を行う
+        /// </summary>
+        /// <param name="state"></param>
         public void SetInventoryState(bool state)
         {
             isInventory = state;

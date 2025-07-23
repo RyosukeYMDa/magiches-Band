@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace TechC.MagichesBand.Field
 {
+    /// <summary>
+    /// プレイヤーが近づいたときにインベントリを開ける扉オブジェクトの処理を管理するクラス
+    /// </summary>
     public class Door : MonoBehaviour
     {
         [SerializeField] private InventoryUI inventoryUI;
