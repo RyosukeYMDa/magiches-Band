@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 
 namespace TechC.MagichesBand.Item
 {
@@ -11,6 +12,9 @@ namespace TechC.MagichesBand.Item
         // 所持アイテム一覧
         public List<InventoryItem> items = new List<InventoryItem>();
 
+        // 変更が発生したときに通知するイベント
+        public event Action OnInventoryChanged;
+        
         /// <summary>
         /// 指定したアイテムを追加
         /// </summary>
@@ -28,6 +32,7 @@ namespace TechC.MagichesBand.Item
             {
                 items.Add(new InventoryItem(id, itemName, amount));
             }
+            OnInventoryChanged?.Invoke();
         }
 
         /// <summary>
@@ -46,6 +51,25 @@ namespace TechC.MagichesBand.Item
             {
                 items.Remove(item);
             }
+            OnInventoryChanged?.Invoke();
+        }
+        
+        /// <summary>
+        /// 所持しているかどうかを簡単にチェックする補助関数
+        /// </summary>
+        public bool HasItem(string itemName, int minAmount = 1)
+        {
+            var item = items.Find(i => i.itemName == itemName);
+            return item != null && item.quantity >= minAmount;
+        }
+
+        /// <summary>
+        /// 所持数を返す ない場合は0
+        /// </summary>
+        public int GetQuantity(string itemName)
+        {
+            var item = items.Find(i => i.itemName == itemName);
+            return item?.quantity ?? 0;
         }
     }
 }

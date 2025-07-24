@@ -13,6 +13,17 @@ namespace TechC.MagichesBand.Core
     /// </summary>
     public class ClearGame : MonoBehaviour
     {
+        //キャッシュ
+        private GameManager gameManager;
+        private Sound sound;
+
+        private void Awake()
+        {
+            //キャッシュ
+            gameManager = GameManager.Instance;
+            sound = Sound.Instance;
+        }
+        
         private void Start()
         {
             Sound.Instance.Play(SoundType.EndingBGM,true);

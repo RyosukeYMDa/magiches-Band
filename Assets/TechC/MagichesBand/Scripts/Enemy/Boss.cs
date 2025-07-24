@@ -12,6 +12,20 @@ namespace TechC.MagichesBand.Enemy
     {
         private const int ConsumptionMp = 1;
 
+        //キャッシュ
+        private Sound sound;
+        private BattleManager battleManager;
+        private MessageWindow messageWindow;
+
+        protected override void Awake()
+        {
+            //キャッシュ
+            base.Awake();
+            sound = Sound.Instance;
+            battleManager = BattleManager.Instance;
+            messageWindow = MessageWindow.Instance;
+        }
+        
         protected override void Start()
         {
             base.Start();

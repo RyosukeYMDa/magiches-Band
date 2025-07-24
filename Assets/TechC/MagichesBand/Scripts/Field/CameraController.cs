@@ -11,6 +11,15 @@ namespace TechC.MagichesBand.Field
         [SerializeField] private Transform target;
         private Vector3 offset; // ターゲットからの相対位置オフセット
 
+        //キャッシュ
+        private GameManager gameManager;
+
+        private void Awake()
+        {
+            //キャッシュ
+            gameManager = GameManager.Instance;
+        }
+        
         private void Start()
         {
             // カメラ位置 = ターゲット位置 + offset

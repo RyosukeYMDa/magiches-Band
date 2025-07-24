@@ -24,8 +24,25 @@ namespace TechC.MagichesBand.Battle
         private const int CriticalMultiplier = 2; // クリティカル倍率
         private Color originalColor; // 元の色を保持
         
+        // キャッシュ
+        private MessageWindow messageWindow;
+        private Sound sound;
+        private StickRotationDetector stickDetector;
+        private BattleManager battleManager;
+        private ButtleTurnManager turnManager;
+        
         // ICharacter インターフェース経由でステータス参照用プロパティ
         public CharacterStatus Status => charaStatus;
+        
+        protected virtual void Awake()
+        {
+            //キャッシュ
+            messageWindow = MessageWindow.Instance;
+            sound = Sound.Instance;
+            stickDetector = StickRotationDetector.Instance;
+            battleManager = BattleManager.Instance;
+            turnManager = ButtleTurnManager.Instance;
+        }
         
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         protected virtual void Start()

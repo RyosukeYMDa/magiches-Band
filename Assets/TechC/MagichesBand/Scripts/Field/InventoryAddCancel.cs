@@ -1,3 +1,4 @@
+using System;
 using TechC.MagichesBand.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,6 +13,15 @@ namespace TechC.MagichesBand.Field
         [SerializeField] private PlayerInput playerInput;
         [SerializeField] private GameObject slidePanel;
     
+        //キャッシュ
+        private Sound sound;
+
+        private void Awake()
+        {
+            //キャッシュ
+            sound = Sound.Instance;
+        }
+
         private void OnEnable()
         {
             var cancelAction = playerInput.actions["UiCancel"];

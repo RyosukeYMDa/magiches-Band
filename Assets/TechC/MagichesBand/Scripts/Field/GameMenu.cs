@@ -28,6 +28,15 @@ namespace TechC.MagichesBand.Field
         [SerializeField] private PlayerInput playerInput;
         [SerializeField] public GameObject inventoryPanel;
 
+        //キャッシュ
+        private Sound sound;
+
+        private void Awake()
+        {
+            //キャッシュ
+            sound = Sound.Instance;
+        }
+        
         private void OnEnable()
         {
             if (playerController.isShown && inventoryUI.isInventory || dissolveController.nowLoading)

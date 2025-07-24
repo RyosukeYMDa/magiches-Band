@@ -26,6 +26,15 @@ namespace TechC.MagichesBand.Battle
         // 現在の敵を外部から取得可能にする
         public ICharacter CurrentEnemy { get; private set; }
 
+        //キャッシュ
+        private GameManager gameManager;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            gameManager = GameManager.Instance;
+        }
+        
         private void Start()
         {
             effectImage.color = Color.clear;

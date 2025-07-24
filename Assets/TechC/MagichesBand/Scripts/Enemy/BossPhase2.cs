@@ -10,7 +10,21 @@ namespace TechC.MagichesBand.Enemy
     /// BossPhase2のパラメーターや行動を管理するclass
     /// </summary>
     public class BossPhase2 : EnemyBase
-      {
+    {
+        //キャッシュ
+        private Sound sound;
+        private BattleManager battleManager;
+        private MessageWindow messageWindow;
+        
+        protected override void Awake()
+        {
+            //キャッシュ
+            base.Awake();
+            sound = Sound.Instance;
+            battleManager = BattleManager.Instance;
+            messageWindow = MessageWindow.Instance;
+        }
+          
         protected override void Start()
         {
             base.Start();

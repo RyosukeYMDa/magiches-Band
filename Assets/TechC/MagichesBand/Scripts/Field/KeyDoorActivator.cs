@@ -1,4 +1,5 @@
 using TechC.MagichesBand.Game;
+using TechC.MagichesBand.Item;
 using UnityEngine;
 
 namespace TechC.MagichesBand.Field
@@ -10,9 +11,29 @@ namespace TechC.MagichesBand.Field
     {
         [SerializeField] private GameObject door;
 
-        private void Update()
+        //キャッシュ
+        private Inventory inventory;
+        
+        private const string KeyItemName = "Key";
+
+        private void Start()
         {
-            door.SetActive(GameManager.Instance.inventory.items.Exists(i => i.itemName == "Key"));
+            //キャッシュ
+            inventory = GameManager.Instance.inventory;
+            
+            inventory.OnInventoryChanged += Refresh;
+            Refresh();
+        }
+
+        private void OnDestroy()
+        {
+            if (inventory != null)
+                inventory.OnInventoryChanged -= Refresh;
+        }
+
+        private void Refresh()
+        {
+            door.SetActive(inventory.HasItem(KeyItemName));
         }
     }
 }

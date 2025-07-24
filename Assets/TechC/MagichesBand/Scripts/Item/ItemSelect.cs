@@ -33,6 +33,19 @@ namespace TechC.MagichesBand.Item
         [SerializeField] private GameObject itemTextPrefab; // TextMeshProを含むプレハブ
         [SerializeField] private PlayerInput playerInput;
     
+        //キャッシュ
+        private Sound sound;
+        private GameManager gameManager;
+        private MessageWindow messageWindow;
+
+        private void Awake()
+        {
+            //キャッシュ
+            sound = Sound.Instance;
+            gameManager = GameManager.Instance;
+            messageWindow = MessageWindow.Instance;
+        }
+        
         private void OnEnable()
         {
             // PlayerInputが設定されていなければ警告だけ出す

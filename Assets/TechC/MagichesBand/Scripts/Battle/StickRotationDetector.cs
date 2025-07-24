@@ -22,6 +22,19 @@ namespace TechC.MagichesBand.Battle
     
         public bool defeatedEnemy; //敵に倒されているかの判別
     
+        // キャッシュ
+        private BattleManager battleManager;
+        private MessageWindow messageWindow;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            
+            // キャッシュ
+            battleManager = BattleManager.Instance;
+            messageWindow = MessageWindow.Instance;
+        }
+        
         private void Update()
         {
             if (!defeatedEnemy) return;

@@ -20,7 +20,6 @@ namespace TechC.MagichesBand.Battle
         [SerializeField] private GameObject attackCommand;
         [SerializeField] private TextMeshProUGUI messageText;
         [SerializeField] private InventoryUI inventoryUI;
-        [SerializeField] private BattleManager battleManager;
         [SerializeField] private ItemSelect itemSelect;
         [SerializeField] private GameObject actButton;
         
@@ -36,7 +35,20 @@ namespace TechC.MagichesBand.Battle
 
         public int atkDoublingValue; //攻撃上昇補正
         public int defDoublingValue; //防御上昇補正
+        
+        //キャッシュ
+        private BattleManager battleManager;
+        private MessageWindow messageWindow;
+        private Sound sound;
 
+        private void Awake()
+        {
+            //キャッシュ
+            battleManager = BattleManager.Instance;
+            messageWindow = MessageWindow.Instance;
+            sound = Sound.Instance;
+        }
+        
         private void Update()
         {
             // アイテム選択が完了したかを監視し 状態をリセットしてターンを進める

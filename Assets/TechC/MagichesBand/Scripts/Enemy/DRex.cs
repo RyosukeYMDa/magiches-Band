@@ -11,6 +11,20 @@ namespace TechC.MagichesBand.Enemy
     /// </summary>
     public class DRex : EnemyBase
     {
+        //キャッシュ
+        private Sound sound;
+        private BattleManager battleManager;
+        private MessageWindow messageWindow;
+
+        protected override void Awake()
+        {
+            //キャッシュ
+            base.Awake();
+            sound = Sound.Instance; 
+            battleManager = BattleManager.Instance;
+            messageWindow = MessageWindow.Instance;
+        }
+        
         protected override void Start()
         {
             base.Start();

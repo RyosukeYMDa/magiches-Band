@@ -19,6 +19,13 @@ namespace TechC.MagichesBand.UI
         // 左スティックによる操作を有効とみなす閾値
         private const float StickThreshold = 0.5f;
         
+        private Sound sound;
+
+        private void Awake()
+        {
+            sound = Sound.Instance;
+        }
+        
         private void Start()
         {
             currentIndex = 0;

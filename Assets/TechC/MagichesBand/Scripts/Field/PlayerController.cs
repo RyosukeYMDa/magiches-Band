@@ -58,8 +58,20 @@ namespace TechC.MagichesBand.Field
         // 足音関連
         private float footstepTimer = 0f;
         private const float FootstepInterval = 0.4f; // 秒ごとに足音
+        
+        //キャッシュ
+        private GameManager gameManager;
+        private Sound sound;
+        private MessageWindow messageWindow;
 
-
+        private void Awake()
+        {
+            //キャッシュ
+            gameManager = GameManager.Instance;
+            sound = Sound.Instance;
+            messageWindow = MessageWindow.Instance;
+        }
+        
         private void Start()
         {
             isShown = false;

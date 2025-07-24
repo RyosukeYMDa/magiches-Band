@@ -19,6 +19,15 @@ namespace TechC.MagichesBand.Field
         
         [SerializeField] private InventoryUI inventoryUI;
         
+        //キャッシュ
+        private Sound sound;
+
+        private void Awake()
+        {
+            //キャッシュ
+            sound = Sound.Instance;
+        }
+        
         private void OnEnable()
         {
             currentIndex = 0;

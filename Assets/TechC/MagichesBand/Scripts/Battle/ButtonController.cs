@@ -27,6 +27,13 @@ namespace TechC.MagichesBand.Battle
         private const int MaxAtkBuffValue = 16; //攻撃力バフの上限
         private const int MaxDefBuffValue = 16; //防御力バフの上限
         
+        private Sound sound; //キャッシュ
+        
+        private void Awake()
+        {
+            sound = Sound.Instance; //キャッシュ
+        }
+        
         /// <summary>
         /// 行動ボタンを押したときに、行動コマンドUIを表示する
         /// インベントリ中は無効
