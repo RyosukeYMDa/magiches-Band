@@ -220,20 +220,26 @@ namespace TechC.MagichesBand.Item
             switch (item.itemName)
             {
                 case "Potion":
+                    gameObject.SetActive(false);
                     RemoveAndSave();
                     playerStatus.hp = Mathf.Min(playerStatus.hp + RecoverHp, playerStatus.maxHp);
                     UpdateUI();
-                    StartCoroutine(inventoryUI.MessageReception("HPを7回復した"));
-                    inventoryUI.isItem = true;
-                    Sound.Instance.Play(SoundType.Potion);
+                    MessageWindow.Instance.DisplayMessage("HPを7回復した", () =>
+                    {
+                        inventoryUI.isItem = true;
+                        Sound.Instance.Play(SoundType.Potion);
+                    });
                     break;
                 case "MpPotion":
+                    gameObject.SetActive(false);
                     RemoveAndSave();
                     playerStatus.mp = Mathf.Min(playerStatus.mp + RecoverMp, playerStatus.maxMp);
                     UpdateUI();
-                    StartCoroutine(inventoryUI.MessageReception("MPを7回復した"));
-                    inventoryUI.isItem = true;
-                    Sound.Instance.Play(SoundType.MPotion);
+                    MessageWindow.Instance.DisplayMessage("MPを7回復した", () =>
+                    {
+                        inventoryUI.isItem = true;
+                        Sound.Instance.Play(SoundType.MPotion);
+                    });
                     break;
                 case "Key" when inventoryUI.isOpen:
                     Debug.Log("ドアを開けた");

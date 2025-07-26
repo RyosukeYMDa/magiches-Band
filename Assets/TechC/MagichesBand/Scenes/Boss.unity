@@ -812,8 +812,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons:
-  - {fileID: 294586243}
   - {fileID: 18622407}
+  - {fileID: 294586243}
   - {fileID: 716642532}
   - {fileID: 1673846225}
 --- !u!224 &360705355
@@ -3223,8 +3223,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 44.1, y: 24.266}
-  m_SizeDelta: {x: 120.54581, y: 73.53194}
+  m_AnchoredPosition: {x: 44.1, y: 25.791126}
+  m_SizeDelta: {x: 120.54581, y: 83.69943}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1646203795
 MonoBehaviour:
@@ -3246,7 +3246,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "A\u30FB\u3007 : Next"
+  m_text: "A\u30FB\u3007 : \u6C7A\u5B9ANext"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f82257f72182d2e4a8537f55c5346080, type: 2}
   m_sharedMaterial: {fileID: -8358837869033176764, guid: f82257f72182d2e4a8537f55c5346080, type: 2}
