@@ -34,6 +34,7 @@ namespace TechC.MagichesBand.Core
         Electricity, // 電気魔法の音
         Thunder, // 落雷系魔法の音
         BlackHole, //闇系魔法の音
-        Defeated // 敗北音
+        Defeated, // 敗北音
+        Critical //Critical音
     }
 }

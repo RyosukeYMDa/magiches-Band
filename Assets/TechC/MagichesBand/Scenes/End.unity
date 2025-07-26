@@ -279,7 +279,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "<color=red><size=50>\u30D7\u30ED\u30B0\u30E9\u30DE\u30FC</size></color>\niyo\nyamada\n\n<color=red><size=50>\u30D7\u30E9\u30F3\u30CA\u30FC</size></color>\ntakeda\n\n<color=red><size=50>\u30C7\u30B6\u30A4\u30CA\u30FC</size></color>\nshimamura\nisoya\n\n<color=red><size=50>BGM</size></color>\n\n\n"
+  m_text: "<color=red><size=50>\u30D7\u30ED\u30B0\u30E9\u30DE\u30FC</size></color>\niyo\nyamada\n\n<color=red><size=50>\u30D7\u30E9\u30F3\u30CA\u30FC</size></color>\ntakeda\n\n<color=red><size=50>\u30C7\u30B6\u30A4\u30CA\u30FC</size></color>\nshimamura\nisoya\n\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f82257f72182d2e4a8537f55c5346080, type: 2}
   m_sharedMaterial: {fileID: -8358837869033176764, guid: f82257f72182d2e4a8537f55c5346080, type: 2}

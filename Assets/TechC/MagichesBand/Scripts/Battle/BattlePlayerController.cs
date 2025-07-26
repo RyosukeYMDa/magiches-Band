@@ -197,6 +197,7 @@ namespace TechC.MagichesBand.Battle
             if (randomCritical < CriticalRate)
             {
                 damage *= CriticalMultiplier;
+                Sound.Instance.Play(SoundType.Critical);
                 MessageWindow.Instance.DisplayMessage("クリティカルを出した", () =>
                 {
                     enemy.TakeDamage(damage, type);
