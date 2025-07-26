@@ -250,7 +250,7 @@ namespace TechC.MagichesBand.Item
                     });
                     break;
                 case "Key":
-                    StartCoroutine(inventoryUI.MessageReception("You can't use it here"));
+                    StartCoroutine(inventoryUI.MessageReception("ここでは使えない"));
                     break;
             }
 

@@ -13,7 +13,7 @@ namespace TechC.MagichesBand.Field
 
         private void OnEnable()
         {
-            MessageWindow.Instance.DisplayMessage("OnDoor");
+            MessageWindow.Instance.DisplayMessage("扉が現れた");
         }
 
         private void OnCollisionEnter(Collision collision)
