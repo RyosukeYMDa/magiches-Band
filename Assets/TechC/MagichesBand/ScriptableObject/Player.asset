@@ -15,7 +15,7 @@ MonoBehaviour:
   characterName: Player
   maxHp: 25
   maxMp: 12
-  hp: 20
+  hp: 25
   mp: 12
   atk: 3
   def: 2

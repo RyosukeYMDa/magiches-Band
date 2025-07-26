@@ -538,6 +538,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2090189639}
     - target: {fileID: 2320545209813340099, guid: 569000042283fc248840baf9255bdced, type: 3}
+      propertyPath: amount
+      value: 99
+      objectReference: {fileID: 0}
+    - target: {fileID: 2320545209813340099, guid: 569000042283fc248840baf9255bdced, type: 3}
       propertyPath: itemId
       value: 03
       objectReference: {fileID: 0}
@@ -4677,6 +4681,10 @@ PrefabInstance:
       propertyPath: door
       value: 
       objectReference: {fileID: 2090189639}
+    - target: {fileID: 2320545209813340099, guid: 569000042283fc248840baf9255bdced, type: 3}
+      propertyPath: amount
+      value: 99
+      objectReference: {fileID: 0}
     - target: {fileID: 2320545209813340099, guid: 569000042283fc248840baf9255bdced, type: 3}
       propertyPath: itemId
       value: 01

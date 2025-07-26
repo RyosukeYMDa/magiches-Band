@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Boss
   m_EditorClassIdentifier: 
   characterName: Boss
-  maxHp: 1
+  maxHp: 3
   maxMp: 8
-  hp: 1
+  hp: 3
   mp: 8
   atk: 1
   def: 0
