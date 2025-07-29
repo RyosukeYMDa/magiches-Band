@@ -1,7 +1,12 @@
+using System.Collections;
 using System.Collections.Generic;
 using TechC.MagichesBand.Core;
 using TechC.MagichesBand.Item;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
+using UnityEngine.SceneManagement;
 
 namespace TechC.MagichesBand.Game
 {
@@ -79,6 +84,8 @@ namespace TechC.MagichesBand.Game
                 cameraOffset = startCameraOffset;
                 cameraRotation = startCameraRotation;
             }
+            
+            
         }
 
         /// <summary>
@@ -101,6 +108,49 @@ namespace TechC.MagichesBand.Game
         
             //取得済みデータも読み込み
             obtainedItemIds = SaveManager.LoadObtainedItemIds() ?? new List<string>();
+        }
+        
+        private void OnEnable()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        private void OnDisable()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        /// <summary>
+        /// Sceneを跨いだ際に実行される
+        /// </summary>
+        /// <param name="scene"></param>
+        /// <param name="mode"></param>
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            StartCoroutine(DelayedApply());
+        }
+
+        /// <summary>
+        /// UI が初期化されるまで待つ関数
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator DelayedApply()
+        {
+            yield return null; // UI が初期化されるまで待つ
+            ApplyMouseAndUISettings();
+        }
+
+        /// <summary>
+        /// マウスを無効化させる
+        /// </summary>
+        private void ApplyMouseAndUISettings()
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+
+            // マウスだけ無効化する（キーボードやゲームパッドは無効化しない）
+            if (Mouse.current != null && Mouse.current.enabled)
+                InputSystem.DisableDevice(Mouse.current);
         }
 
         /// <summary>
