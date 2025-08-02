@@ -99,7 +99,7 @@ namespace TechC.MagichesBand.Battle
         public void ExplosionText()
         {
             messageText.gameObject.SetActive(true);
-            messageText.text = "敵に魔法攻撃";
+            messageText.text = "Mp:4\n敵に魔法攻撃";
         }
 
         /// <summary>
